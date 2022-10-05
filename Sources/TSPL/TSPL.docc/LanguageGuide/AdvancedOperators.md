@@ -189,17 +189,17 @@ let outputBits = firstBits ^ otherBits  // equals 00010001
   ```
 }
 
-### Bitwise Left and Right Shift Operators
+### Deslocamento à esquerda e à direita
 
-The *bitwise left shift operator* (`<<`)
-and *bitwise right shift operator* (`>>`)
-move all bits in a number to the left or the right by a certain number of places,
-according to the rules defined below.
+O *operador com deslocamento à esquerda* (`<<`)
+e o *operador com deslocamento à direita* (`>>`)
+move todos os bits em um número para a esquerda ou para a direita considerando um certo número de espaços,
+de acordo com as regras definidas abaixo.
 
-Bitwise left and right shifts have the effect of
-multiplying or dividing an integer by a factor of two.
-Shifting an integer's bits to the left by one position doubles its value,
-whereas shifting it to the right by one position halves its value.
+Deslocamentos bit a bit à esquerda e à direita têm um efeito de
+multiplicador ou divisor de um número inteiro pelo fator dois.
+Deslocar bits de um inteiro à esquerda em uma posição dobra seu valor,
+enquanto que deslocá-lo para a direita em uma posição reduz pela metade o seu valor.
 
 @Comment {
   TODO: mention the caveats to this claim.

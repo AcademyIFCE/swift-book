@@ -1,32 +1,31 @@
 
 
 # Advanced Operators
+Além dos operadores descritos no tópico <doc:Operadores Básicos>,
+a linguagem Swift oferece o tópico Operadores Avançados que fazem manipulação de valores mais complexa. 
+Lá são incluídos operadores bit a bit e operadores com deslocamento que estamos familiarizados em C e Objective-C.
 
-In addition to the operators described in <doc:BasicOperators>,
-Swift provides several advanced operators that perform more complex value manipulation.
-These include all of the bitwise and bit shifting operators you will be familiar with
-from C and Objective-C.
 
-Unlike arithmetic operators in C,
-arithmetic operators in Swift don't overflow by default.
-Overflow behavior is trapped and reported as an error.
-To opt in to overflow behavior,
-use Swift's second set of arithmetic operators that overflow by default,
-such as the overflow addition operator (`&+`).
-All of these overflow operators begin with an ampersand (`&`).
+Ao contrário dos operadores aritméticos em C,
+os operadores aritméticos em Swift não possuem overflow por padrão.
+O overflow é interceptado e relatado como um erro.
+Para ativar o overflow,
+use o segundo conjunto de operadores aritméticos de Swift,
+como o operador de adição de overflow (`&+`).
+Todos esses operadores de overflow começam com um e comercial (`&`).
 
-When you define your own structures, classes, and enumerations,
-it can be useful to provide your own implementations of
-the standard Swift operators for these custom types.
-Swift makes it easy to provide tailored implementations of these operators
-and to determine exactly what their behavior should be for each type you create.
+Quando você define suas próprias estruturas, classes, e enumerações,
+pode ser útil fornecer suas próprias implementações dos
+operadores padrão do Swift para esses tipos personalizados.
+O Swift facilita o fornecimento de implementações personalizadas desses operadores
+e determina exatamente qual deve ser o comportamento deles para cada tipo criado.
 
-You're not limited to the predefined operators.
-Swift gives you the freedom to define your own custom
-infix, prefix, postfix, and assignment operators,
-with custom precedence and associativity values.
-These operators can be used and adopted in your code like any of the predefined operators,
-and you can even extend existing types to support the custom operators you define.
+Você não está limitado a operadores predefinidos.
+A linguagem Swift dá liberdade de definir a forma como personaliza
+operadores de infixo, prefixo, pós-fixo, e atribuição,
+com precedência personalizada e valores associativos.
+Esses operadores podem ser usados e adotados no código como qualquer um dos operadores predefinidos,
+e você pode até estender os tipos existentes para suporte de operadores personalizados que você definir.
 
 ## Bitwise Operators
 

@@ -1,6 +1,6 @@
 
+# Operadores Avançados
 
-# Advanced Operators
 Além dos operadores descritos no tópico <doc:OperadoresBasicos>,
 a linguagem Swift oferece o tópico Operadores Avançados que fazem manipulação de valores mais complexa. 
 Lá são incluídos operadores bit a bit e operadores com deslocamento que estamos familiarizados em C e Objective-C.
@@ -27,16 +27,16 @@ com precedência personalizada e valores associativos.
 Esses operadores podem ser usados e adotados no código como qualquer um dos operadores predefinidos,
 e você pode até estender os tipos existentes para suporte de operadores personalizados que você definir.
 
-## Bitwise Operators
+## Operadores Bit a bit
 
-*Bitwise operators* enable you to manipulate
-the individual raw data bits within a data structure.
-They're often used in low-level programming,
-such as graphics programming and device driver creation.
-Bitwise operators can also be useful when you work with raw data from external sources,
-such as encoding and decoding data for communication over a custom protocol.
+*Operadores bit a bit* permitem que você manipule 
+os bits de dados brutos individuais, dentro de uma estrutura de dados.
+Eles são frequentemente usados em programação de baixo-nível,
+como em programação gráfica e criação de driver de dispositivo.
+Operadores bit a bit podem ser úteis quando você trabalha com dados brutos para fontes externas,
+como codificação e decodificação de dados para comunicação por meio de um protocolo personalizado.
 
-Swift supports all of the bitwise operators found in C, as described below.
+O Swift suporta todos os operadores bit a bit encontrados em C, como descrito abaixo.
 
 ### Bitwise NOT Operator
 

@@ -1,7 +1,7 @@
 
 
 # Advanced Operators
-Além dos operadores descritos no tópico <doc:OperadoresBásicos>,
+Além dos operadores descritos no tópico <doc: Operadores Básicos>,
 a linguagem Swift oferece o tópico Operadores Avançados que fazem manipulação de valores mais complexa. 
 Lá são incluídos operadores bit a bit e operadores com deslocamento que estamos familiarizados em C e Objective-C.
 

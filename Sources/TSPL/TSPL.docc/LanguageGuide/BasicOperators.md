@@ -778,9 +778,9 @@ colorNameToUse = userDefinedColorName ?? defaultColorName
 Swift includes several *range operators*,
 which are shortcuts for expressing a range of values.
 
-### Operador de alcance fechado
+### Operador de intervalo fechado
 
-O *Operador de alcance fechado* (`a...b`)
+O *Operador de intervalo fechado* (`a...b`)
 define um intervalo que vai de `a` a `b`,
 e inclui os valores `a` e `b`.
 O valor de `a` não deve ser maior que `b`.
@@ -812,7 +812,7 @@ O valor de `a` não deve ser maior que `b`.
   ```
 }
 
-O operador de intervalo fechado é útil ao iterar em um intervalo
+O operador de intervalo fechado é útil ao iterar sobre um intervalo
 em que você deseja que todos os valores sejam usados,
 como com um loop `for`-`in`:
 

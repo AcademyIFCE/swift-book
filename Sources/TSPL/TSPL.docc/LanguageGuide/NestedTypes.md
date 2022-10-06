@@ -1,17 +1,19 @@
 
 
-# Nested Types
+# Tipos Aninhados
 
-Enumerations are often created to support a specific class or structure's functionality.
-Similarly, it can be convenient to define utility classes and structures
-purely for use within the context of a more complex type.
-To accomplish this, Swift enables you to define *nested types*,
-whereby you nest supporting enumerations, classes, and structures
-within the definition of the type they support.
+Enumerações são frequentemente criadas para dar suporte a uma funcionalidade especifica de uma classe ou estrutura.
+Similarmente, pode ser conveniente definir classes e estruturas de utilidade
+puramente para o uso dentro de um contexto de um tipo mais complexo.
+Para fazer isso, o Swift permite que você defina *tipos aninhados*,
+nos quais você aninha enumerações, classes e estruturas de suporte
+dentro da definição do tipo que elas suportam.
 
-To nest a type within another type,
-write its definition within the outer braces of the type it supports.
-Types can be nested to as many levels as are required.
+## Overview
+
+Para aninhar um tipo dentro de outro tipo,
+escreva sua definição dentro das chaves externas do tipo que ele suporta.
+Os tipos podem ser aninhados em até quantos níveis forem necessários.
 
 ## Nested Types in Action
 
@@ -65,49 +67,7 @@ struct BlackjackCard {
 ```
 
 
-@Comment {
-  - test: `nestedTypes`
-  
-  ```swifttest
-  -> struct BlackjackCard {
-  ---
-        // nested Suit enumeration
-        enum Suit: Character {
-           case spades = "♠", hearts = "♡", diamonds = "♢", clubs = "♣"
-        }
-  ---
-        // nested Rank enumeration
-        enum Rank: Int {
-           case two = 2, three, four, five, six, seven, eight, nine, ten
-           case jack, queen, king, ace
-           struct Values {
-              let first: Int, second: Int?
-           }
-           var values: Values {
-              switch self {
-                 case .ace:
-                    return Values(first: 1, second: 11)
-                 case .jack, .queen, .king:
-                    return Values(first: 10, second: nil)
-                 default:
-                    return Values(first: self.rawValue, second: nil)
-              }
-           }
-        }
-  ---
-        // BlackjackCard properties and methods
-        let rank: Rank, suit: Suit
-        var description: String {
-           var output = "suit is \(suit.rawValue),"
-           output += " value is \(rank.values.first)"
-           if let second = rank.values.second {
-              output += " or \(second)"
-           }
-           return output
-        }
-     }
-  ```
-}
+
 
 The `Suit` enumeration describes the four common playing card suits,
 together with a raw `Character` value to represent their symbol.
@@ -152,15 +112,7 @@ print("theAceOfSpades: \(theAceOfSpades.description)")
 ```
 
 
-@Comment {
-  - test: `nestedTypes`
-  
-  ```swifttest
-  -> let theAceOfSpades = BlackjackCard(rank: .ace, suit: .spades)
-  -> print("theAceOfSpades: \(theAceOfSpades.description)")
-  <- theAceOfSpades: suit is ♠, value is 1 or 11
-  ```
-}
+
 
 Even though `Rank` and `Suit` are nested within `BlackjackCard`,
 their type can be inferred from context,
@@ -180,27 +132,11 @@ let heartsSymbol = BlackjackCard.Suit.hearts.rawValue
 ```
 
 
-@Comment {
-  - test: `nestedTypes`
-  
-  ```swifttest
-  -> let heartsSymbol = BlackjackCard.Suit.hearts.rawValue
-  /> heartsSymbol is \"\(heartsSymbol)\"
-  </ heartsSymbol is "♡"
-  ```
-}
+
 
 For the example above,
 this enables the names of `Suit`, `Rank`, and `Values` to be kept deliberately short,
 because their names are naturally qualified by the context in which they're defined.
 
 
-@Comment {
-This source file is part of the Swift.org open source project
 
-Copyright (c) 2014 - 2022 Apple Inc. and the Swift project authors
-Licensed under Apache License v2.0 with Runtime Library Exception
-
-See https://swift.org/LICENSE.txt for license information
-See https://swift.org/CONTRIBUTORS.txt for the list of Swift project authors
-}

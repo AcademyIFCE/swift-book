@@ -27,53 +27,7 @@ For more details, see <doc:Protocols#Protocol-Extensions>.
 > Note: Extensions can add new functionality to a type,
 > but they can't override existing functionality.
 
-@Comment {
-  - test: `extensionsCannotOverrideExistingBehavior`
-  
-  ```swifttest
-  -> class C {
-        var x = 0
-        func foo() {}
-     }
-  -> extension C {
-        override var x: Int {
-           didSet {
-              print("new x is \(x)")
-           }
-        }
-        override func foo() {
-           print("called overridden foo")
-        }
-     }
-  !$ error: property does not override any property from its superclass
-  !! override var x: Int {
-  !! ~~~~~~~~     ^
-  !$ error: ambiguous use of 'x'
-  !! print("new x is \(x)")
-  !!            ^
-  !$ note: found this candidate
-  !! var x = 0
-  !!     ^
-  !$ note: found this candidate
-  !! override var x: Int {
-  !!              ^
-  !$ error: invalid redeclaration of 'x'
-  !! override var x: Int {
-  !!              ^
-  !$ note: 'x' previously declared here
-  !! var x = 0
-  !!     ^
-  !$ error: method does not override any method from its superclass
-  !! override func foo() {
-  !! ~~~~~~~~      ^
-  !$ error: invalid redeclaration of 'foo()'
-  !! override func foo() {
-  !!               ^
-  !$ note: 'foo()' previously declared here
-  !! func foo() {}
-  !!      ^
-  ```
-}
+
 
 ## Extension Syntax
 
@@ -86,16 +40,7 @@ extension SomeType {
 ```
 
 
-@Comment {
-  - test: `extensionSyntax`
-  
-  ```swifttest
-  >> struct SomeType {}
-  -> extension SomeType {
-        // new functionality to add to SomeType goes here
-     }
-  ```
-}
+
 
 An extension can extend an existing type to make it adopt one or more protocols.
 To add protocol conformance,
@@ -109,17 +54,7 @@ extension SomeType: SomeProtocol, AnotherProtocol {
 ```
 
 
-@Comment {
-  - test: `extensionSyntax`
-  
-  ```swifttest
-  >> protocol SomeProtocol {}
-  >> protocol AnotherProtocol {}
-  -> extension SomeType: SomeProtocol, AnotherProtocol {
-        // implementation of protocol requirements goes here
-     }
-  ```
-}
+
 
 Adding protocol conformance in this way is described in
 <doc:Protocols#Adding-Protocol-Conformance-with-an-Extension>.
@@ -156,25 +91,7 @@ print("Three feet is \(threeFeet) meters")
 ```
 
 
-@Comment {
-  - test: `extensionsComputedProperties`
-  
-  ```swifttest
-  -> extension Double {
-        var km: Double { return self * 1_000.0 }
-        var m: Double { return self }
-        var cm: Double { return self / 100.0 }
-        var mm: Double { return self / 1_000.0 }
-        var ft: Double { return self / 3.28084 }
-     }
-  -> let oneInch = 25.4.mm
-  -> print("One inch is \(oneInch) meters")
-  <- One inch is 0.0254 meters
-  -> let threeFeet = 3.ft
-  -> print("Three feet is \(threeFeet) meters")
-  <- Three feet is 0.914399970739201 meters
-  ```
-}
+
 
 These computed properties express that a `Double` value
 should be considered as a certain unit of length.
@@ -207,34 +124,14 @@ print("A marathon is \(aMarathon) meters long")
 ```
 
 
-@Comment {
-  - test: `extensionsComputedProperties`
-  
-  ```swifttest
-  -> let aMarathon = 42.km + 195.m
-  -> print("A marathon is \(aMarathon) meters long")
-  <- A marathon is 42195.0 meters long
-  ```
-}
+
 
 > Note: Extensions can add new computed properties, but they can't add stored properties,
 > or add property observers to existing properties.
 
-@Comment {
-  - test: `extensionsCannotAddStoredProperties`
-  
-  ```swifttest
-  -> class C {}
-  -> extension C { var x = 0 }
-  !$ error: extensions must not contain stored properties
-  !! extension C { var x = 0 }
-  !!                   ^
-  ```
-}
 
-@Comment {
-  TODO: change this example to something more advisable / less contentious.
-}
+
+
 
 ## Initializers
 
@@ -281,22 +178,7 @@ struct Rect {
 ```
 
 
-@Comment {
-  - test: `extensionsInitializers`
-  
-  ```swifttest
-  -> struct Size {
-        var width = 0.0, height = 0.0
-     }
-  -> struct Point {
-        var x = 0.0, y = 0.0
-     }
-  -> struct Rect {
-        var origin = Point()
-        var size = Size()
-     }
-  ```
-}
+
 
 Because the `Rect` structure provides default values for all of its properties,
 it receives a default initializer and a memberwise initializer automatically,
@@ -310,15 +192,7 @@ let memberwiseRect = Rect(origin: Point(x: 2.0, y: 2.0),
 ```
 
 
-@Comment {
-  - test: `extensionsInitializers`
-  
-  ```swifttest
-  -> let defaultRect = Rect()
-  -> let memberwiseRect = Rect(origin: Point(x: 2.0, y: 2.0),
-        size: Size(width: 5.0, height: 5.0))
-  ```
-}
+
 
 You can extend the `Rect` structure to provide an additional initializer
 that takes a specific center point and size:
@@ -334,19 +208,7 @@ extension Rect {
 ```
 
 
-@Comment {
-  - test: `extensionsInitializers`
-  
-  ```swifttest
-  -> extension Rect {
-        init(center: Point, size: Size) {
-           let originX = center.x - (size.width / 2)
-           let originY = center.y - (size.height / 2)
-           self.init(origin: Point(x: originX, y: originY), size: size)
-        }
-     }
-  ```
-}
+
 
 This new initializer starts by calculating an appropriate origin point based on
 the provided `center` point and `size` value.
@@ -361,16 +223,7 @@ let centerRect = Rect(center: Point(x: 4.0, y: 4.0),
 ```
 
 
-@Comment {
-  - test: `extensionsInitializers`
-  
-  ```swifttest
-  -> let centerRect = Rect(center: Point(x: 4.0, y: 4.0),
-        size: Size(width: 3.0, height: 3.0))
-  /> centerRect's origin is (\(centerRect.origin.x), \(centerRect.origin.y)) and its size is (\(centerRect.size.width), \(centerRect.size.height))
-  </ centerRect's origin is (2.5, 2.5) and its size is (3.0, 3.0)
-  ```
-}
+
 
 > Note: If you provide a new initializer with an extension,
 > you are still responsible for making sure that each instance is fully initialized
@@ -392,19 +245,7 @@ extension Int {
 ```
 
 
-@Comment {
-  - test: `extensionsInstanceMethods`
-  
-  ```swifttest
-  -> extension Int {
-        func repetitions(task: () -> Void) {
-           for _ in 0..<self {
-              task()
-           }
-        }
-     }
-  ```
-}
+
 
 The `repetitions(task:)` method takes a single argument of type `() -> Void`,
 which indicates a function that has no parameters and doesn't return a value.
@@ -423,18 +264,7 @@ to perform a task that many number of times:
 ```
 
 
-@Comment {
-  - test: `extensionsInstanceMethods`
-  
-  ```swifttest
-  -> 3.repetitions {
-        print("Hello!")
-     }
-  </ Hello!
-  </ Hello!
-  </ Hello!
-  ```
-}
+
 
 ### Mutating Instance Methods
 
@@ -458,21 +288,7 @@ someInt.square()
 ```
 
 
-@Comment {
-  - test: `extensionsInstanceMethods`
-  
-  ```swifttest
-  -> extension Int {
-        mutating func square() {
-           self = self * self
-        }
-     }
-  -> var someInt = 3
-  -> someInt.square()
-  /> someInt is now \(someInt)
-  </ someInt is now 9
-  ```
-}
+
 
 ## Subscripts
 
@@ -507,48 +323,11 @@ extension Int {
 ```
 
 
-@Comment {
-  - test: `extensionsSubscripts`
-  
-  ```swifttest
-  -> extension Int {
-        subscript(digitIndex: Int) -> Int {
-           var decimalBase = 1
-           for _ in 0..<digitIndex {
-              decimalBase *= 10
-           }
-           return (self / decimalBase) % 10
-        }
-     }
-  >> let r0 =
-  -> 746381295[0]
-  /> returns \(r0)
-  </ returns 5
-  >> let r1 =
-  -> 746381295[1]
-  /> returns \(r1)
-  </ returns 9
-  >> let r2 =
-  -> 746381295[2]
-  /> returns \(r2)
-  </ returns 2
-  >> let r3 =
-  -> 746381295[8]
-  /> returns \(r3)
-  </ returns 7
-  ```
-}
 
-@Comment {
-  Rewrite the above to avoid bare expressions.
-  Tracking bug is <rdar://problem/35301593>
-}
 
-@Comment {
-  TODO: Replace the for loop above with an exponent,
-  if/when integer exponents land in the stdlib.
-  Darwin's pow() function is only for floating point.
-}
+
+
+
 
 If the `Int` value doesn't have enough digits for the requested index,
 the subscript implementation returns `0`,
@@ -561,27 +340,11 @@ as if the number had been padded with zeros to the left:
 ```
 
 
-@Comment {
-  - test: `extensionsSubscripts`
-  
-  ```swifttest
-  >> let r4 =
-  -> 746381295[9]
-  /> returns \(r4), as if you had requested:
-  </ returns 0, as if you had requested:
-  >> let r5 =
-  -> 0746381295[9]
-  ```
-}
 
-@Comment {
-  TODO: provide an explanation of this example
-}
 
-@Comment {
-  Rewrite the above to avoid bare expressions.
-  Tracking bug is <rdar://problem/35301593>
-}
+
+
+
 
 ## Nested Types
 
@@ -606,27 +369,7 @@ extension Int {
 ```
 
 
-@Comment {
-  - test: `extensionsNestedTypes`
-  
-  ```swifttest
-  -> extension Int {
-        enum Kind {
-           case negative, zero, positive
-        }
-        var kind: Kind {
-           switch self {
-              case 0:
-                 return .zero
-              case let x where x > 0:
-                 return .positive
-              default:
-                 return .negative
-           }
-        }
-     }
-  ```
-}
+
 
 This example adds a new nested enumeration to `Int`.
 This enumeration, called `Kind`,
@@ -659,32 +402,9 @@ printIntegerKinds([3, 19, -27, 0, -6, 0, 7])
 ```
 
 
-@Comment {
-  - test: `extensionsNestedTypes`
-  
-  ```swifttest
-  -> func printIntegerKinds(_ numbers: [Int]) {
-        for number in numbers {
-           switch number.kind {
-              case .negative:
-                 print("- ", terminator: "")
-              case .zero:
-                 print("0 ", terminator: "")
-              case .positive:
-                 print("+ ", terminator: "")
-           }
-        }
-        print("")
-     }
-  -> printIntegerKinds([3, 19, -27, 0, -6, 0, 7])
-  << + + - 0 - 0 +
-  // Prints "+ + - 0 - 0 + "
-  ```
-}
 
-@Comment {
-  Workaround for rdar://26016325
-}
+
+
 
 This function, `printIntegerKinds(_:)`,
 takes an input array of `Int` values and iterates over those values in turn.
@@ -698,12 +418,4 @@ and prints an appropriate description.
 > such as `.negative` rather than `Int.Kind.negative`.
 
 
-@Comment {
-This source file is part of the Swift.org open source project
 
-Copyright (c) 2014 - 2022 Apple Inc. and the Swift project authors
-Licensed under Apache License v2.0 with Runtime Library Exception
-
-See https://swift.org/LICENSE.txt for license information
-See https://swift.org/CONTRIBUTORS.txt for the list of Swift project authors
-}

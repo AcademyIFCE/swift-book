@@ -71,13 +71,7 @@ let names = ["Chris", "Alex", "Ewa", "Barry", "Daniella"]
 ```
 
 
-@Comment {
-  - test: `closureSyntax`
-  
-  ```swifttest
-  -> let names = ["Chris", "Alex", "Ewa", "Barry", "Daniella"]
-  ```
-}
+
 
 The `sorted(by:)` method accepts a closure that takes two arguments
 of the same type as the array's contents,
@@ -102,18 +96,7 @@ var reversedNames = names.sorted(by: backward)
 ```
 
 
-@Comment {
-  - test: `closureSyntax`
-  
-  ```swifttest
-  -> func backward(_ s1: String, _ s2: String) -> Bool {
-        return s1 > s2
-     }
-  -> var reversedNames = names.sorted(by: backward)
-  /> reversedNames is equal to \(reversedNames)
-  </ reversedNames is equal to ["Ewa", "Daniella", "Chris", "Barry", "Alex"]
-  ```
-}
+
 
 If the first string (`s1`) is greater than the second string (`s2`),
 the `backward(_:_:)` function will return `true`,
@@ -157,16 +140,7 @@ reversedNames = names.sorted(by: { (s1: String, s2: String) -> Bool in
 ```
 
 
-@Comment {
-  - test: `closureSyntax`
-  
-  ```swifttest
-  -> reversedNames = names.sorted(by: { (s1: String, s2: String) -> Bool in
-        return s1 > s2
-     })
-  >> assert(reversedNames == ["Ewa", "Daniella", "Chris", "Barry", "Alex"])
-  ```
-}
+
 
 Note that the declaration of parameters and return type for this inline closure
 is identical to the declaration from the `backward(_:_:)` function.
@@ -188,14 +162,7 @@ reversedNames = names.sorted(by: { (s1: String, s2: String) -> Bool in return s1
 ```
 
 
-@Comment {
-  - test: `closureSyntax`
-  
-  ```swifttest
-  -> reversedNames = names.sorted(by: { (s1: String, s2: String) -> Bool in return s1 > s2 } )
-  >> assert(reversedNames == ["Ewa", "Daniella", "Chris", "Barry", "Alex"])
-  ```
-}
+
 
 This illustrates that the overall call to the `sorted(by:)` method has remained the same.
 A pair of parentheses still wrap the entire argument for the method.
@@ -219,14 +186,7 @@ reversedNames = names.sorted(by: { s1, s2 in return s1 > s2 } )
 ```
 
 
-@Comment {
-  - test: `closureSyntax`
-  
-  ```swifttest
-  -> reversedNames = names.sorted(by: { s1, s2 in return s1 > s2 } )
-  >> assert(reversedNames == ["Ewa", "Daniella", "Chris", "Barry", "Alex"])
-  ```
-}
+
 
 It's always possible to infer the parameter types and return type
 when passing a closure to a function or method as an inline closure expression.
@@ -252,14 +212,7 @@ reversedNames = names.sorted(by: { s1, s2 in s1 > s2 } )
 ```
 
 
-@Comment {
-  - test: `closureSyntax`
-  
-  ```swifttest
-  -> reversedNames = names.sorted(by: { s1, s2 in s1 > s2 } )
-  >> assert(reversedNames == ["Ewa", "Daniella", "Chris", "Barry", "Alex"])
-  ```
-}
+
 
 Here, the function type of the `sorted(by:)` method's argument
 makes it clear that a `Bool` value must be returned by the closure.
@@ -287,14 +240,7 @@ reversedNames = names.sorted(by: { $0 > $1 } )
 ```
 
 
-@Comment {
-  - test: `closureSyntax`
-  
-  ```swifttest
-  -> reversedNames = names.sorted(by: { $0 > $1 } )
-  >> assert(reversedNames == ["Ewa", "Daniella", "Chris", "Barry", "Alex"])
-  ```
-}
+
 
 Here, `$0` and `$1` refer to the closure's first and second `String` arguments.
 Because `$1` is the shorthand argument with highest number,
@@ -303,19 +249,7 @@ Because the `sorted(by:)` function here expects a closure
 whose arguments are both strings,
 the shorthand arguments `$0` and `$1` are both of type `String`.
 
-@Comment {
-  - test: `closure-syntax-arity-inference`
-  
-  ```swifttest
-  >> let a: [String: String] = [:]
-  >> var b: [String: String] = [:]
-  >> b.merge(a, uniquingKeysWith: { $1 })
-  >> b.merge(a, uniquingKeysWith: { $0 })
-  !$ error: contextual closure type '(String, String) throws -> String' expects 2 arguments, but 1 was used in closure body
-  !! b.merge(a, uniquingKeysWith: { $0 })
-  !! ^
-  ```
-}
+
 
 ### Operator Methods
 
@@ -333,14 +267,7 @@ reversedNames = names.sorted(by: >)
 ```
 
 
-@Comment {
-  - test: `closureSyntax`
-  
-  ```swifttest
-  -> reversedNames = names.sorted(by: >)
-  >> assert(reversedNames == ["Ewa", "Daniella", "Chris", "Barry", "Alex"])
-  ```
-}
+
 
 For more about operator methods, see <doc:AdvancedOperators#Operator-Methods>.
 
@@ -376,27 +303,7 @@ someFunctionThatTakesAClosure() {
 ```
 
 
-@Comment {
-  - test: `closureSyntax`
-  
-  ```swifttest
-  -> func someFunctionThatTakesAClosure(closure: () -> Void) {
-        // function body goes here
-     }
-  ---
-  -> // Here's how you call this function without using a trailing closure:
-  ---
-  -> someFunctionThatTakesAClosure(closure: {
-        // closure's body goes here
-     })
-  ---
-  -> // Here's how you call this function with a trailing closure instead:
-  ---
-  -> someFunctionThatTakesAClosure() {
-        // trailing closure's body goes here
-     }
-  ```
-}
+
 
 The string-sorting closure from the <doc:Closures#Closure-Expression-Syntax> section above
 can be written outside of the `sorted(by:)` method's parentheses as a trailing closure:
@@ -406,14 +313,7 @@ reversedNames = names.sorted() { $0 > $1 }
 ```
 
 
-@Comment {
-  - test: `closureSyntax`
-  
-  ```swifttest
-  -> reversedNames = names.sorted() { $0 > $1 }
-  >> assert(reversedNames == ["Ewa", "Daniella", "Chris", "Barry", "Alex"])
-  ```
-}
+
 
 If a closure expression is provided as the function's or method's only argument
 and you provide that expression as a trailing closure,
@@ -425,14 +325,7 @@ reversedNames = names.sorted { $0 > $1 }
 ```
 
 
-@Comment {
-  - test: `closureSyntax`
-  
-  ```swifttest
-  -> reversedNames = names.sorted { $0 > $1 }
-  >> assert(reversedNames == ["Ewa", "Daniella", "Chris", "Barry", "Alex"])
-  ```
-}
+
 
 Trailing closures are most useful when the closure is sufficiently long that
 it isn't possible to write it inline on a single line.
@@ -462,17 +355,7 @@ let numbers = [16, 58, 510]
 ```
 
 
-@Comment {
-  - test: `arrayMap`
-  
-  ```swifttest
-  -> let digitNames = [
-        0: "Zero", 1: "One", 2: "Two",   3: "Three", 4: "Four",
-        5: "Five", 6: "Six", 7: "Seven", 8: "Eight", 9: "Nine"
-     ]
-  -> let numbers = [16, 58, 510]
-  ```
-}
+
 
 The code above creates a dictionary of mappings between
 the integer digits and English-language versions of their names.
@@ -496,24 +379,7 @@ let strings = numbers.map { (number) -> String in
 ```
 
 
-@Comment {
-  - test: `arrayMap`
-  
-  ```swifttest
-  -> let strings = numbers.map { (number) -> String in
-        var number = number
-        var output = ""
-        repeat {
-           output = digitNames[number % 10]! + output
-           number /= 10
-        } while number > 0
-        return output
-     }
-  // strings is inferred to be of type [String]
-  /> its value is [\"\(strings[0])\", \"\(strings[1])\", \"\(strings[2])\"]
-  </ its value is ["OneSix", "FiveEight", "FiveOneZero"]
-  ```
-}
+
 
 The `map(_:)` method calls the closure expression once for each item in the array.
 You don't need to specify the type of the closure's input parameter, `number`,
@@ -577,24 +443,7 @@ func loadPicture(from server: Server, completion: (Picture) -> Void, onFailure: 
 ```
 
 
-@Comment {
-  - test: `multiple-trailing-closures`
-  
-  ```swifttest
-  >> struct Server { }
-  >> struct Picture { }
-  >> func download(_ path: String, from server: Server) -> Picture? {
-  >>     return Picture()
-  >> }
-  -> func loadPicture(from server: Server, completion: (Picture) -> Void, onFailure: () -> Void) {
-         if let picture = download("photo.jpg", from: server) {
-             completion(picture)
-         } else {
-             onFailure()
-         }
-     }
-  ```
-}
+
 
 When you call this function to load a picture,
 you provide two closures.
@@ -612,23 +461,7 @@ loadPicture(from: someServer) { picture in
 ```
 
 
-@Comment {
-  - test: `multiple-trailing-closures`
-  
-  ```swifttest
-  >> struct View {
-  >>    var currentPicture = Picture() { didSet { print("Changed picture") } }
-  >> }
-  >> var someView = View()
-  >> let someServer = Server()
-  -> loadPicture(from: someServer) { picture in
-         someView.currentPicture = picture
-     } onFailure: {
-         print("Couldn't download the next picture.")
-     }
-  << Changed picture
-  ```
-}
+
 
 In this example,
 the `loadPicture(from:completion:onFailure:)` function
@@ -678,20 +511,7 @@ func makeIncrementer(forIncrement amount: Int) -> () -> Int {
 ```
 
 
-@Comment {
-  - test: `closures`
-  
-  ```swifttest
-  -> func makeIncrementer(forIncrement amount: Int) -> () -> Int {
-        var runningTotal = 0
-        func incrementer() -> Int {
-           runningTotal += amount
-           return runningTotal
-        }
-        return incrementer
-     }
-  ```
-}
+
 
 The return type of `makeIncrementer` is `() -> Int`.
 This means that it returns a *function*, rather than a simple value.
@@ -724,18 +544,7 @@ func incrementer() -> Int {
 ```
 
 
-@Comment {
-  - test: `closuresPullout`
-  
-  ```swifttest
-  -> func incrementer() -> Int {
-  >>    var runningTotal = 0
-  >>    let amount = 1
-        runningTotal += amount
-        return runningTotal
-     }
-  ```
-}
+
 
 The `incrementer()` function doesn't have any parameters,
 and yet it refers to `runningTotal` and `amount` from within its function body.
@@ -759,13 +568,7 @@ let incrementByTen = makeIncrementer(forIncrement: 10)
 ```
 
 
-@Comment {
-  - test: `closures`
-  
-  ```swifttest
-  -> let incrementByTen = makeIncrementer(forIncrement: 10)
-  ```
-}
+
 
 This example sets a constant called `incrementByTen`
 to refer to an incrementer function that adds `10` to
@@ -782,29 +585,9 @@ incrementByTen()
 ```
 
 
-@Comment {
-  - test: `closures`
-  
-  ```swifttest
-  >> let r0 =
-  -> incrementByTen()
-  /> returns a value of \(r0)
-  </ returns a value of 10
-  >> let r1 =
-  -> incrementByTen()
-  /> returns a value of \(r1)
-  </ returns a value of 20
-  >> let r2 =
-  -> incrementByTen()
-  /> returns a value of \(r2)
-  </ returns a value of 30
-  ```
-}
 
-@Comment {
-  Rewrite the above to avoid discarding the function's return value.
-  Tracking bug is <rdar://problem/35301593>
-}
+
+
 
 If you create a second incrementer,
 it will have its own stored reference to a new, separate `runningTotal` variable:
@@ -816,17 +599,7 @@ incrementBySeven()
 ```
 
 
-@Comment {
-  - test: `closures`
-  
-  ```swifttest
-  -> let incrementBySeven = makeIncrementer(forIncrement: 7)
-  >> let r3 =
-  -> incrementBySeven()
-  /> returns a value of \(r3)
-  </ returns a value of 7
-  ```
-}
+
 
 Calling the original incrementer (`incrementByTen`) again
 continues to increment its own `runningTotal` variable,
@@ -838,16 +611,7 @@ incrementByTen()
 ```
 
 
-@Comment {
-  - test: `closures`
-  
-  ```swifttest
-  >> let r4 =
-  -> incrementByTen()
-  /> returns a value of \(r4)
-  </ returns a value of 40
-  ```
-}
+
 
 > Note: If you assign a closure to a property of a class instance,
 > and the closure captures that instance by referring to the instance or its members,
@@ -883,22 +647,7 @@ incrementByTen()
 ```
 
 
-@Comment {
-  - test: `closures`
-  
-  ```swifttest
-  -> let alsoIncrementByTen = incrementByTen
-  >> let r5 =
-  -> alsoIncrementByTen()
-  /> returns a value of \(r5)
-  </ returns a value of 50
-  ---
-  >> let r6 =
-  -> incrementByTen()
-  /> returns a value of \(r6)
-  </ returns a value of 60
-  ```
-}
+
 
 The example above shows that calling `alsoIncrementByTen`
 is the same as calling `incrementByTen`.
@@ -932,16 +681,7 @@ func someFunctionWithEscapingClosure(completionHandler: @escaping () -> Void) {
 ```
 
 
-@Comment {
-  - test: `noescape-closure-as-argument, implicit-self-struct`
-  
-  ```swifttest
-  -> var completionHandlers: [() -> Void] = []
-  -> func someFunctionWithEscapingClosure(completionHandler: @escaping () -> Void) {
-         completionHandlers.append(completionHandler)
-     }
-  ```
-}
+
 
 The `someFunctionWithEscapingClosure(_:)` function takes a closure as its argument
 and adds it to an array that's declared outside the function.
@@ -993,32 +733,7 @@ print(instance.x)
 ```
 
 
-@Comment {
-  - test: `noescape-closure-as-argument`
-  
-  ```swifttest
-  -> func someFunctionWithNonescapingClosure(closure: () -> Void) {
-         closure()
-     }
-  ---
-  -> class SomeClass {
-         var x = 10
-         func doSomething() {
-             someFunctionWithEscapingClosure { self.x = 100 }
-             someFunctionWithNonescapingClosure { x = 200 }
-         }
-     }
-  ---
-  -> let instance = SomeClass()
-  -> instance.doSomething()
-  -> print(instance.x)
-  <- 200
-  ---
-  -> completionHandlers.first?()
-  -> print(instance.x)
-  <- 100
-  ```
-}
+
 
 Here's a version of `doSomething()` that captures `self`
 by including it in the closure's capture list,
@@ -1035,27 +750,7 @@ class SomeOtherClass {
 ```
 
 
-@Comment {
-  - test: `noescape-closure-as-argument`
-  
-  ```swifttest
-  -> class SomeOtherClass {
-         var x = 10
-         func doSomething() {
-             someFunctionWithEscapingClosure { [self] in x = 100 }
-             someFunctionWithNonescapingClosure { x = 200 }
-         }
-     }
-  >> completionHandlers = []
-  >> let instance2 = SomeOtherClass()
-  >> instance2.doSomething()
-  >> print(instance2.x)
-  << 200
-  >> completionHandlers.first?()
-  >> print(instance2.x)
-  << 100
-  ```
-}
+
 
 If `self` is an instance of a structure or an enumeration,
 you can always refer to `self` implicitly.
@@ -1076,32 +771,7 @@ struct SomeStruct {
 ```
 
 
-@Comment {
-  - test: `struct-capture-mutable-self`
-  
-  ```swifttest
-  >> var completionHandlers: [() -> Void] = []
-  >> func someFunctionWithEscapingClosure(completionHandler: @escaping () -> Void) {
-  >>     completionHandlers.append(completionHandler)
-  >> }
-  >> func someFunctionWithNonescapingClosure(closure: () -> Void) {
-  >>     closure()
-  >> }
-  -> struct SomeStruct {
-         var x = 10
-         mutating func doSomething() {
-             someFunctionWithNonescapingClosure { x = 200 }  // Ok
-             someFunctionWithEscapingClosure { x = 100 }     // Error
-         }
-     }
-  !$ error: escaping closure captures mutating 'self' parameter
-  !! someFunctionWithEscapingClosure { x = 100 }     // Error
-  !! ^
-  !$ note: captured here
-  !! someFunctionWithEscapingClosure { x = 100 }     // Error
-  !! ^
-  ```
-}
+
 
 The call to the `someFunctionWithEscapingClosure` function
 in the example above is an error
@@ -1110,45 +780,9 @@ so `self` is mutable.
 That violates the rule that escaping closures can't capture
 a mutable reference to `self` for structures.
 
-@Comment {
-  - test: `noescape-closure-as-argument`
-  
-  ```swifttest
-  // Test the non-error portion of struct-capture-mutable-self
-  >> struct SomeStruct {
-  >>     var x = 10
-  >>     mutating func doSomething() {
-  >>         someFunctionWithNonescapingClosure { x = 200 }
-  >>     }
-  >> }
-  ---
-  >> completionHandlers = []
-  >> var instance3 = SomeStruct()
-  >> instance3.doSomething()
-  >> print(instance3.x)
-  << 200
-  ```
-}
 
-@Comment {
-  - test: `noescape-closure-as-argument`
-  
-  ```swifttest
-  >> struct S {
-  >>     var x = 10
-  >>     func doSomething() {
-  >>         someFunctionWithEscapingClosure { print(x) }  // OK
-  >>     }
-  >> }
-  ---
-  >> completionHandlers = []
-  >> var s = S()
-  >> s.doSomething()
-  >> s.x = 99  // No effect on self.x already captured -- S is a value type
-  >> completionHandlers.first?()
-  << 10
-  ```
-}
+
+
 
 ## Autoclosures
 
@@ -1191,38 +825,11 @@ print(customersInLine.count)
 ```
 
 
-@Comment {
-  - test: `autoclosures`
-  
-  ```swifttest
-  -> var customersInLine = ["Chris", "Alex", "Ewa", "Barry", "Daniella"]
-  -> print(customersInLine.count)
-  <- 5
-  ---
-  -> let customerProvider = { customersInLine.remove(at: 0) }
-  -> print(customersInLine.count)
-  <- 5
-  ---
-  -> print("Now serving \(customerProvider())!")
-  <- Now serving Chris!
-  -> print(customersInLine.count)
-  <- 4
-  ```
-}
 
-@Comment {
-  Using remove(at:) instead of popFirst() because the latter only works
-  with ArraySlice, not with Array:
-      customersInLine[0..<3].popLast()     // fine
-      customersInLine[0..<3].popFirst()    // fine
-      customersInLine.popLast()            // fine
-      customersInLine.popFirst()           // FAIL
-  It also returns an optional, which complicates the listing.
-}
 
-@Comment {
-  TODO: It may be worth describing the differences between ``lazy`` and autoclousures.
-}
+
+
+
 
 Even though the first element of the `customersInLine` array is removed
 by the code inside the closure,
@@ -1247,20 +854,7 @@ serve(customer: { customersInLine.remove(at: 0) } )
 ```
 
 
-@Comment {
-  - test: `autoclosures-function`
-  
-  ```swifttest
-  >> var customersInLine = ["Alex", "Ewa", "Barry", "Daniella"]
-  /> customersInLine is \(customersInLine)
-  </ customersInLine is ["Alex", "Ewa", "Barry", "Daniella"]
-  -> func serve(customer customerProvider: () -> String) {
-         print("Now serving \(customerProvider())!")
-     }
-  -> serve(customer: { customersInLine.remove(at: 0) } )
-  <- Now serving Alex!
-  ```
-}
+
 
 The `serve(customer:)` function in the listing above
 takes an explicit closure that returns a customer's name.
@@ -1284,20 +878,7 @@ serve(customer: customersInLine.remove(at: 0))
 ```
 
 
-@Comment {
-  - test: `autoclosures-function-with-autoclosure`
-  
-  ```swifttest
-  >> var customersInLine = ["Ewa", "Barry", "Daniella"]
-  /> customersInLine is \(customersInLine)
-  </ customersInLine is ["Ewa", "Barry", "Daniella"]
-  -> func serve(customer customerProvider: @autoclosure () -> String) {
-         print("Now serving \(customerProvider())!")
-     }
-  -> serve(customer: customersInLine.remove(at: 0))
-  <- Now serving Ewa!
-  ```
-}
+
 
 > Note: Overusing autoclosures can make your code hard to understand.
 > The context and function name should make it clear
@@ -1326,29 +907,7 @@ for customerProvider in customerProviders {
 ```
 
 
-@Comment {
-  - test: `autoclosures-function-with-escape`
-  
-  ```swifttest
-  >> var customersInLine = ["Barry", "Daniella"]
-  /> customersInLine is \(customersInLine)
-  </ customersInLine is ["Barry", "Daniella"]
-  -> var customerProviders: [() -> String] = []
-  -> func collectCustomerProviders(_ customerProvider: @autoclosure @escaping () -> String) {
-         customerProviders.append(customerProvider)
-     }
-  -> collectCustomerProviders(customersInLine.remove(at: 0))
-  -> collectCustomerProviders(customersInLine.remove(at: 0))
-  ---
-  -> print("Collected \(customerProviders.count) closures.")
-  <- Collected 2 closures.
-  -> for customerProvider in customerProviders {
-         print("Now serving \(customerProvider())!")
-     }
-  <- Now serving Barry!
-  <- Now serving Daniella!
-  ```
-}
+
 
 In the code above,
 instead of calling the closure passed to it
@@ -1362,12 +921,4 @@ the value of the `customerProvider` argument
 must be allowed to escape the function's scope.
 
 
-@Comment {
-This source file is part of the Swift.org open source project
 
-Copyright (c) 2014 - 2022 Apple Inc. and the Swift project authors
-Licensed under Apache License v2.0 with Runtime Library Exception
-
-See https://swift.org/LICENSE.txt for license information
-See https://swift.org/CONTRIBUTORS.txt for the list of Swift project authors
-}

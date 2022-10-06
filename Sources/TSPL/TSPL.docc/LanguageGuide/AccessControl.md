@@ -165,21 +165,7 @@ private func somePrivateFunction() {}
 ```
 
 
-@Comment {
-  - test: `accessControlSyntax`
-  
-  ```swifttest
-  -> public class SomePublicClass {}
-  -> internal class SomeInternalClass {}
-  -> fileprivate class SomeFilePrivateClass {}
-  -> private class SomePrivateClass {}
-  ---
-  -> public var somePublicVariable = 0
-  -> internal let someInternalConstant = 0
-  -> fileprivate func someFilePrivateFunction() {}
-  -> private func somePrivateFunction() {}
-  ```
-}
+
 
 Unless otherwise specified, the default access level is internal,
 as described in <doc:AccessControl#Default-Access-Levels>.
@@ -193,14 +179,7 @@ let someInternalConstant = 0            // implicitly internal
 ```
 
 
-@Comment {
-  - test: `accessControlDefaulted`
-  
-  ```swifttest
-  -> class SomeInternalClass {}              // implicitly internal
-  -> let someInternalConstant = 0            // implicitly internal
-  ```
-}
+
 
 ## Custom Types
 
@@ -253,33 +232,7 @@ private class SomePrivateClass {                // explicitly private class
 ```
 
 
-@Comment {
-  - test: `accessControl, accessControlWrong`
-  
-  ```swifttest
-  -> public class SomePublicClass {                  // explicitly public class
-        public var somePublicProperty = 0            // explicitly public class member
-        var someInternalProperty = 0                 // implicitly internal class member
-        fileprivate func someFilePrivateMethod() {}  // explicitly file-private class member
-        private func somePrivateMethod() {}          // explicitly private class member
-     }
-  ---
-  -> class SomeInternalClass {                       // implicitly internal class
-        var someInternalProperty = 0                 // implicitly internal class member
-        fileprivate func someFilePrivateMethod() {}  // explicitly file-private class member
-        private func somePrivateMethod() {}          // explicitly private class member
-     }
-  ---
-  -> fileprivate class SomeFilePrivateClass {        // explicitly file-private class
-        func someFilePrivateMethod() {}              // implicitly file-private class member
-        private func somePrivateMethod() {}          // explicitly private class member
-     }
-  ---
-  -> private class SomePrivateClass {                // explicitly private class
-        func somePrivateMethod() {}                  // implicitly private class member
-     }
-  ```
-}
+
 
 ### Tuple Types
 
@@ -289,73 +242,15 @@ For example, if you compose a tuple from two different types,
 one with internal access and one with private access,
 the access level for that compound tuple type will be private.
 
-@Comment {
-  - test: `tupleTypes_Module1, tupleTypes_Module1_PublicAndInternal, tupleTypes_Module1_Private`
-  
-  ```swifttest
-  -> public struct PublicStruct {}
-  -> internal struct InternalStruct {}
-  -> fileprivate struct FilePrivateStruct {}
-  -> public func returnPublicTuple() -> (PublicStruct, PublicStruct) {
-        return (PublicStruct(), PublicStruct())
-     }
-  -> func returnInternalTuple() -> (PublicStruct, InternalStruct) {
-        return (PublicStruct(), InternalStruct())
-     }
-  -> fileprivate func returnFilePrivateTuple() -> (PublicStruct, FilePrivateStruct) {
-        return (PublicStruct(), FilePrivateStruct())
-     }
-  ```
-}
 
-@Comment {
-  - test: `tupleTypes_Module1_PublicAndInternal`
-  
-  ```swifttest
-  // tuples with (at least) internal members can be accessed within their own module
-  -> let publicTuple = returnPublicTuple()
-  -> let internalTuple = returnInternalTuple()
-  ```
-}
 
-@Comment {
-  - test: `tupleTypes_Module1_Private`
-  
-  ```swifttest
-  // a tuple with one or more private members can't be accessed from outside of its source file
-  -> let privateTuple = returnFilePrivateTuple()
-  !$ error: cannot find 'returnFilePrivateTuple' in scope
-  !! let privateTuple = returnFilePrivateTuple()
-  !!                    ^~~~~~~~~~~~~~~~~~~~~~
-  ```
-}
 
-@Comment {
-  - test: `tupleTypes_Module2_Public`
-  
-  ```swifttest
-  // a public tuple with all-public members can be used in another module
-  -> import tupleTypes_Module1
-  -> let publicTuple = returnPublicTuple()
-  ```
-}
 
-@Comment {
-  - test: `tupleTypes_Module2_InternalAndPrivate`
-  
-  ```swifttest
-  // tuples with internal or private members can't be used outside of their own module
-  -> import tupleTypes_Module1
-  -> let internalTuple = returnInternalTuple()
-  -> let privateTuple = returnFilePrivateTuple()
-  !$ error: cannot find 'returnInternalTuple' in scope
-  !! let internalTuple = returnInternalTuple()
-  !!                     ^~~~~~~~~~~~~~~~~~~
-  !$ error: cannot find 'returnFilePrivateTuple' in scope
-  !! let privateTuple = returnFilePrivateTuple()
-  !!                    ^~~~~~~~~~~~~~~~~~~~~~
-  ```
-}
+
+
+
+
+
 
 > Note: Tuple types don't have a standalone definition in the way that
 > classes, structures, enumerations, and functions do.
@@ -383,19 +278,7 @@ func someFunction() -> (SomeInternalClass, SomePrivateClass) {
 ```
 
 
-@Comment {
-  - test: `accessControlWrong`
-  
-  ```swifttest
-  -> func someFunction() -> (SomeInternalClass, SomePrivateClass) {
-        // function implementation goes here
-  >>    return (SomeInternalClass(), SomePrivateClass())
-     }
-  !! /tmp/swifttest.swift:19:6: error: function must be declared private or fileprivate because its result uses a private type
-  !! func someFunction() -> (SomeInternalClass, SomePrivateClass) {
-  !! ^
-  ```
-}
+
 
 The function's return type is
 a tuple type composed from two of the custom classes defined above in <doc:AccessControl#Custom-Types>.
@@ -415,16 +298,7 @@ private func someFunction() -> (SomeInternalClass, SomePrivateClass) {
 ```
 
 
-@Comment {
-  - test: `accessControl`
-  
-  ```swifttest
-  -> private func someFunction() -> (SomeInternalClass, SomePrivateClass) {
-        // function implementation goes here
-  >>    return (SomeInternalClass(), SomePrivateClass())
-     }
-  ```
-}
+
 
 It's not valid to mark the definition of `someFunction()`
 with the `public` or `internal` modifiers,
@@ -453,40 +327,11 @@ public enum CompassPoint {
 ```
 
 
-@Comment {
-  - test: `enumerationCases`
-  
-  ```swifttest
-  -> public enum CompassPoint {
-        case north
-        case south
-        case east
-        case west
-     }
-  ```
-}
 
-@Comment {
-  - test: `enumerationCases_Module1`
-  
-  ```swifttest
-  -> public enum CompassPoint {
-        case north
-        case south
-        case east
-        case west
-     }
-  ```
-}
 
-@Comment {
-  - test: `enumerationCases_Module2`
-  
-  ```swifttest
-  -> import enumerationCases_Module1
-  -> let north = CompassPoint.north
-  ```
-}
+
+
+
 
 #### Raw Values and Associated Values
 
@@ -505,141 +350,15 @@ have an automatic access level of internal.
 If you want a nested type within a public type to be publicly available,
 you must explicitly declare the nested type as public.
 
-@Comment {
-  - test: `nestedTypes_Module1, nestedTypes_Module1_PublicAndInternal, nestedTypes_Module1_Private`
-  
-  ```swifttest
-  -> public struct PublicStruct {
-        public enum PublicEnumInsidePublicStruct { case a, b }
-        internal enum InternalEnumInsidePublicStruct { case a, b }
-        private enum PrivateEnumInsidePublicStruct { case a, b }
-        enum AutomaticEnumInsidePublicStruct { case a, b }
-     }
-  -> internal struct InternalStruct {
-        internal enum InternalEnumInsideInternalStruct { case a, b }
-        private enum PrivateEnumInsideInternalStruct { case a, b }
-        enum AutomaticEnumInsideInternalStruct { case a, b }
-     }
-  -> private struct FilePrivateStruct {
-        enum AutomaticEnumInsideFilePrivateStruct { case a, b }
-        private enum PrivateEnumInsideFilePrivateStruct { case a, b }
-     }
-  -> private struct PrivateStruct {
-        enum AutomaticEnumInsidePrivateStruct { case a, b }
-        private enum PrivateEnumInsidePrivateStruct { case a, b }
-     }
-  ```
-}
 
-@Comment {
-  - test: `nestedTypes_Module1_PublicAndInternal`
-  
-  ```swifttest
-  // these are all expected to succeed within the same module
-  -> let publicNestedInsidePublic = PublicStruct.PublicEnumInsidePublicStruct.a
-  -> let internalNestedInsidePublic = PublicStruct.InternalEnumInsidePublicStruct.a
-  -> let automaticNestedInsidePublic = PublicStruct.AutomaticEnumInsidePublicStruct.a
-  ---
-  -> let internalNestedInsideInternal = InternalStruct.InternalEnumInsideInternalStruct.a
-  -> let automaticNestedInsideInternal = InternalStruct.AutomaticEnumInsideInternalStruct.a
-  ```
-}
 
-@Comment {
-  - test: `nestedTypes_Module1_Private`
-  
-  ```swifttest
-  // these are all expected to fail, because they're private to the other file
-  -> let privateNestedInsidePublic = PublicStruct.PrivateEnumInsidePublicStruct.a
-  ---
-  -> let privateNestedInsideInternal = InternalStruct.PrivateEnumInsideInternalStruct.a
-  ---
-  -> let privateNestedInsidePrivate = PrivateStruct.PrivateEnumInsidePrivateStruct.a
-  -> let automaticNestedInsidePrivate = PrivateStruct.AutomaticEnumInsidePrivateStruct.a
-  ---
-  !$ error: 'PrivateEnumInsidePublicStruct' is inaccessible due to 'private' protection level
-  !! let privateNestedInsidePublic = PublicStruct.PrivateEnumInsidePublicStruct.a
-  !!                                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !$ note: 'PrivateEnumInsidePublicStruct' declared here
-  !! private enum PrivateEnumInsidePublicStruct { case a, b }
-  !! ^
-  !$ error: 'PrivateEnumInsideInternalStruct' is inaccessible due to 'private' protection level
-  !! let privateNestedInsideInternal = InternalStruct.PrivateEnumInsideInternalStruct.a
-  !!                                                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !$ note: 'PrivateEnumInsideInternalStruct' declared here
-  !! private enum PrivateEnumInsideInternalStruct { case a, b }
-  !! ^
-  !$ error: cannot find 'PrivateStruct' in scope
-  !! let privateNestedInsidePrivate = PrivateStruct.PrivateEnumInsidePrivateStruct.a
-  !!                                  ^~~~~~~~~~~~~
-  !$ error: cannot find 'PrivateStruct' in scope
-  !! let automaticNestedInsidePrivate = PrivateStruct.AutomaticEnumInsidePrivateStruct.a
-  !!                                    ^~~~~~~~~~~~~
-  ```
-}
 
-@Comment {
-  - test: `nestedTypes_Module2_Public`
-  
-  ```swifttest
-  // this is the only expected to succeed within the second module
-  -> import nestedTypes_Module1
-  -> let publicNestedInsidePublic = PublicStruct.PublicEnumInsidePublicStruct.a
-  ```
-}
 
-@Comment {
-  - test: `nestedTypes_Module2_InternalAndPrivate`
-  
-  ```swifttest
-  // these are all expected to fail, because they're private or internal to the other module
-  -> import nestedTypes_Module1
-  -> let internalNestedInsidePublic = PublicStruct.InternalEnumInsidePublicStruct.a
-  -> let automaticNestedInsidePublic = PublicStruct.AutomaticEnumInsidePublicStruct.a
-  -> let privateNestedInsidePublic = PublicStruct.PrivateEnumInsidePublicStruct.a
-  ---
-  -> let internalNestedInsideInternal = InternalStruct.InternalEnumInsideInternalStruct.a
-  -> let automaticNestedInsideInternal = InternalStruct.AutomaticEnumInsideInternalStruct.a
-  -> let privateNestedInsideInternal = InternalStruct.PrivateEnumInsideInternalStruct.a
-  ---
-  -> let privateNestedInsidePrivate = PrivateStruct.PrivateEnumInsidePrivateStruct.a
-  -> let automaticNestedInsidePrivate = PrivateStruct.AutomaticEnumInsidePrivateStruct.a
-  ---
-  !$ error: 'InternalEnumInsidePublicStruct' is inaccessible due to 'internal' protection level
-  !! let internalNestedInsidePublic = PublicStruct.InternalEnumInsidePublicStruct.a
-  !!                                               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !$ note: 'InternalEnumInsidePublicStruct' declared here
-  !! internal enum InternalEnumInsidePublicStruct {
-  !!               ^
-  !$ error: 'AutomaticEnumInsidePublicStruct' is inaccessible due to 'internal' protection level
-  !! let automaticNestedInsidePublic = PublicStruct.AutomaticEnumInsidePublicStruct.a
-  !!                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !$ note: 'AutomaticEnumInsidePublicStruct' declared here
-  !! internal enum AutomaticEnumInsidePublicStruct {
-  !!               ^
-  !$ error: 'PrivateEnumInsidePublicStruct' is inaccessible due to 'private' protection level
-  !! let privateNestedInsidePublic = PublicStruct.PrivateEnumInsidePublicStruct.a
-  !!                                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !$ note: 'PrivateEnumInsidePublicStruct' declared here
-  !! private enum PrivateEnumInsidePublicStruct {
-  !!              ^
-  !$ error: cannot find 'InternalStruct' in scope
-  !! let internalNestedInsideInternal = InternalStruct.InternalEnumInsideInternalStruct.a
-  !!                                    ^~~~~~~~~~~~~~
-  !$ error: cannot find 'InternalStruct' in scope
-  !! let automaticNestedInsideInternal = InternalStruct.AutomaticEnumInsideInternalStruct.a
-  !!                                     ^~~~~~~~~~~~~~
-  !$ error: cannot find 'InternalStruct' in scope
-  !! let privateNestedInsideInternal = InternalStruct.PrivateEnumInsideInternalStruct.a
-  !!                                   ^~~~~~~~~~~~~~
-  !$ error: cannot find 'PrivateStruct' in scope
-  !! let privateNestedInsidePrivate = PrivateStruct.PrivateEnumInsidePrivateStruct.a
-  !!                                  ^~~~~~~~~~~~~
-  !$ error: cannot find 'PrivateStruct' in scope
-  !! let automaticNestedInsidePrivate = PrivateStruct.AutomaticEnumInsidePrivateStruct.a
-  !!                                    ^~~~~~~~~~~~~
-  ```
-}
+
+
+
+
+
 
 ## Subclassing
 
@@ -677,19 +396,7 @@ internal class B: A {
 ```
 
 
-@Comment {
-  - test: `subclassingNoCall`
-  
-  ```swifttest
-  -> public class A {
-        fileprivate func someMethod() {}
-     }
-  ---
-  -> internal class B: A {
-        override internal func someMethod() {}
-     }
-  ```
-}
+
 
 It's even valid for a subclass member to call
 a superclass member that has lower access permissions than the subclass member,
@@ -711,21 +418,7 @@ internal class B: A {
 ```
 
 
-@Comment {
-  - test: `subclassingWithCall`
-  
-  ```swifttest
-  -> public class A {
-        fileprivate func someMethod() {}
-     }
-  ---
-  -> internal class B: A {
-        override internal func someMethod() {
-           super.someMethod()
-        }
-     }
-  ```
-}
+
 
 Because superclass `A` and subclass `B` are defined in the same source file,
 it's valid for the `B` implementation of `someMethod()` to call
@@ -745,46 +438,9 @@ private var privateInstance = SomePrivateClass()
 ```
 
 
-@Comment {
-  - test: `accessControl`
-  
-  ```swifttest
-  -> private var privateInstance = SomePrivateClass()
-  ```
-}
 
-@Comment {
-  - test: `useOfPrivateTypeRequiresPrivateModifier`
-  
-  ```swifttest
-  -> class Scope {  // Need to be in a scope to meaningfully use private (vs fileprivate)
-  -> private class SomePrivateClass {}
-  -> let privateConstant = SomePrivateClass()
-  !! /tmp/swifttest.swift:3:5: error: property must be declared private because its type 'Scope.SomePrivateClass' uses a private type
-  !! let privateConstant = SomePrivateClass()
-  !! ^
-  -> var privateVariable = SomePrivateClass()
-  !! /tmp/swifttest.swift:4:5: error: property must be declared private because its type 'Scope.SomePrivateClass' uses a private type
-  !! var privateVariable = SomePrivateClass()
-  !! ^
-  -> class C {
-        var privateProperty = SomePrivateClass()
-        subscript(index: Int) -> SomePrivateClass {
-           return SomePrivateClass()
-        }
-     }
-  -> }  // End surrounding scope
-  !! /tmp/swifttest.swift:6:8: error: property must be declared private because its type 'Scope.SomePrivateClass' uses a private type
-  !! var privateProperty = SomePrivateClass()
-  !! ^
-  !! /tmp/swifttest.swift:7:4: error: subscript must be declared private because its element type uses a private type
-  !! subscript(index: Int) -> SomePrivateClass {
-  !! ^                        ~~~~~~~~~~~~~~~~
-  !! /tmp/swifttest.swift:2:15: note: type declared here
-  !! private class SomePrivateClass {}
-  !! ^
-  ```
-}
+
+
 
 ### Getters and Setters
 
@@ -821,20 +477,7 @@ struct TrackedString {
 ```
 
 
-@Comment {
-  - test: `reducedSetterScope, reducedSetterScope_error`
-  
-  ```swifttest
-  -> struct TrackedString {
-        private(set) var numberOfEdits = 0
-        var value: String = "" {
-           didSet {
-              numberOfEdits += 1
-           }
-        }
-     }
-  ```
-}
+
 
 The `TrackedString` structure defines a stored string property called `value`,
 with an initial value of `""` (an empty string).
@@ -857,26 +500,9 @@ This enables `TrackedString` to modify the `numberOfEdits` property internally,
 but to present the property as a read-only property
 when it's used outside the structure's definition.
 
-@Comment {
-  - test: `reducedSetterScope_error`
-  
-  ```swifttest
-  -> extension TrackedString {
-         mutating func f() { numberOfEdits += 1 }
-     }
-  // check that we can't set its value with from the same file
-  -> var s = TrackedString()
-  -> let resultA: Void = { s.numberOfEdits += 1 }()
-  !! /tmp/swifttest.swift:13:39: error: left side of mutating operator isn't mutable: 'numberOfEdits' setter is inaccessible
-  !! let resultA: Void = { s.numberOfEdits += 1 }()
-  !!                       ~~~~~~~~~~~~~~~ ^
-  ```
-}
 
-@Comment {
-  The assertion above must be compiled because of a REPL bug
-  <rdar://problem/54089342> REPL fails to enforce private(set) on struct property
-}
+
+
 
 If you create a `TrackedString` instance and modify its string value a few times,
 you can see the `numberOfEdits` property value update to match the number of modifications:
@@ -891,18 +517,7 @@ print("The number of edits is \(stringToEdit.numberOfEdits)")
 ```
 
 
-@Comment {
-  - test: `reducedSetterScope`
-  
-  ```swifttest
-  -> var stringToEdit = TrackedString()
-  -> stringToEdit.value = "This string will be tracked."
-  -> stringToEdit.value += " This edit will increment numberOfEdits."
-  -> stringToEdit.value += " So will this one."
-  -> print("The number of edits is \(stringToEdit.numberOfEdits)")
-  <- The number of edits is 3
-  ```
-}
+
 
 Although you can query the current value of the `numberOfEdits` property
 from within another source file,
@@ -934,76 +549,15 @@ public struct TrackedString {
 ```
 
 
-@Comment {
-  - test: `reducedSetterScopePublic`
-  
-  ```swifttest
-  -> public struct TrackedString {
-        public private(set) var numberOfEdits = 0
-        public var value: String = "" {
-           didSet {
-              numberOfEdits += 1
-           }
-        }
-        public init() {}
-     }
-  ```
-}
 
-@Comment {
-  - test: `reducedSetterScopePublic_Module1_Allowed, reducedSetterScopePublic_Module1_NotAllowed`
-  
-  ```swifttest
-  -> public struct TrackedString {
-        public private(set) var numberOfEdits = 0
-        public var value: String = "" {
-           didSet {
-              numberOfEdits += 1
-           }
-        }
-        public init() {}
-     }
-  ```
-}
 
-@Comment {
-  - test: `reducedSetterScopePublic_Module1_Allowed`
-  
-  ```swifttest
-  // check that we can retrieve its value with the public getter from another file in the same module
-  -> var stringToEdit_Module1B = TrackedString()
-  -> let resultB = stringToEdit_Module1B.numberOfEdits
-  ```
-}
 
-@Comment {
-  - test: `reducedSetterScopePublic_Module1_NotAllowed`
-  
-  ```swifttest
-  // check that we can't set its value from another file in the same module
-  -> var stringToEdit_Module1C = TrackedString()
-  -> let resultC: Void = { stringToEdit_Module1C.numberOfEdits += 1 }()
-  !$ error: left side of mutating operator isn't mutable: 'numberOfEdits' setter is inaccessible
-  !! let resultC: Void = { stringToEdit_Module1C.numberOfEdits += 1 }()
-  !!                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ^
-  ```
-}
 
-@Comment {
-  - test: `reducedSetterScopePublic_Module2`
-  
-  ```swifttest
-  // check that we can retrieve its value with the public getter from a different module
-  -> import reducedSetterScopePublic_Module1_Allowed
-  -> var stringToEdit_Module2 = TrackedString()
-  -> let result2Read = stringToEdit_Module2.numberOfEdits
-  // check that we can't change its value from another module
-  -> let result2Write: Void = { stringToEdit_Module2.numberOfEdits += 1 }()
-  !$ error: left side of mutating operator isn't mutable: 'numberOfEdits' setter is inaccessible
-  !! let result2Write: Void = { stringToEdit_Module2.numberOfEdits += 1 }()
-  !!                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ^
-  ```
-}
+
+
+
+
+
 
 ## Initializers
 
@@ -1061,46 +615,7 @@ the protocol it supports.
 This ensures that all of the protocol's requirements will be visible
 on any type that adopts the protocol.
 
-@Comment {
-  - test: `protocolRequirementsCannotBeDifferentThanTheProtocol`
-  
-  ```swifttest
-  -> public protocol PublicProtocol {
-        public var publicProperty: Int { get }
-        internal var internalProperty: Int { get }
-        fileprivate var filePrivateProperty: Int { get }
-        private var privateProperty: Int { get }
-     }
-  !$ error: 'public' modifier cannot be used in protocols
-  !! public var publicProperty: Int { get }
-  !! ^~~~~~~
-  !!-
-  !$ note: protocol requirements implicitly have the same access as the protocol itself
-  !! public var publicProperty: Int { get }
-  !! ^
-  !$ error: 'internal' modifier cannot be used in protocols
-  !! internal var internalProperty: Int { get }
-  !! ^~~~~~~~~
-  !!-
-  !$ note: protocol requirements implicitly have the same access as the protocol itself
-  !! internal var internalProperty: Int { get }
-  !! ^
-  !$ error: 'fileprivate' modifier cannot be used in protocols
-  !! fileprivate var filePrivateProperty: Int { get }
-  !! ^~~~~~~~~~~~
-  !!-
-  !$ note: protocol requirements implicitly have the same access as the protocol itself
-  !! fileprivate var filePrivateProperty: Int { get }
-  !! ^
-  !$ error: 'private' modifier cannot be used in protocols
-  !! private var privateProperty: Int { get }
-  !! ^~~~~~~~
-  !!-
-  !$ note: protocol requirements implicitly have the same access as the protocol itself
-  !! private var privateProperty: Int { get }
-  !! ^
-  ```
-}
+
 
 > Note: If you define a public protocol,
 > the protocol's requirements require a public access level
@@ -1109,137 +624,15 @@ on any type that adopts the protocol.
 > where a public type definition implies
 > an access level of internal for the type's members.
 
-@Comment {
-  - test: `protocols_Module1, protocols_Module1_PublicAndInternal, protocols_Module1_Private`
-  
-  ```swifttest
-  -> public protocol PublicProtocol {
-        var publicProperty: Int { get }
-        func publicMethod()
-     }
-  -> internal protocol InternalProtocol {
-        var internalProperty: Int { get }
-        func internalMethod()
-     }
-  -> fileprivate protocol FilePrivateProtocol {
-        var filePrivateProperty: Int { get }
-        func filePrivateMethod()
-     }
-  -> private protocol PrivateProtocol {
-        var privateProperty: Int { get }
-        func privateMethod()
-     }
-  ```
-}
 
-@Comment {
-  - test: `protocols_Module1_PublicAndInternal`
-  
-  ```swifttest
-  // these should all be allowed without problem
-  -> public class PublicClassConformingToPublicProtocol: PublicProtocol {
-        public var publicProperty = 0
-        public func publicMethod() {}
-     }
-  -> internal class InternalClassConformingToPublicProtocol: PublicProtocol {
-        var publicProperty = 0
-        func publicMethod() {}
-     }
-  -> private class PrivateClassConformingToPublicProtocol: PublicProtocol {
-        var publicProperty = 0
-        func publicMethod() {}
-     }
-  ---
-  -> public class PublicClassConformingToInternalProtocol: InternalProtocol {
-        var internalProperty = 0
-        func internalMethod() {}
-     }
-  -> internal class InternalClassConformingToInternalProtocol: InternalProtocol {
-        var internalProperty = 0
-        func internalMethod() {}
-     }
-  -> private class PrivateClassConformingToInternalProtocol: InternalProtocol {
-        var internalProperty = 0
-        func internalMethod() {}
-     }
-  ```
-}
 
-@Comment {
-  - test: `protocols_Module1_Private`
-  
-  ```swifttest
-  // these will fail, because FilePrivateProtocol isn't visible outside of its file
-  -> public class PublicClassConformingToFilePrivateProtocol: FilePrivateProtocol {
-        var filePrivateProperty = 0
-        func filePrivateMethod() {}
-     }
-  !$ error: cannot find type 'FilePrivateProtocol' in scope
-  !! public class PublicClassConformingToFilePrivateProtocol: FilePrivateProtocol {
-  !! ^~~~~~~~~~~~~~~~~~~
-  ---
-  // these will fail, because PrivateProtocol isn't visible outside of its file
-  -> public class PublicClassConformingToPrivateProtocol: PrivateProtocol {
-        var privateProperty = 0
-        func privateMethod() {}
-     }
-  !$ error: cannot find type 'PrivateProtocol' in scope
-  !! public class PublicClassConformingToPrivateProtocol: PrivateProtocol {
-  !! ^~~~~~~~~~~~~~~
-  ```
-}
 
-@Comment {
-  - test: `protocols_Module2_Public`
-  
-  ```swifttest
-  // these should all be allowed without problem
-  -> import protocols_Module1
-  -> public class PublicClassConformingToPublicProtocol: PublicProtocol {
-        public var publicProperty = 0
-        public func publicMethod() {}
-     }
-  -> internal class InternalClassConformingToPublicProtocol: PublicProtocol {
-        var publicProperty = 0
-        func publicMethod() {}
-     }
-  -> private class PrivateClassConformingToPublicProtocol: PublicProtocol {
-        var publicProperty = 0
-        func publicMethod() {}
-     }
-  ```
-}
 
-@Comment {
-  - test: `protocols_Module2_InternalAndPrivate`
-  
-  ```swifttest
-  // these will all fail, because InternalProtocol, FilePrivateProtocol, and PrivateProtocol
-  // aren't visible to other modules
-  -> import protocols_Module1
-  -> public class PublicClassConformingToInternalProtocol: InternalProtocol {
-        var internalProperty = 0
-        func internalMethod() {}
-     }
-  -> public class PublicClassConformingToFilePrivateProtocol: FilePrivateProtocol {
-        var filePrivateProperty = 0
-        func filePrivateMethod() {}
-     }
-  -> public class PublicClassConformingToPrivateProtocol: PrivateProtocol {
-        var privateProperty = 0
-        func privateMethod() {}
-     }
-  !$ error: cannot find type 'InternalProtocol' in scope
-  !! public class PublicClassConformingToInternalProtocol: InternalProtocol {
-  !! ^~~~~~~~~~~~~~~~
-  !$ error: cannot find type 'FilePrivateProtocol' in scope
-  !! public class PublicClassConformingToFilePrivateProtocol: FilePrivateProtocol {
-  !! ^~~~~~~~~~~~~~~~~~~
-  !$ error: cannot find type 'PrivateProtocol' in scope
-  !! public class PublicClassConformingToPrivateProtocol: PrivateProtocol {
-  !! ^~~~~~~~~~~~~~~
-  ```
-}
+
+
+
+
+
 
 ### Protocol Inheritance
 
@@ -1294,81 +687,13 @@ if you're using that extension to add protocol conformance.
 Instead, the protocol's own access level is used to provide
 the default access level for each protocol requirement implementation within the extension.
 
-@Comment {
-  - test: `extensions_Module1, extensions_Module1_PublicAndInternal, extensions_Module1_Private`
-  
-  ```swifttest
-  -> public struct PublicStruct {
-        public init() {}
-        func implicitlyInternalMethodFromStruct() -> Int { return 0 }
-     }
-  -> extension PublicStruct {
-        func implicitlyInternalMethodFromExtension() -> Int { return 0 }
-     }
-  -> fileprivate extension PublicStruct {
-        func filePrivateMethod() -> Int { return 0 }
-     }
-  -> var publicStructInSameFile = PublicStruct()
-  -> let sameFileA = publicStructInSameFile.implicitlyInternalMethodFromStruct()
-  -> let sameFileB = publicStructInSameFile.implicitlyInternalMethodFromExtension()
-  -> let sameFileC = publicStructInSameFile.filePrivateMethod()
-  ```
-}
 
-@Comment {
-  - test: `extensions_Module1_PublicAndInternal`
-  
-  ```swifttest
-  -> var publicStructInDifferentFile = PublicStruct()
-  -> let differentFileA = publicStructInDifferentFile.implicitlyInternalMethodFromStruct()
-  -> let differentFileB = publicStructInDifferentFile.implicitlyInternalMethodFromExtension()
-  ```
-}
 
-@Comment {
-  - test: `extensions_Module1_Private`
-  
-  ```swifttest
-  -> var publicStructInDifferentFile = PublicStruct()
-  -> let differentFileC = publicStructInDifferentFile.filePrivateMethod()
-  !$ error: 'filePrivateMethod' is inaccessible due to 'fileprivate' protection level
-  !! let differentFileC = publicStructInDifferentFile.filePrivateMethod()
-  !!                                                  ^~~~~~~~~~~~~~~~~
-  !$ note: 'filePrivateMethod()' declared here
-  !! func filePrivateMethod() -> Int { return 0 }
-  !! ^
-  ```
-}
 
-@Comment {
-  - test: `extensions_Module2`
-  
-  ```swifttest
-  -> import extensions_Module1
-  -> var publicStructInDifferentModule = PublicStruct()
-  -> let differentModuleA = publicStructInDifferentModule.implicitlyInternalMethodFromStruct()
-  !$ error: 'implicitlyInternalMethodFromStruct' is inaccessible due to 'internal' protection level
-  !! let differentModuleA = publicStructInDifferentModule.implicitlyInternalMethodFromStruct()
-  !!                                                      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !$ note: 'implicitlyInternalMethodFromStruct()' declared here
-  !! internal func implicitlyInternalMethodFromStruct() -> Int
-  !!               ^
-  -> let differentModuleB = publicStructInDifferentModule.implicitlyInternalMethodFromExtension()
-  !$ error: 'implicitlyInternalMethodFromExtension' is inaccessible due to 'internal' protection level
-  !! let differentModuleB = publicStructInDifferentModule.implicitlyInternalMethodFromExtension()
-  !!                                                      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !$ note: 'implicitlyInternalMethodFromExtension()' declared here
-  !! internal func implicitlyInternalMethodFromExtension() -> Int
-  !!               ^
-  -> let differentModuleC = publicStructInDifferentModule.filePrivateMethod()
-  !$ error: 'filePrivateMethod' is inaccessible due to 'fileprivate' protection level
-  !! let differentModuleC = publicStructInDifferentModule.filePrivateMethod()
-  !!                                                      ^~~~~~~~~~~~~~~~~
-  !$ note: 'filePrivateMethod()' declared here
-  !! fileprivate func filePrivateMethod() -> Int
-  !!                  ^
-  ```
-}
+
+
+
+
 
 ### Private Members in Extensions
 
@@ -1397,15 +722,7 @@ protocol SomeProtocol {
 ```
 
 
-@Comment {
-  - test: `extensions_privatemembers`
-  
-  ```swifttest
-  -> protocol SomeProtocol {
-         func doSomething()
-     }
-  ```
-}
+
 
 You can use an extension to add protocol conformance, like this:
 
@@ -1422,24 +739,7 @@ extension SomeStruct: SomeProtocol {
 ```
 
 
-@Comment {
-  - test: `extensions_privatemembers`
-  
-  ```swifttest
-  -> struct SomeStruct {
-         private var privateVariable = 12
-     }
-  ---
-  -> extension SomeStruct: SomeProtocol {
-         func doSomething() {
-             print(privateVariable)
-         }
-     }
-  >> let s = SomeStruct()
-  >> s.doSomething()
-  << 12
-  ```
-}
+
 
 ## Generics
 
@@ -1456,54 +756,7 @@ but a public type alias can't alias an internal, file-private, or private type.
 
 > Note: This rule also applies to type aliases for associated types used to satisfy protocol conformances.
 
-@Comment {
-  - test: `typeAliases`
-  
-  ```swifttest
-  -> public struct PublicStruct {}
-  -> internal struct InternalStruct {}
-  -> private struct PrivateStruct {}
-  ---
-  -> public typealias PublicAliasOfPublicType = PublicStruct
-  -> internal typealias InternalAliasOfPublicType = PublicStruct
-  -> private typealias PrivateAliasOfPublicType = PublicStruct
-  ---
-  -> public typealias PublicAliasOfInternalType = InternalStruct     // not allowed
-  -> internal typealias InternalAliasOfInternalType = InternalStruct
-  -> private typealias PrivateAliasOfInternalType = InternalStruct
-  ---
-  -> public typealias PublicAliasOfPrivateType = PrivateStruct       // not allowed
-  -> internal typealias InternalAliasOfPrivateType = PrivateStruct   // not allowed
-  -> private typealias PrivateAliasOfPrivateType = PrivateStruct
-  ---
-  !$ error: type alias cannot be declared public because its underlying type uses an internal type
-  !! public typealias PublicAliasOfInternalType = InternalStruct     // not allowed
-  !! ^                           ~~~~~~~~~~~~~~
-  !$ note: type declared here
-  !! internal struct InternalStruct {}
-  !! ^
-  !$ error: type alias cannot be declared public because its underlying type uses a private type
-  !! public typealias PublicAliasOfPrivateType = PrivateStruct       // not allowed
-  !! ^                          ~~~~~~~~~~~~~
-  !$ note: type declared here
-  !! private struct PrivateStruct {}
-  !! ^
-  !$ error: type alias cannot be declared internal because its underlying type uses a private type
-  !! internal typealias InternalAliasOfPrivateType = PrivateStruct   // not allowed
-  !! ^                            ~~~~~~~~~~~~~
-  !$ note: type declared here
-  !! private struct PrivateStruct {}
-  !! ^
-  ```
-}
 
 
-@Comment {
-This source file is part of the Swift.org open source project
 
-Copyright (c) 2014 - 2022 Apple Inc. and the Swift project authors
-Licensed under Apache License v2.0 with Runtime Library Exception
 
-See https://swift.org/LICENSE.txt for license information
-See https://swift.org/CONTRIBUTORS.txt for the list of Swift project authors
-}

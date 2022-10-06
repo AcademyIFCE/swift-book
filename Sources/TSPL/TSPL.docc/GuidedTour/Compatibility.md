@@ -7,20 +7,7 @@ a versão padrão do Swift que está incluída no Xcode 14.
 Você pode usar o Xcode 14 para criar _targets_
 que são escritos em Swift 5.7, Swift 4.2 ou Swift 4.
 
-@Comment {
-    - test: `swift-version`
-    
-    ```swifttest
-    >> #if swift(>=5.7.1)
-    >>     print("Too new")
-    >> #elseif swift(>=5.7)
-    >>     print("Just right")
-    >> #else
-    >>     print("Too old")
-    >> #endif
-    << Just right
-    ```
-}
+
 
 Quando você usa o Xcode 14 para compilar o código Swift 4 e Swift 4.2,
 a maioria das funcionalidades do Swift 5.7 está disponível.

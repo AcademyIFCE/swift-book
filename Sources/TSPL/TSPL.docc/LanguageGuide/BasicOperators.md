@@ -1,35 +1,31 @@
 
 
-# Basic Operators
+# Operadores básicos
 
-An *operator* is a special symbol or phrase that you use to
-check, change, or combine values.
-For example, the addition operator (`+`) adds two numbers,
-as in `let i = 1 + 2`,
-and the logical AND operator (`&&`) combines two Boolean values,
-as in `if enteredDoorCode && passedRetinaScan`.
+Um operador é um símbolo ou frase que você pode usar para verificar, mudar ou combinar valores.
+Por exemplo, o operador de adição (`+`) soma dois números,
+como em `let i = 1 + 2`,
+e o operador lógico E (*AND* - `&&`) combina dois valores booleanos,
+como em `if enteredDoorCode && passedRetinaScan`.
 
-Swift supports the operators you may already know from languages like C,
-and improves several capabilities to eliminate common coding errors.
-The assignment operator (`=`) doesn't return a value,
-to prevent it from being mistakenly used when
-the equal to operator (`==`) is intended.
-Arithmetic operators (`+`, `-`, `*`, `/`, `%` and so forth)
-detect and disallow value overflow,
-to avoid unexpected results when working with numbers that become larger or smaller
-than the allowed value range of the type that stores them.
-You can opt in to value overflow behavior
-by using Swift's overflow operators,
-as described in <doc:AdvancedOperators#Overflow-Operators>.
+Swift suporta os operadores que você já conhece de linguagens como C,
+e melhora vários recursos para eliminar erros comuns de codificação.
+O operador de atribuição (`=`) não retorna um valor,
+para evitar que seja usado erroneamente quando
+o operador igual a (`==`) é pretendido.
+Operadores aritméticos (`+`, `-`, `*`, `/`, `%` e assim por diante)
+detectam e desabilitam estouros de valor,
+para evitar resultados inesperados quando estamos trabalhando com números que se tornam muito maiores ou muito menores do que o intervalo permitido nos tipos que os armazenam.
+Você pode ativar o comportamento de estouro de valor
+usando os operadores de estouro do Swift,
+conforme descrito em <doc:OperadoresAvançados#Operadores-de-estouro>.
 
-Swift also provides range operators that aren't found in C,
-such as `a..<b` and `a...b`,
-as a shortcut for expressing a range of values.
-
-This chapter describes the common operators in Swift.
-<doc:AdvancedOperators> covers Swift's advanced operators,
-and describes how to define your own custom operators
-and implement the standard operators for your own custom types.
+Swift também fornece operadores de intervalo que não são encontrados em C,
+como `a..<b` e `a...b`, como um atalho para expressar um intervalo de valores.
+Este capítulo descreve os operadores comuns em Swift.
+<doc:OperadoresAvançados> abrange os operadores avançados do Swift,
+e descreve como definir seus próprios operadores personalizados
+e implementar os operadores padrão para seus próprios tipos personalizados.
 
 ## Terminology
 
@@ -61,17 +57,7 @@ a = b
 ```
 
 
-@Comment {
-  - test: `assignmentOperator`
-  
-  ```swifttest
-  -> let b = 10
-  -> var a = 5
-  -> a = b
-  /> a is now equal to \(a)
-  </ a is now equal to 10
-  ```
-}
+
 
 If the right side of the assignment is a tuple with multiple values,
 its elements can be decomposed into multiple constants or variables at once:
@@ -82,32 +68,11 @@ let (x, y) = (1, 2)
 ```
 
 
-@Comment {
-  - test: `assignmentOperator`
-  
-  ```swifttest
-  -> let (x, y) = (1, 2)
-  /> x is equal to \(x), and y is equal to \(y)
-  </ x is equal to 1, and y is equal to 2
-  ```
-}
 
-@Comment {
-  - test: `tuple-unwrapping-with-var`
-  
-  ```swifttest
-  >> var (x, y) = (1, 2)
-  ```
-}
 
-@Comment {
-  This still allows assignment to variables,
-  even though var patterns have been removed,
-  because it's parsed as a variable-declaration,
-  using the first alternative where (x, y) is a pattern,
-  but `var` comes from the variable-declaration-head
-  rather than from the pattern.
-}
+
+
+
 
 Unlike the assignment operator in C and Objective-C,
 the assignment operator in Swift doesn't itself return a value.
@@ -120,31 +85,14 @@ if x = y {
 ```
 
 
-@Comment {
-  - test: `assignmentOperatorInvalid`
-  
-  ```swifttest
-  -> if x = y {
-        // This isn't valid, because x = y doesn't return a value.
-     }
-  !$ error: cannot find 'x' in scope
-  !! if x = y {
-  !!    ^
-  !$ error: cannot find 'y' in scope
-  !! if x = y {
-  !!        ^
-  ```
-}
+
 
 This feature prevents the assignment operator (`=`) from being used by accident
 when the equal to operator (`==`) is actually intended.
 By making `if x = y` invalid,
 Swift helps you to avoid these kinds of errors in your code.
 
-@Comment {
-  TODO: Should we mention that x = y = z is also not valid?
-  If so, is there a convincing argument as to why this is a good thing?
-}
+
 
 ## Arithmetic Operators
 
@@ -163,24 +111,7 @@ Swift supports the four standard *arithmetic operators* for all number types:
 ```
 
 
-@Comment {
-  - test: `arithmeticOperators`
-  
-  ```swifttest
-  >> let r0 =
-  -> 1 + 2       // equals 3
-  >> assert(r0 == 3)
-  >> let r1 =
-  -> 5 - 3       // equals 2
-  >> assert(r1 == 2)
-  >> let r2 =
-  -> 2 * 3       // equals 6
-  >> assert(r2 == 6)
-  >> let r3 =
-  -> 10.0 / 2.5  // equals 4.0
-  >> assert(r3 == 4.0)
-  ```
-}
+
 
 Unlike the arithmetic operators in C and Objective-C,
 the Swift arithmetic operators don't allow values to overflow by default.
@@ -194,107 +125,69 @@ The addition operator is also supported for `String` concatenation:
 ```
 
 
-@Comment {
-  - test: `arithmeticOperators`
-  
-  ```swifttest
-  >> let r4 =
-  -> "hello, " + "world"  // equals "hello, world"
-  >> assert(r4 == "hello, world")
-  ```
-}
 
-### Remainder Operator
 
-The *remainder operator* (`a % b`)
-works out how many multiples of `b` will fit inside `a`
-and returns the value that's left over
-(known as the *remainder*).
+### Operador de resto divisional
 
-> Note: The remainder operator (`%`) is also known as
-> a *modulo operator* in other languages.
-> However, its behavior in Swift for negative numbers means that,
-> strictly speaking, it's a remainder rather than a modulo operation.
+O *Operador de resto divisional* (`a % b`)
+calcula quantos múltiplos de `b` caberão dentro de `a`
+e retornará a sobra
+(Conhecido como *resto*).
 
-@Comment {
-  - test: `percentOperatorIsRemainderNotModulo`
-  
-  ```swifttest
-  -> for i in -5...0 {
-        print(i % 4)
-     }
-  << -1
-  << 0
-  << -3
-  << -2
-  << -1
-  << 0
-  ```
-}
+> Note: O operador de resto divisonal (`%`) também é conhecido como 
+> *operador módulo* em outras linguagens.
+> No entanto, seu comportamento em Swift para números negativos torna-o,
+> estritamente falando, em um resto em vez de uma operação de módulo.
 
-Here's how the remainder operator works.
-To calculate `9 % 4`, you first work out how many `4`s will fit inside `9`:
+
+
+Aqui, veja como o operador de resto funciona
+Para calcular `9 % 4`, você primeiro calcula quantos `4`s caberão dentro de `9`:
 
 ![](remainderInteger)
 
 
-You can fit two `4`s inside `9`, and the remainder is `1` (shown in orange).
+Você pode colocar dois `4`s dentro de `9`, e o restante é `1` (mostrado em laranja).
 
-In Swift, this would be written as:
+Em Swift, isso seria escrito como:
 
 ```swift
 9 % 4    // equals 1
 ```
 
 
-@Comment {
-  - test: `arithmeticOperators`
-  
-  ```swifttest
-  >> let r5 =
-  -> 9 % 4    // equals 1
-  >> assert(r5 == 1)
-  ```
-}
 
-To determine the answer for `a % b`,
-the `%` operator calculates the following equation
-and returns `remainder` as its output:
 
-`a` = (`b` x `some multiplier`) + `remainder`
+Para determinar a resposta para `a % b`,
+o operador `%` calcula a seguinte equação
+e retorna `resto` como a saída:
 
-where `some multiplier` is the largest number of multiples of `b`
-that will fit inside `a`.
+`a` = (`b` x `algum multiplo`) + `resto`
 
-Inserting `9` and `4` into this equation yields:
+aonde `algum multiplo` é o maior número de múltiplos para `b`
+que caberá dentro de `a`.
+
+Colocando `9` e `4` nesta equação, produz:
 
 `9` = (`4` x `2`) + `1`
 
-The same method is applied when calculating the remainder for a negative value of `a`:
+O mesmo método é aplicado ao calcular o restante para um valor negativo de `a`:
 
 ```swift
--9 % 4   // equals -1
+-9 % 4   // igual -1
 ```
 
 
-@Comment {
-  - test: `arithmeticOperators`
-  
-  ```swifttest
-  >> let r6 =
-  -> -9 % 4   // equals -1
-  >> assert(r6 == -1)
-  ```
-}
 
-Inserting `-9` and `4` into the equation yields:
+
+Colocando `-9` e `4` na equação, produz:
 
 `-9` = (`4` x `-2`) + `-1`
 
-giving a remainder value of `-1`.
+dando um valor de resto de `-1`.
 
-The sign of `b` is ignored for negative values of `b`.
-This means that `a % b` and `a % -b` always give the same answer.
+O sinal de `b` é ignorado para valores negativos de `b`.
+Isso significa que `a % b` e `a % -b` sempre dão a mesma resposta.
 
 ### Operador Unário de Menos
 
@@ -308,23 +201,15 @@ let plusThree = -minusThree   // plusThree equals 3, or "minus minus three"
 ```
 
 
-@Comment {
-  - test: `arithmeticOperators`
-  
-  ```swifttest
-  -> let three = 3
-  -> let minusThree = -three       // minusThree equals -3
-  -> let plusThree = -minusThree   // plusThree equals 3, or "minus minus three"
-  ```
-}
+
 
 O operador unário de menos (`-`) é prefixado diretamente antes do valor em que opera,
 sem nenhum espaço em branco.
 
-### Unary Plus Operator
+### Operador unário de mais
 
-The *unary plus operator* (`+`) simply returns
-the value it operates on, without any change:
+O *operador unário de mais* (`+`) simplesmente retorna
+o valor em que opera, sem qualquer alteração:
 
 ```swift
 let minusSix = -6
@@ -332,19 +217,11 @@ let alsoMinusSix = +minusSix  // alsoMinusSix equals -6
 ```
 
 
-@Comment {
-  - test: `arithmeticOperators`
-  
-  ```swifttest
-  -> let minusSix = -6
-  -> let alsoMinusSix = +minusSix  // alsoMinusSix equals -6
-  >> assert(alsoMinusSix == minusSix)
-  ```
-}
 
-Although the unary plus operator doesn't actually do anything,
-you can use it to provide symmetry in your code for positive numbers
-when also using the unary minus operator for negative numbers.
+
+Embora o operador unário de mais (`+`) não faça nada,
+você pode usá-lo para fornecer simetria em seu código para números positivos
+ao usar também o operador unário de menos (`-`) para números negativos.
 
 ## Operadores de Atribuição Compostos
 
@@ -358,16 +235,7 @@ a += 2
 ```
 
 
-@Comment {
-  - test: `compoundAssignment`
-  
-  ```swifttest
-  -> var a = 1
-  -> a += 2
-  /> a is now equal to \(a)
-  </ a is now equal to 3
-  ```
-}
+
 
 A expressão `a += 2` é um atalho para `a = a + 2`.
 Efetivamente, a adição e a atribuição são combinadas em um operador
@@ -379,60 +247,37 @@ que executa as duas tarefas ao mesmo tempo.
 Para obter informações sobre os operadores fornecidos pela biblioteca padrão Swift,
 veja [Operator Declarations](https://developer.apple.com/documentation/swift/operator_declarations).
 
-## Comparison Operators
+## Operadores de Comparação
 
-Swift supports the following comparison operators:
+Swift suporta os seguintes operadores de comparação:
 
-- Equal to (`a == b`)
-- Not equal to (`a != b`)
-- Greater than (`a > b`)
-- Less than (`a < b`)
-- Greater than or equal to (`a >= b`)
-- Less than or equal to (`a <= b`)
+- Igual a (`a == b`)
+- Diferente de (`a != b`)
+- Maior que (`a > b`)
+- Menor que (`a < b`)
+- Maior ou igual a (`a >= b`)
+- Menor ou igual a (`a <= b`)
 
-> Note: Swift also provides two *identity operators* (`===` and `!==`),
-> which you use to test whether two object references both refer to the same object instance.
-> For more information, see <doc:ClassesAndStructures#Identity-Operators>.
+> Nota: Swift também fornece dois **operadores de referência** (`===` e `!==`),
+> que você usa para testar se duas referências de objeto se referem à mesma instância de objeto.
+> Para obter mais informações, consulte <doc:ClassesAndStructures#Identity-Operators>.
 
-Each of the comparison operators returns a `Bool` value to indicate whether or not the statement is true:
+Cada um dos operadores de comparação retorna um valor `Bool` para indicar se a declaração é verdadeira ou não:
 
 ```swift
-1 == 1   // true because 1 is equal to 1
-2 != 1   // true because 2 isn't equal to 1
-2 > 1    // true because 2 is greater than 1
-1 < 2    // true because 1 is less than 2
-1 >= 1   // true because 1 is greater than or equal to 1
-2 <= 1   // false because 2 isn't less than or equal to 1
+1 == 1   // true porque 1 é igual a 1
+2 != 1   // true porque 2 não é igual a 1
+2 > 1    // true porque 2 é maior que 1
+1 < 2    // true porque 1 é menor que 2
+1 >= 1   // true porque 1 é maior ou igual a 1
+2 <= 1   // false porque 2 não é menor ou igual a 1
 ```
 
 
-@Comment {
-  - test: `comparisonOperators`
-  
-  ```swifttest
-  >> assert(
-  -> 1 == 1   // true because 1 is equal to 1
-  >> )
-  >> assert(
-  -> 2 != 1   // true because 2 isn't equal to 1
-  >> )
-  >> assert(
-  -> 2 > 1    // true because 2 is greater than 1
-  >> )
-  >> assert(
-  -> 1 < 2    // true because 1 is less than 2
-  >> )
-  >> assert(
-  -> 1 >= 1   // true because 1 is greater than or equal to 1
-  >> )
-  >> assert( !(
-  -> 2 <= 1   // false because 2 isn't less than or equal to 1
-  >> ) )
-  ```
-}
 
-Comparison operators are often used in conditional statements,
-such as the `if` statement:
+
+Operadores de comparação são frequentemente usados em declarações condicionais,
+como a instrução `if`:
 
 ```swift
 let name = "world"
@@ -441,48 +286,35 @@ if name == "world" {
 } else {
    print("I'm sorry \(name), but I don't recognize you")
 }
-// Prints "hello, world", because name is indeed equal to "world".
+// Imprime "hello, world", porque 'name' é, de fato, igual a "world".
 ```
 
 
-@Comment {
-  - test: `comparisonOperators`
-  
-  ```swifttest
-  -> let name = "world"
-  -> if name == "world" {
-        print("hello, world")
-     } else {
-        print("I'm sorry \(name), but I don't recognize you")
-     }
-  << hello, world
-  // Prints "hello, world", because name is indeed equal to "world".
-  ```
-}
 
-For more about the `if` statement, see <doc:ControlFlow>.
 
-You can compare
-two tuples if they have the same type and the same number of values.
-Tuples are compared from left to right,
-one value at a time,
-until the comparison finds two values
-that aren't equal.
-Those two values are compared,
-and the result of that comparison
-determines the overall result of the tuple comparison.
-If all the elements are equal,
-then the tuples themselves are equal.
-For example:
+Para saber mais sobre a instrução `if`, veja <doc:ControleDeFluxo>.
+
+Você pode comparar
+duas tuplas se elas tiverem o mesmo tipo e o mesmo número de valores.
+As tuplas são comparadas da esquerda para a direita,
+um valor de cada vez,
+até que a comparação encontre dois valores
+que não são iguais.
+Esses dois valores são comparados,
+e o resultado dessa comparação
+determina o resultado geral da comparação de tuplas.
+Se todos os elementos forem iguais,
+então as próprias tuplas são iguais. 
+Por exemplo:
 
 ```swift
-(1, "zebra") < (2, "apple")   // true because 1 is less than 2; "zebra" and "apple" aren't compared
-(3, "apple") < (3, "bird")    // true because 3 is equal to 3, and "apple" is less than "bird"
-(4, "dog") == (4, "dog")      // true because 4 is equal to 4, and "dog" is equal to "dog"
+(1, "zebra") < (2, "apple")   // true porque 1 é menor que 2; "zebra" e "apple" não são comparados
+(3, "apple") < (3, "bird")    // true porque 3 é igual a 3 e "apple" é menor que "bird"
+(4, "dog") == (4, "dog")      // true porque 4 é igual a 4 e "dog" é igual a "dog"
 ```
 
 
-@Comment {
+Comment {
   - test: `tuple-comparison-operators`
   
   ```swifttest
@@ -497,85 +329,51 @@ For example:
   ```
 }
 
-In the example above,
-you can see the left-to-right comparison behavior on the first line.
-Because `1` is less than `2`,
-`(1, "zebra")` is considered less than `(2, "apple")`,
-regardless of any other values in the tuples.
-It doesn't matter that `"zebra"` isn't less than `"apple"`,
-because the comparison is already determined by the tuples' first elements.
-However,
-when the tuples' first elements are the same,
-their second elements *are* compared ---
-this is what happens on the second and third line.
+No exemplo acima,
+você pode ver o comportamento de comparação da esquerda para a direita na primeira linha.
+Como `1` é menor que `2`,
+`(1, "zebra")` é considerado menor que `(2, "apple")`,
+independentemente de quaisquer outros valores nas tuplas.
+Não importa que `"zebra"` não seja menor que `"apple"`,
+porque a comparação já é determinada pelos primeiros elementos das tuplas.
+No entanto,
+quando os primeiros elementos das tuplas são os mesmos,
+seus segundos elementos **são** comparados ---
+isso é o que acontece na segunda e terceira linha.
 
-Tuples can be compared with a given operator only if the operator
-can be applied to each value in the respective tuples. For example,
-as demonstrated in the code below, you can compare
-two tuples of type `(String, Int)` because
-both `String` and `Int` values can be compared
-using the `<` operator.  In contrast,
-two tuples of type `(String, Bool)` can't be compared
-with the `<` operator because the `<` operator can't be applied to
-`Bool` values.
+Tuplas podem ser comparadas com um determinado operador somente se o operador
+pode ser aplicado a cada valor nas respectivas tuplas. Por exemplo,
+conforme demonstrado no código abaixo, você pode comparar
+duas tuplas do tipo `(String, Int)` porque
+ambos os valores `String` e `Int` podem ser comparados
+usando o operador `<`. Em contrapartida,
+duas tuplas do tipo `(String, Bool)` não podem ser comparadas
+com o operador `<` porque o operador `<` não pode ser aplicado a
+valores `Bool`.
 
 ```swift
-("blue", -1) < ("purple", 1)        // OK, evaluates to true
-("blue", false) < ("purple", true)  // Error because < can't compare Boolean values
+("blue", -1) < ("purple", 1)        // OK, avalia como true
+("blue", false) < ("purple", true)  // Erro, pois < não pode ser usado para valores Booleanos
+
 ```
 
 
-@Comment {
-  - test: `tuple-comparison-operators-err`
-  
-  ```swifttest
-  >> _ =
-  -> ("blue", -1) < ("purple", 1)        // OK, evaluates to true
-  >> _ =
-  -> ("blue", false) < ("purple", true)  // Error because < can't compare Boolean values
-  !$ error: type '(String, Bool)' cannot conform to 'Comparable'
-  !! ("blue", false) < ("purple", true)  // Error because < can't compare Boolean values
-  !!                 ^
-  !$ note: only concrete types such as structs, enums and classes can conform to protocols
-  !! ("blue", false) < ("purple", true)  // Error because < can't compare Boolean values
-  !!                 ^
-  !$ note: required by referencing operator function '<' on 'Comparable' where 'Self' = '(String, Bool)'
-  !! ("blue", false) < ("purple", true)  // Error because < can't compare Boolean values
-  !!                 ^
-  ```
-}
 
-@Comment {
-  - test: `tuple-comparison-operators-ok`
-  
-  ```swifttest
-  >> let x = ("blue", -1) < ("purple", 1)        // OK, evaluates to true
-  >> print(x)
-  << true
-  ```
-}
 
-> Note: The Swift standard library includes tuple comparison operators
-> for tuples with fewer than seven elements.
-> To compare tuples with seven or more elements,
-> you must implement the comparison operators yourself.
 
-@Comment {
-  TODO: which types do these operate on by default?
-  How do they work with strings?
-  How about with your own types?
-}
 
-## Ternary Conditional Operator
+> Nota: A biblioteca padrão do Swift inclui operadores de comparação de tuplas
+> para tuplas com menos de sete elementos.
+> Para comparar tuplas com sete ou mais elementos,
+> você mesmo deve implementar os operadores de comparação.
 
-The *ternary conditional operator* is a special operator with three parts,
-which takes the form `question ? answer1 : answer2`.
-It's a shortcut for evaluating one of two expressions
-based on whether `question` is true or false.
-If `question` is true, it evaluates `answer1` and returns its value;
-otherwise, it evaluates `answer2` and returns its value.
 
-The ternary conditional operator is shorthand for the code below:
+
+## Operador Condicional Ternário
+
+O *operador condicional ternário* é um operador especial com três partes, no formato `question ? answer1 : answer2`. É uma abreviação para escolher uma de duas expressões baseado se `question` é verdadeiro ou falso. Se `question` for verdadeiro, ele escolhe `answer1` e retorna seu valor; caso contrário, ele escolhe `answer2` e retorna seu valor.
+
+O operador condicional ternário é uma abreviação para o código abaixo:
 
 ```swift
 if question {
@@ -586,57 +384,23 @@ if question {
 ```
 
 
-@Comment {
-  - test: `ternaryConditionalOperatorOutline`
-  
-  ```swifttest
-  >> let question = true
-  >> let answer1 = true
-  >> let answer2 = true
-  -> if question {
-        answer1
-     } else {
-        answer2
-     }
-  !! /tmp/swifttest.swift:5:4: warning: expression of type 'Bool' is unused
-  !! answer1
-  !! ^~~~~~~
-  !! /tmp/swifttest.swift:7:4: warning: expression of type 'Bool' is unused
-  !! answer2
-  !! ^~~~~~~
-  ```
-}
 
-@Comment {
-  FIXME This example has too much hand waving.
-  Swift doesn't have 'if' expressions.
-}
 
-Here's an example, which calculates the height for a table row.
-The row height should be 50 points taller than the content height
-if the row has a header, and 20 points taller if the row doesn't have a header:
+
+
+Aqui está um exemplo, que calcula a altura da linha de uma tabela. A altura da linha deve ser 50 pontos mais alta que a altura do conteúdo se a linha tiver um cabeçalho. Caso contrário, a altura da linha deve ser 20 pontos mais alta:
 
 ```swift
 let contentHeight = 40
 let hasHeader = true
 let rowHeight = contentHeight + (hasHeader ? 50 : 20)
-// rowHeight is equal to 90
+// `rowHeight` é igual a 90
 ```
 
 
-@Comment {
-  - test: `ternaryConditionalOperatorPart1`
-  
-  ```swifttest
-  -> let contentHeight = 40
-  -> let hasHeader = true
-  -> let rowHeight = contentHeight + (hasHeader ? 50 : 20)
-  /> rowHeight is equal to \(rowHeight)
-  </ rowHeight is equal to 90
-  ```
-}
 
-The example above is shorthand for the code below:
+
+O exemplo acima é uma abreviação para o código abaixo:
 
 ```swift
 let contentHeight = 40
@@ -651,32 +415,12 @@ if hasHeader {
 ```
 
 
-@Comment {
-  - test: `ternaryConditionalOperatorPart2`
-  
-  ```swifttest
-  -> let contentHeight = 40
-  -> let hasHeader = true
-  -> let rowHeight: Int
-  -> if hasHeader {
-        rowHeight = contentHeight + 50
-     } else {
-        rowHeight = contentHeight + 20
-     }
-  /> rowHeight is equal to \(rowHeight)
-  </ rowHeight is equal to 90
-  ```
-}
 
-The first example's use of the ternary conditional operator means that
-`rowHeight` can be set to the correct value on a single line of code,
-which is more concise than the code used in the second example.
 
-The ternary conditional operator provides
-an efficient shorthand for deciding which of two expressions to consider.
-Use the ternary conditional operator with care, however.
-Its conciseness can lead to hard-to-read code if overused.
-Avoid combining multiple instances of the ternary conditional operator into one compound statement.
+O uso do operador condicional ternário no primeiro exemplo significa que `rowHeight` pode ser definido com o valor correto em uma única linha de código,
+que é mais conciso que o código usado no segundo exemplo.
+
+O operador condicional ternário fornece uma abreviação eficiente para decidir qual das duas expressões escolher. No entanto, use o operador condicional ternário com cuidado. Sua concisão pode levar a um código difícil de ler se usado em excesso. Evite combinar várias instâncias do operador condicional ternário em uma instrução composta.
 
 ## Nil-Coalescing Operator
 
@@ -693,18 +437,7 @@ a != nil ? a! : b
 ```
 
 
-@Comment {
-  - test: `nilCoalescingOperatorOutline`
-  
-  ```swifttest
-  >> var a: Int?
-  >> let b = 42
-  >> let c =
-  -> a != nil ? a! : b
-  >> print(c)
-  << 42
-  ```
-}
+
 
 The code above uses the ternary conditional operator and forced unwrapping (`a!`)
 to access the value wrapped inside `a` when `a` isn't `nil`,
@@ -728,18 +461,7 @@ var colorNameToUse = userDefinedColorName ?? defaultColorName
 ```
 
 
-@Comment {
-  - test: `nilCoalescingOperator`
-  
-  ```swifttest
-  -> let defaultColorName = "red"
-  -> var userDefinedColorName: String?   // defaults to nil
-  ---
-  -> var colorNameToUse = userDefinedColorName ?? defaultColorName
-  /> userDefinedColorName is nil, so colorNameToUse is set to the default of \"\(colorNameToUse)\"
-  </ userDefinedColorName is nil, so colorNameToUse is set to the default of "red"
-  ```
-}
+
 
 The `userDefinedColorName` variable is defined as an optional `String`,
 with a default value of `nil`.
@@ -762,16 +484,7 @@ colorNameToUse = userDefinedColorName ?? defaultColorName
 ```
 
 
-@Comment {
-  - test: `nilCoalescingOperator`
-  
-  ```swifttest
-  -> userDefinedColorName = "green"
-  -> colorNameToUse = userDefinedColorName ?? defaultColorName
-  /> userDefinedColorName isn't nil, so colorNameToUse is set to \"\(colorNameToUse)\"
-  </ userDefinedColorName isn't nil, so colorNameToUse is set to "green"
-  ```
-}
+
 
 ## Range Operators
 
@@ -785,32 +498,11 @@ defines a range that runs from `a` to `b`,
 and includes the values `a` and `b`.
 The value of `a` must not be greater than `b`.
 
-@Comment {
-  - test: `closedRangeStartCanBeLessThanEnd`
-  
-  ```swifttest
-  -> let range = 1...2
-  >> print(type(of: range))
-  << ClosedRange<Int>
-  ```
-}
 
-@Comment {
-  - test: `closedRangeStartCanBeTheSameAsEnd`
-  
-  ```swifttest
-  -> let range = 1...1
-  ```
-}
 
-@Comment {
-  - test: `closedRangeStartCannotBeGreaterThanEnd`
-  
-  ```swifttest
-  -> let range = 1...0
-  xx assertion
-  ```
-}
+
+
+
 
 The closed range operator is useful when iterating over a range
 in which you want all of the values to be used,
@@ -828,65 +520,32 @@ for index in 1...5 {
 ```
 
 
-@Comment {
-  - test: `rangeOperators`
-  
-  ```swifttest
-  -> for index in 1...5 {
-        print("\(index) times 5 is \(index * 5)")
-     }
-  </ 1 times 5 is 5
-  </ 2 times 5 is 10
-  </ 3 times 5 is 15
-  </ 4 times 5 is 20
-  </ 5 times 5 is 25
-  ```
-}
+
 
 For more about `for`-`in` loops, see <doc:ControlFlow>.
 
-### Half-Open Range Operator
+### Operador de intervalo semiaberto
 
-The *half-open range operator* (`a..<b`)
-defines a range that runs from `a` to `b`,
-but doesn't include `b`.
-It's said to be *half-open*
-because it contains its first value, but not its final value.
-As with the closed range operator,
-the value of `a` must not be greater than `b`.
-If the value of `a` is equal to `b`,
-then the resulting range will be empty.
+O *operador de intervalo semiaberto*
+define o intervalo que percorre de ‘a’ até ‘b’,
+mas não inclui ‘b’.
+É definido como semiabeto
+pois contém seu primeiro valor, mas não seu valor final.
+Assim como o operador de intervalo fechado,
+o valor de ‘a’ não deve ser maior que ‘b’.
+Se o valor de ‘a’ é igual a ‘b’.
+então o intervalo resultante será vazio.
 
-@Comment {
-  - test: `halfOpenRangeStartCanBeLessThanEnd`
-  
-  ```swifttest
-  -> let range = 1..<2
-  >> print(type(of: range))
-  << Range<Int>
-  ```
-}
 
-@Comment {
-  - test: `halfOpenRangeStartCanBeTheSameAsEnd`
-  
-  ```swifttest
-  -> let range = 1..<1
-  ```
-}
 
-@Comment {
-  - test: `halfOpenRangeStartCannotBeGreaterThanEnd`
-  
-  ```swifttest
-  -> let range = 1..<0
-  xx assertion
-  ```
-}
 
-Half-open ranges are particularly useful when you work with
-zero-based lists such as arrays,
-where it's useful to count up to (but not including) the length of the list:
+
+
+
+
+Intervalos semiabertos são particularmente úteis quando você trabalha com
+listas baseadas em zero como os _arrays_,
+onde é útil contar até (mas sem incluir) o comprimento da lista:
 
 ```swift
 let names = ["Anna", "Alex", "Brian", "Jack"]
@@ -901,42 +560,29 @@ for i in 0..<count {
 ```
 
 
-@Comment {
-  - test: `rangeOperators`
-  
-  ```swifttest
-  -> let names = ["Anna", "Alex", "Brian", "Jack"]
-  -> let count = names.count
-  >> assert(count == 4)
-  -> for i in 0..<count {
-        print("Person \(i + 1) is called \(names[i])")
-     }
-  </ Person 1 is called Anna
-  </ Person 2 is called Alex
-  </ Person 3 is called Brian
-  </ Person 4 is called Jack
-  ```
-}
 
-Note that the array contains four items,
-but `0..<count` only counts as far as `3`
-(the index of the last item in the array),
-because it's a half-open range.
-For more about arrays, see <doc:CollectionTypes#Arrays>.
 
-### One-Sided Ranges
+Note que o _array_ contém quatro itens,
+mas ‘0..<count’ somente conta até ‘3’
+(o índice do último item no _array_),
+pois é um intervalo semiaberto.
+Para saber mais sobre _arrays_, veja: <doc:CollectionTypes#Arrays>.
 
-The closed range operator
-has an alternative form for ranges that continue
-as far as possible in one direction ---
-for example,
-a range that includes all the elements of an array
-from index 2 to the end of the array.
-In these cases, you can omit the value
-from one side of the range operator.
-This kind of range is called a *one-sided range*
-because the operator has a value on only one side.
-For example:
+
+### Intervalos unilaterais
+
+O operador de intervalo fechado
+tem uma forma alternativa para intervalos que continuam
+
+o mais longe possível em uma direção ---
+por exemplo,
+um intervalo que inclui todos os elementos de um array
+do index 2 até o fim do array.
+Nesses casos, você pode omitir o valor
+de um lado do operador de intervalo.
+Esse tipo de intervalo é chamado de *intervalo unilateral* (one-sided range)
+porque o operador possui valor em apenas um lado.
+Por exemplo:
 
 ```swift
 for name in names[2...] {
@@ -954,31 +600,15 @@ for name in names[...2] {
 ```
 
 
-@Comment {
-  - test: `rangeOperators`
-  
-  ```swifttest
-  -> for name in names[2...] {
-         print(name)
-     }
-  </ Brian
-  </ Jack
-  ---
-  -> for name in names[...2] {
-         print(name)
-     }
-  </ Anna
-  </ Alex
-  </ Brian
-  ```
-}
 
-The half-open range operator also has
-a one-sided form that's written
-with only its final value.
-Just like when you include a value on both sides,
-the final value isn't part of the range.
-For example:
+
+O intervalo meio-aberto também tem
+uma forma unilateral que é escrita
+com apenas seu valor final.
+Da mesma forma que se inclui um valor em ambos os lados,
+o valor final não é parte do intervalo.
+Por exemplo:
+
 
 ```swift
 for name in names[..<2] {
@@ -989,28 +619,19 @@ for name in names[..<2] {
 ```
 
 
-@Comment {
-  - test: `rangeOperators`
-  
-  ```swifttest
-  -> for name in names[..<2] {
-         print(name)
-     }
-  </ Anna
-  </ Alex
-  ```
-}
 
-One-sided ranges can be used in other contexts,
-not just in subscripts.
-You can't iterate over a one-sided range
-that omits a first value,
-because it isn't clear where iteration should begin.
-You *can* iterate over a one-sided range that omits its final value;
-however, because the range continues indefinitely,
-make sure you add an explicit end condition for the loop.
-You can also check whether a one-sided range contains a particular value,
-as shown in the code below.
+
+Intervalos unilaterais podem ser usados em outros contextos,
+não apenas em subscritos.
+Você não pode iterar sobre um intervalo unilateral
+que omite o primeiro valor,
+pois não é claro onde a iteração deve iniciar.
+Voce *pode* iterar sobre um intervalo unilateral que omite seu valor final;
+entretanto, por conta do intervalo continuar indefinidamente, 
+certifique-se de adicionar uma condição explícita para finalizar o loop.
+Voce pode também checar se um intervalo unilateral contém um valor particular,
+como mostrado no código abaixo.
+
 
 ```swift
 let range = ...5
@@ -1020,23 +641,7 @@ range.contains(-1)  // true
 ```
 
 
-@Comment {
-  - test: `rangeOperators`
-  
-  ```swifttest
-  -> let range = ...5
-  >> print(type(of: range))
-  << PartialRangeThrough<Int>
-  >> let a =
-  -> range.contains(7)   // false
-  >> let b =
-  -> range.contains(4)   // true
-  >> let c =
-  -> range.contains(-1)  // true
-  >> print(a, b, c)
-  << false true true
-  ```
-}
+
 
 ## Logical Operators
 
@@ -1066,17 +671,7 @@ if !allowedEntry {
 ```
 
 
-@Comment {
-  - test: `logicalOperators`
-  
-  ```swifttest
-  -> let allowedEntry = false
-  -> if !allowedEntry {
-        print("ACCESS DENIED")
-     }
-  <- ACCESS DENIED
-  ```
-}
+
 
 A frase `if !entradaPermitida` pode ser lida como "if entrada não permitida."
 A linha só é executada se "entrada não permitida" for verdadeira;
@@ -1087,20 +682,20 @@ escolha cuidadosa de nomes de constantes e variáveis booleanas
 pode ajudar a manter o código legível e conciso,
 evitando duplas negativas ou declarações lógicas confusas.
 
-### Logical AND Operator
+### Operador Lógico AND
 
-The *logical AND operator* (`a && b`) creates logical expressions
-where both values must be `true` for the overall expression to also be `true`.
+O *Operador Lógico AND* (`a && b`) cria expressões lógicas
+onde ambos os valores devem ser `true` para que a expressão geral também seja `true`.
 
-If either value is `false`,
-the overall expression will also be `false`.
-In fact, if the *first* value is `false`,
-the second value won't even be evaluated,
-because it can't possibly make the overall expression equate to `true`.
-This is known as *short-circuit evaluation*.
+Se um dos valores for `falso`,
+a expressao geral será tida como `false`.
+Na verdade, se o *primeiro* valor for `falso`,
+o segundo valor nem será avaliado,
+porque não é possível que a expressão geral seja igual a `true`.
+Isso é conhecido como *avaliação de curto-circuito*.
 
-This example considers two `Bool` values
-and only allows access if both values are `true`:
+Este exemplo considera dois valores `Bool`
+e só permite acesso se ambos os valores forem `true`:
 
 ```swift
 let enteredDoorCode = true
@@ -1108,47 +703,34 @@ let passedRetinaScan = false
 if enteredDoorCode && passedRetinaScan {
    print("Welcome!")
 } else {
-   print("ACCESS DENIED")
+   print("ACESS DENIED")
 }
-// Prints "ACCESS DENIED"
+// Prints "ACESS DENIED"
 ```
 
 
-@Comment {
-  - test: `logicalOperators`
-  
-  ```swifttest
-  -> let enteredDoorCode = true
-  -> let passedRetinaScan = false
-  -> if enteredDoorCode && passedRetinaScan {
-        print("Welcome!")
-     } else {
-        print("ACCESS DENIED")
-     }
-  <- ACCESS DENIED
-  ```
-}
 
-### Logical OR Operator
 
-The *logical OR operator*
-(`a || b`) is an infix operator made from two adjacent pipe characters.
-You use it to create logical expressions in which
-only *one* of the two values has to be `true`
-for the overall expression to be `true`.
+### Operador Lógico OR
 
-Like the Logical AND operator above,
-the Logical OR operator uses short-circuit evaluation to consider its expressions.
-If the left side of a Logical OR expression is `true`,
-the right side isn't evaluated,
-because it can't change the outcome of the overall expression.
+O *Operador Lógico OR*
+(`a || b`) é um operador infixo feito de dois caracteres pipe adjacentes.
+Você o usa para criar expressões lógicas nas quais
+basta *um* dos dois valores deve ser `true`
+para que a expressão geral seja `true`.
 
-In the example below,
-the first `Bool` value (`hasDoorKey`) is `false`,
-but the second value (`knowsOverridePassword`) is `true`.
-Because one value is `true`,
-the overall expression also evaluates to `true`,
-and access is allowed:
+Como o operador lógico AND acima,
+o operador lógico OR usa avaliação de curto-circuito para considerar suas expressões.
+Se o lado esquerdo de uma expressão lógica OR for "true",
+o lado direito não é avaliado,
+porque não pode alterar o resultado da expressão geral.
+
+No exemplo abaixo,
+o primeiro valor `Bool` (`hasDoorKey`) é `false`,
+mas o segundo valor (`knowsOverridePassword`) é `true`.
+Como um valor é `true`,
+a expressão geral também é avaliada como `true`,
+e o acesso é permitido:
 
 ```swift
 let hasDoorKey = false
@@ -1162,20 +744,7 @@ if hasDoorKey || knowsOverridePassword {
 ```
 
 
-@Comment {
-  - test: `logicalOperators`
-  
-  ```swifttest
-  -> let hasDoorKey = false
-  -> let knowsOverridePassword = true
-  -> if hasDoorKey || knowsOverridePassword {
-        print("Welcome!")
-     } else {
-        print("ACCESS DENIED")
-     }
-  <- Welcome!
-  ```
-}
+
 
 ### Combining Logical Operators
 
@@ -1191,18 +760,7 @@ if enteredDoorCode && passedRetinaScan || hasDoorKey || knowsOverridePassword {
 ```
 
 
-@Comment {
-  - test: `logicalOperators`
-  
-  ```swifttest
-  -> if enteredDoorCode && passedRetinaScan || hasDoorKey || knowsOverridePassword {
-        print("Welcome!")
-     } else {
-        print("ACCESS DENIED")
-     }
-  <- Welcome!
-  ```
-}
+
 
 This example uses multiple `&&` and `||` operators to create a longer compound expression.
 However, the `&&` and `||` operators still operate on only two values,
@@ -1241,18 +799,7 @@ if (enteredDoorCode && passedRetinaScan) || hasDoorKey || knowsOverridePassword 
 ```
 
 
-@Comment {
-  - test: `logicalOperators`
-  
-  ```swifttest
-  -> if (enteredDoorCode && passedRetinaScan) || hasDoorKey || knowsOverridePassword {
-        print("Welcome!")
-     } else {
-        print("ACCESS DENIED")
-     }
-  <- Welcome!
-  ```
-}
+
 
 The parentheses make it clear that the first two values
 are considered as part of a separate possible state in the overall logic.
@@ -1262,12 +809,4 @@ Readability is always preferred over brevity;
 use parentheses where they help to make your intentions clear.
 
 
-@Comment {
-This source file is part of the Swift.org open source project
 
-Copyright (c) 2014 - 2022 Apple Inc. and the Swift project authors
-Licensed under Apache License v2.0 with Runtime Library Exception
-
-See https://swift.org/LICENSE.txt for license information
-See https://swift.org/CONTRIBUTORS.txt for the list of Swift project authors
-}

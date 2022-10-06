@@ -1,43 +1,42 @@
 
+# Operadores Avançados
 
-# Advanced Operators
+Além dos operadores descritos no tópico <doc:OperadoresBasicos>,
+a linguagem Swift oferece o tópico Operadores Avançados que fazem manipulação de valores mais complexa. 
+Lá são incluídos operadores bit a bit e operadores com deslocamento que estamos familiarizados em C e Objective-C.
 
-In addition to the operators described in <doc:BasicOperators>,
-Swift provides several advanced operators that perform more complex value manipulation.
-These include all of the bitwise and bit shifting operators you will be familiar with
-from C and Objective-C.
 
-Unlike arithmetic operators in C,
-arithmetic operators in Swift don't overflow by default.
-Overflow behavior is trapped and reported as an error.
-To opt in to overflow behavior,
-use Swift's second set of arithmetic operators that overflow by default,
-such as the overflow addition operator (`&+`).
-All of these overflow operators begin with an ampersand (`&`).
+Ao contrário dos operadores aritméticos em C,
+os operadores aritméticos em Swift não possuem overflow por padrão.
+O overflow é interceptado e relatado como um erro.
+Para ativar o overflow,
+use o segundo conjunto de operadores aritméticos de Swift,
+como o operador de adição de overflow (`&+`).
+Todos esses operadores de overflow começam com um e comercial (`&`).
 
-When you define your own structures, classes, and enumerations,
-it can be useful to provide your own implementations of
-the standard Swift operators for these custom types.
-Swift makes it easy to provide tailored implementations of these operators
-and to determine exactly what their behavior should be for each type you create.
+Quando você define suas próprias estruturas, classes, e enumerações,
+pode ser útil fornecer suas próprias implementações dos
+operadores padrão do Swift para esses tipos personalizados.
+O Swift facilita o fornecimento de implementações personalizadas desses operadores
+e determina exatamente qual deve ser o comportamento deles para cada tipo criado.
 
-You're not limited to the predefined operators.
-Swift gives you the freedom to define your own custom
-infix, prefix, postfix, and assignment operators,
-with custom precedence and associativity values.
-These operators can be used and adopted in your code like any of the predefined operators,
-and you can even extend existing types to support the custom operators you define.
+Você não está limitado a operadores predefinidos.
+A linguagem Swift dá liberdade de definir a forma como personaliza
+operadores de infixo, prefixo, pós-fixo, e atribuição,
+com precedência personalizada e valores associativos.
+Esses operadores podem ser usados e adotados no código como qualquer um dos operadores predefinidos,
+e você pode até estender os tipos existentes para suporte de operadores personalizados que você definir.
 
-## Bitwise Operators
+## Operadores Bit a bit
 
-*Bitwise operators* enable you to manipulate
-the individual raw data bits within a data structure.
-They're often used in low-level programming,
-such as graphics programming and device driver creation.
-Bitwise operators can also be useful when you work with raw data from external sources,
-such as encoding and decoding data for communication over a custom protocol.
+*Operadores bit a bit* permitem que você manipule 
+os bits de dados brutos individuais, dentro de uma estrutura de dados.
+Eles são frequentemente usados em programação de baixo-nível,
+como em programação gráfica e criação de driver de dispositivo.
+Operadores bit a bit podem ser úteis quando você trabalha com dados brutos para fontes externas,
+como codificação e decodificação de dados para comunicação por meio de um protocolo personalizado.
 
-Swift supports all of the bitwise operators found in C, as described below.
+O Swift suporta todos os operadores bit a bit encontrados em C, como descrito abaixo.
 
 ### Operador _Bitwise NOT_
 
@@ -150,17 +149,17 @@ let outputBits = firstBits ^ otherBits  // equals 00010001
 
 
 
-### Bitwise Left and Right Shift Operators
+### Deslocamento à esquerda e à direita
 
-The *bitwise left shift operator* (`<<`)
-and *bitwise right shift operator* (`>>`)
-move all bits in a number to the left or the right by a certain number of places,
-according to the rules defined below.
+O *operador com deslocamento à esquerda* (`<<`)
+e o *operador com deslocamento à direita* (`>>`)
+move todos os bits em um número para a esquerda ou para a direita considerando um certo número de espaços,
+de acordo com as regras definidas abaixo.
 
-Bitwise left and right shifts have the effect of
-multiplying or dividing an integer by a factor of two.
-Shifting an integer's bits to the left by one position doubles its value,
-whereas shifting it to the right by one position halves its value.
+Deslocamentos bit a bit à esquerda e à direita têm um efeito de
+multiplicador ou divisor de um número inteiro pelo fator dois.
+Deslocar bits de um inteiro à esquerda em uma posição dobra seu valor,
+enquanto que deslocá-lo para a direita em uma posição reduz pela metade o seu valor.
 
 
 

@@ -1434,7 +1434,7 @@ let sideLength = optionalSquare?.sideLength
   ```
 }
 
-## Enumerações e Structures
+## Enumerações e Estruturas
 
 Use `enum` para criar uma enumeração.
 Como classes e todos os outros tipos, enumerações podem ter métodos associados a elas.
@@ -1451,7 +1451,7 @@ Como classes e todos os outros tipos, enumerações podem ter métodos associado
 
 ```swift
 enum Posicao: Int {
-    case as = 1
+    case aS = 1
     case dois, tres, quatro, cinco, seis, sete, oito, nove, dez
     case valete, rainha, rei
 
@@ -1470,8 +1470,8 @@ enum Posicao: Int {
         }
     }
 }
-let as = Posicao.ace
-let asRawValue = as.rawValue
+let aS = Posicao.aS
+let asRawValue = aS.rawValue
 ```
 
 
@@ -1507,7 +1507,7 @@ let asRawValue = as.rawValue
 }
 
 > Experimento: Escreva uma função que compare dois valores de Posicao
-> comparando os seus valores brutos.
+> comparando os seus `rawValue`.
 
 Por padrão, Swift atribui os `rawValue` começando de zero e incrementando um de cada vez. 
 No exemplo acima, `as` é explicitamente atribuído a um `rawValue` de 1 e o resto são atribuídos por ordem.
@@ -1536,7 +1536,7 @@ if let posicaoConvertida = Posicao(rawValue: 3) {
 
 Os valores de caso de uma enumeração são valores reais,
 e não apenas outra forma de escrever os seus valores em bruto.
-De fato, nos casos em que não existe um valor bruto significativo,
+De fato, nos casos em que não existe contexto,
 não é necessário fornecer um.
 
 ```swift
@@ -1602,9 +1602,9 @@ Quando se atribui um valor à constante "copas",
 o caso de enumeração `Naipe.copas` é referido pelo seu nome completo
 porque a constante não tem um tipo explícito especificado.
 Dentro do switch,
-o caso de enumeração é referido pela forma abreviada `.copas'.
-porque o valor de "si mesmo" já é conhecido por ser um fato.
-Pode utilizar a forma abreviada sempre que o tipo de valor já seja conhecido.
+o caso de enumeração é referido pela forma abreviada `.copas`.
+porque o valor de `self` já é conhecido por ser um fato.
+Pode utilizar a forma abreviada sempre que o tipo de valor for conhecido.
 
 Se uma enumeração tiver valores em bruto (`rawValue`),
 esse são determinados como parte da declaração,
@@ -1697,7 +1697,7 @@ switch sucesso {
 
 
 Repare como o nascer do sol e o pôr-do-sol
-são extraídos do valor `ServerResponse'.
+são extraídos do valor `ServerResponse`.
 como parte da correspondência do valor com os casos do switch.
 
 Utilize `struct` para criar uma estrutura.

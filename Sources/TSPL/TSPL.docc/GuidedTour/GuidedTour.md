@@ -1434,11 +1434,10 @@ let sideLength = optionalSquare?.sideLength
   ```
 }
 
-## Enumerations and Structures
+## Enumerações e Structures
 
-Use `enum` to create an enumeration.
-Like classes and all other named types,
-enumerations can have methods associated with them.
+Use `enum` para criar uma enumeração.
+Como classes e todos os outros tipos, enumerações podem ter métodos associados a elas.
 
 @Comment {
   REFERENCE
@@ -1451,28 +1450,28 @@ enumerations can have methods associated with them.
 }
 
 ```swift
-enum Rank: Int {
-    case ace = 1
-    case two, three, four, five, six, seven, eight, nine, ten
-    case jack, queen, king
+enum Posicao: Int {
+    case as = 1
+    case dois, tres, quatro, cinco, seis, sete, oito, nove, dez
+    case valete, rainha, rei
 
-    func simpleDescription() -> String {
+    func descricao() -> String {
         switch self {
-            case .ace:
-                return "ace"
-            case .jack:
-                return "jack"
-            case .queen:
-                return "queen"
-            case .king:
-                return "king"
+            case .as:
+                return "às"
+            case .valete:
+                return "valete"
+            case .rainha:
+                return "rainha"
+            case .rei:
+                return "rei"
             default:
                 return String(self.rawValue)
         }
     }
 }
-let ace = Rank.ace
-let aceRawValue = ace.rawValue
+let as = Posicao.ace
+let asRawValue = as.rawValue
 ```
 
 
@@ -1485,7 +1484,7 @@ let aceRawValue = ace.rawValue
          case two, three, four, five, six, seven, eight, nine, ten
          case jack, queen, king
   ---
-         func simpleDescription() -> String {
+         func descricao() -> String {
              switch self {
                  case .ace:
                      return "ace"
@@ -1500,33 +1499,25 @@ let aceRawValue = ace.rawValue
              }
          }
      }
-  -> let ace = Rank.ace
-  -> let aceRawValue = ace.rawValue
-  >> print(aceRawValue)
+  -> let as = Posicao.as
+  -> let asDescricao = as.rawValue
+  >> print(asDescricao)
   << 1
   ```
 }
 
-> Experiment: Write a function that compares two `Rank` values
-> by comparing their raw values.
+> Experimento: Escreva uma função que compare dois valores de Posicao
+> comparando os seus valores brutos.
 
-By default, Swift assigns the raw values starting at zero
-and incrementing by one each time,
-but you can change this behavior by explicitly specifying values.
-In the example above, `Ace` is explicitly given a raw value of `1`,
-and the rest of the raw values are assigned in order.
-You can also use strings or floating-point numbers
-as the raw type of an enumeration.
-Use the `rawValue` property to access the raw value of an enumeration case.
+Por padrão, Swift atribui os `rawValue` começando de zero e incrementando um de cada vez. 
+No exemplo acima, `as` é explicitamente atribuído a um `rawValue` de 1 e o resto são atribuídos por ordem.
+Também é possível utilizar cadeias de caracteres (Strings) ou números de ponto flutuante (Float) como o tipo de `rawValue` na enumeração.
+Use o construtor `init?(rawValue:)` para criar uma enumeração a partir de um `rawValue`. Retorna o caso correspondente ou `nil` se não houver relação.
 
-Use the `init?(rawValue:)` initializer
-to make an instance of an enumeration from a raw value.
-It returns either the enumeration case matching the raw value
-or `nil` if there's no matching `Rank`.
 
 ```swift
-if let convertedRank = Rank(rawValue: 3) {
-    let threeDescription = convertedRank.simpleDescription()
+if let posicaoConvertida = Posicao(rawValue: 3) {
+    let descricaoTres = posicaoConvertida.descricao()
 }
 ```
 
@@ -1543,31 +1534,30 @@ if let convertedRank = Rank(rawValue: 3) {
   ```
 }
 
-The case values of an enumeration are actual values,
-not just another way of writing their raw values.
-In fact,
-in cases where there isn't a meaningful raw value,
-you don't have to provide one.
+Os valores de caso de uma enumeração são valores reais,
+e não apenas outra forma de escrever os seus valores em bruto.
+De fato, nos casos em que não existe um valor bruto significativo,
+não é necessário fornecer um.
 
 ```swift
-enum Suit {
-    case spades, hearts, diamonds, clubs
+enum Naipe {
+    case espadas, copas, ouros, paus
 
-    func simpleDescription() -> String {
+    func descricao() -> String {
         switch self {
-            case .spades:
-                return "spades"
-            case .hearts:
-                return "hearts"
-            case .diamonds:
-                return "diamonds"
-            case .clubs:
-                return "clubs"
+            case .espadas:
+                return "espadas"
+            case .copas:
+                return "copas"
+            case .ouros:
+                return "ouros"
+            case .paus:
+                return "paus"
         }
     }
 }
-let hearts = Suit.hearts
-let heartsDescription = hearts.simpleDescription()
+let copas = Naipe.copas
+let copasDescricao = copas.descricao()
 ```
 
 
@@ -1598,8 +1588,8 @@ let heartsDescription = hearts.simpleDescription()
   ```
 }
 
-> Experiment: Add a `color()` method to `Suit` that returns "black"
-> for spades and clubs, and returns "red" for hearts and diamonds.
+> Experimento: Adicione um método `cor()` à `Naipe` que retorna "preto"
+> para espadas e paus, e retorna "vermelho" para copas e ouros.
 
 @Comment {
   Suits are in Bridge order, which matches Unicode order.
@@ -1607,32 +1597,26 @@ let heartsDescription = hearts.simpleDescription()
   Wikipedia lists a good half dozen orders.
 }
 
-Notice the two ways that the `hearts` case of the enumeration
-is referred to above:
-When assigning a value to the `hearts` constant,
-the enumeration case `Suit.hearts` is referred to by its full name
-because the constant doesn't have an explicit type specified.
-Inside the switch,
-the enumeration case is referred to by the abbreviated form `.hearts`
-because the value of `self` is already known to be a suit.
-You can use the abbreviated form
-anytime the value's type is already known.
+Repare nas duas maneiras que o caso "copas" da enumeração é referida acima:
+Quando se atribui um valor à constante "copas",
+o caso de enumeração `Naipe.copas` é referido pelo seu nome completo
+porque a constante não tem um tipo explícito especificado.
+Dentro do switch,
+o caso de enumeração é referido pela forma abreviada `.copas'.
+porque o valor de "si mesmo" já é conhecido por ser um fato.
+Pode utilizar a forma abreviada sempre que o tipo de valor já seja conhecido.
 
-If an enumeration has raw values,
-those values are determined as part of the declaration,
-which means every instance of a particular enumeration case
-always has the same raw value.
-Another choice for enumeration cases
-is to have values associated with the case ---
-these values are determined when you make the instance,
-and they can be different for each instance of an enumeration case.
-You can think of the associated values
-as behaving like stored properties of the enumeration case instance.
-For example,
-consider the case of requesting
-the sunrise and sunset times from a server.
-The server either responds with the requested information,
-or it responds with a description of what went wrong.
+Se uma enumeração tiver valores em bruto (`rawValue`),
+esse são determinados como parte da declaração,
+o que significa cada instância de um caso de enumeração particular
+tem sempre o mesmo valor.
+Outra escolha para casos de enumeração
+é ter valores associados ao caso ---
+estessão determinados quando se faz a instância,
+e podem ser diferentes para cada caso de enumeração.
+Pode-se pensar nos valores associados como comportando-se como propriedades armazenadas da instância de enumeração.
+Por exemplo, considerar o caso de pedir a hora do nascer e do pôr-do-sol de um servidor.
+O servidor ou responde com as informações solicitadas, ou responde com uma descrição do que correu mal.
 
 @Comment {
   REFERENCE
@@ -1669,21 +1653,21 @@ or it responds with a description of what went wrong.
 }
 
 ```swift
-enum ServerResponse {
-    case result(String, String)
-    case failure(String)
+enum RepostaServidor {
+    case resultado(String, String)
+    case falha(String)
 }
 
-let success = ServerResponse.result("6:00 am", "8:09 pm")
-let failure = ServerResponse.failure("Out of cheese.")
+let sucesso = RepostaServidor.resultado("6:00", "20:09")
+let falha =  RepostaServidor.falha("Deu bug")
 
-switch success {
-    case let .result(sunrise, sunset):
-        print("Sunrise is at \(sunrise) and sunset is at \(sunset).")
-    case let .failure(message):
-        print("Failure...  \(message)")
+switch sucesso {
+    case let .result(nascerDoSol, porDoSol):
+        print("Nascer do Sol será às \(sunrise) e Pôr do Sol será às \(porDoSol).")
+    case let .falha(mensagem):
+        print("Falha...  \(mensagem)")
 }
-// Prints "Sunrise is at 6:00 am and sunset is at 8:09 pm."
+// Printa "Nascer do Sol será às 6:00 e Pôr do Sol será às 20:09."
 ```
 
 
@@ -1709,30 +1693,33 @@ switch success {
   ```
 }
 
-> Experiment: Add a third case to `ServerResponse` and to the switch.
+> Experimento: Adicione um terceiro caso à `ServerResponse`, bem como para o Switch
 
-Notice how the sunrise and sunset times
-are extracted from the `ServerResponse` value
-as part of matching the value against the switch cases.
 
-Use `struct` to create a structure.
-Structures support many of the same behaviors as classes,
-including methods and initializers.
-One of the most important differences
-between structures and classes is that
-structures are always copied when they're passed around in your code,
-but classes are passed by reference.
+Repare como o nascer do sol e o pôr-do-sol
+são extraídos do valor `ServerResponse'.
+como parte da correspondência do valor com os casos do switch.
+
+Utilize `struct` para criar uma estrutura.
+As estruturas suportam muitos dos mesmos comportamentos que as classes,
+incluindo métodos e inicializadores.
+Uma das diferenças mais importantes
+entre elas é que
+as estruturas são sempre copiadas quando são passadas de um lado para o outro no seu código,
+mas as classes são passadas por referência.
+
 
 ```swift
-struct Card {
-    var rank: Rank
-    var suit: Suit
-    func simpleDescription() -> String {
-        return "The \(rank.simpleDescription()) of \(suit.simpleDescription())"
+struct Carta {
+    var posicao: Posicao
+    var naipe: Naipe
+    func descricao() -> String {
+        return "O \(posicao.descricao) de \(naipe.descricao)"
     }
 }
-let threeOfSpades = Card(rank: .three, suit: .spades)
-let threeOfSpadesDescription = threeOfSpades.simpleDescription()
+
+let tresDeEspadas = Carta(posicao: .tres, naipe: .espadas)
+let tresDeEspadasDescricao = tresDeEspadas.descricao()
 ```
 
 
@@ -1754,9 +1741,9 @@ let threeOfSpadesDescription = threeOfSpades.simpleDescription()
   ```
 }
 
-> Experiment: Write a function that returns an array containing
-> a full deck of cards,
-> with one card of each combination of rank and suit.
+> Experimento: Escrever uma função que devolve um array 
+>contendo um baralho cheio de cartas 
+>com uma delas de cada combinação de Posicao e Naipe
 
 ## Concurrency
 

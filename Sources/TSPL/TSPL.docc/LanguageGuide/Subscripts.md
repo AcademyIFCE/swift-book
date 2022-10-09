@@ -16,10 +16,7 @@ Subscripts aren't limited to a single dimension,
 and you can define subscripts with multiple input parameters
 to suit your custom type's needs.
 
-@Comment {
-  TODO: this chapter should provide an example of subscripting an enumeration,
-  as per Joe Groff's example from rdar://16555559.
-}
+
 
 ## Subscript Syntax
 
@@ -45,23 +42,7 @@ subscript(index: Int) -> Int {
 ```
 
 
-@Comment {
-  - test: `subscriptSyntax`
-  
-  ```swifttest
-  >> class Test1 {
-  -> subscript(index: Int) -> Int {
-        get {
-           // Return an appropriate subscript value here.
-  >>       return 1
-        }
-        set(newValue) {
-           // Perform a suitable setting action here.
-        }
-     }
-  >> }
-  ```
-}
+
 
 The type of `newValue` is the same as the return value of the subscript.
 As with computed properties, you can choose not to specify
@@ -80,18 +61,7 @@ subscript(index: Int) -> Int {
 ```
 
 
-@Comment {
-  - test: `subscriptSyntax`
-  
-  ```swifttest
-  >> class Test2 {
-  -> subscript(index: Int) -> Int {
-        // Return an appropriate subscript value here.
-  >>    return 1
-     }
-  >> }
-  ```
-}
+
 
 Here's an example of a read-only subscript implementation,
 which defines a `TimesTable` structure to represent an *n*-times-table of integers:
@@ -109,21 +79,7 @@ print("six times three is \(threeTimesTable[6])")
 ```
 
 
-@Comment {
-  - test: `timesTable`
-  
-  ```swifttest
-  -> struct TimesTable {
-        let multiplier: Int
-        subscript(index: Int) -> Int {
-           return multiplier * index
-        }
-     }
-  -> let threeTimesTable = TimesTable(multiplier: 3)
-  -> print("six times three is \(threeTimesTable[6])")
-  <- six times three is 18
-  ```
-}
+
 
 In this example, a new instance of `TimesTable` is created
 to represent the three-times-table.
@@ -159,14 +115,7 @@ numberOfLegs["bird"] = 2
 ```
 
 
-@Comment {
-  - test: `dictionarySubscript`
-  
-  ```swifttest
-  -> var numberOfLegs = ["spider": 8, "ant": 6, "cat": 4]
-  -> numberOfLegs["bird"] = 2
-  ```
-}
+
 
 The example above defines a variable called `numberOfLegs`
 and initializes it with a dictionary literal containing three key-value pairs.
@@ -201,20 +150,7 @@ and <doc:Functions#Default-Parameter-Values>.
 However, unlike functions,
 subscripts can't use in-out parameters.
 
-@Comment {
-  - test: `subscripts-can-have-default-arguments`
-  
-  ```swifttest
-  >> struct Subscriptable {
-  >>     subscript(x: Int, y: Int = 0) -> Int {
-  >>         return 100
-  >>     }
-  >> }
-  >> let s = Subscriptable()
-  >> print(s[0])
-  << 100
-  ```
-}
+
 
 A class or structure can provide as many subscript implementations as it needs,
 and the appropriate subscript to be used will be inferred based on
@@ -255,34 +191,7 @@ struct Matrix {
 ```
 
 
-@Comment {
-  - test: `matrixSubscript, matrixSubscriptAssert`
-  
-  ```swifttest
-  -> struct Matrix {
-        let rows: Int, columns: Int
-        var grid: [Double]
-        init(rows: Int, columns: Int) {
-           self.rows = rows
-           self.columns = columns
-           grid = Array(repeating: 0.0, count: rows * columns)
-        }
-        func indexIsValid(row: Int, column: Int) -> Bool {
-           return row >= 0 && row < rows && column >= 0 && column < columns
-        }
-        subscript(row: Int, column: Int) -> Double {
-           get {
-              assert(indexIsValid(row: row, column: column), "Index out of range")
-              return grid[(row * columns) + column]
-           }
-           set {
-              assert(indexIsValid(row: row, column: column), "Index out of range")
-              grid[(row * columns) + column] = newValue
-           }
-        }
-     }
-  ```
-}
+
 
 `Matrix` provides an initializer that takes two parameters called `rows` and `columns`,
 and creates an array that's large enough to store `rows * columns` values of type `Double`.
@@ -300,14 +209,7 @@ var matrix = Matrix(rows: 2, columns: 2)
 ```
 
 
-@Comment {
-  - test: `matrixSubscript, matrixSubscriptAssert`
-  
-  ```swifttest
-  -> var matrix = Matrix(rows: 2, columns: 2)
-  >> assert(matrix.grid == [0.0, 0.0, 0.0, 0.0])
-  ```
-}
+
 
 The example above creates a new `Matrix` instance with two rows and two columns.
 The `grid` array for this `Matrix` instance
@@ -326,18 +228,7 @@ matrix[1, 0] = 3.2
 ```
 
 
-@Comment {
-  - test: `matrixSubscript, matrixSubscriptAssert`
-  
-  ```swifttest
-  -> matrix[0, 1] = 1.5
-  >> print(matrix[0, 1])
-  << 1.5
-  -> matrix[1, 0] = 3.2
-  >> print(matrix[1, 0])
-  << 3.2
-  ```
-}
+
 
 These two statements call the subscript's setter to set
 a value of `1.5` in the top right position of the matrix
@@ -362,17 +253,7 @@ func indexIsValid(row: Int, column: Int) -> Bool {
 ```
 
 
-@Comment {
-  - test: `matrixSubscript`
-  
-  ```swifttest
-  >> var rows = 2
-  >> var columns = 2
-  -> func indexIsValid(row: Int, column: Int) -> Bool {
-        return row >= 0 && row < rows && column >= 0 && column < columns
-     }
-  ```
-}
+
 
 An assertion is triggered if you try to access a subscript
 that's outside of the matrix bounds:
@@ -383,15 +264,7 @@ let someValue = matrix[2, 2]
 ```
 
 
-@Comment {
-  - test: `matrixSubscriptAssert`
-  
-  ```swifttest
-  -> let someValue = matrix[2, 2]
-  xx assert
-  // This triggers an assert, because [2, 2] is outside of the matrix bounds.
-  ```
-}
+
 
 ## Type Subscripts
 
@@ -417,30 +290,7 @@ print(mars)
 ```
 
 
-@Comment {
-  - test: `static-subscript`
-  
-  ```swifttest
-  -> enum Planet: Int {
-        case mercury = 1, venus, earth, mars, jupiter, saturn, uranus, neptune
-        static subscript(n: Int) -> Planet {
-           return Planet(rawValue: n)!
-        }
-     }
-  -> let mars = Planet[4]
-  >> assert(mars == Planet.mars)
-  -> print(mars)
-  << mars
-  ```
-}
 
 
-@Comment {
-This source file is part of the Swift.org open source project
 
-Copyright (c) 2014 - 2022 Apple Inc. and the Swift project authors
-Licensed under Apache License v2.0 with Runtime Library Exception
 
-See https://swift.org/LICENSE.txt for license information
-See https://swift.org/CONTRIBUTORS.txt for the list of Swift project authors
-}

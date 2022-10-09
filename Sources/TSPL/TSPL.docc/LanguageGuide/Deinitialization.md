@@ -31,17 +31,7 @@ deinit {
 ```
 
 
-@Comment {
-  - test: `deinitializer`
-  
-  ```swifttest
-  >> class Test {
-  -> deinit {
-        // perform the deinitialization
-     }
-  >> }
-  ```
-}
+
 
 Deinitializers are called automatically, just before instance deallocation takes place.
 You aren't allowed to call a deinitializer yourself.
@@ -81,23 +71,7 @@ class Bank {
 ```
 
 
-@Comment {
-  - test: `deinitializer`
-  
-  ```swifttest
-  -> class Bank {
-        static var coinsInBank = 10_000
-        static func distribute(coins numberOfCoinsRequested: Int) -> Int {
-           let numberOfCoinsToVend = min(numberOfCoinsRequested, coinsInBank)
-           coinsInBank -= numberOfCoinsToVend
-           return numberOfCoinsToVend
-        }
-        static func receive(coins: Int) {
-           coinsInBank += coins
-        }
-     }
-  ```
-}
+
 
 `Bank` keeps track of the current number of coins it holds with its `coinsInBank` property.
 It also offers two methods --- `distribute(coins:)` and `receive(coins:)` ---
@@ -131,24 +105,7 @@ class Player {
 ```
 
 
-@Comment {
-  - test: `deinitializer`
-  
-  ```swifttest
-  -> class Player {
-        var coinsInPurse: Int
-        init(coins: Int) {
-           coinsInPurse = Bank.distribute(coins: coins)
-        }
-        func win(coins: Int) {
-           coinsInPurse += Bank.distribute(coins: coins)
-        }
-        deinit {
-           Bank.receive(coins: coinsInPurse)
-        }
-     }
-  ```
-}
+
 
 Each `Player` instance is initialized with a starting allowance of
 a specified number of coins from the bank during initialization,
@@ -171,17 +128,7 @@ print("There are now \(Bank.coinsInBank) coins left in the bank")
 ```
 
 
-@Comment {
-  - test: `deinitializer`
-  
-  ```swifttest
-  -> var playerOne: Player? = Player(coins: 100)
-  -> print("A new player has joined the game with \(playerOne!.coinsInPurse) coins")
-  <- A new player has joined the game with 100 coins
-  -> print("There are now \(Bank.coinsInBank) coins left in the bank")
-  <- There are now 9900 coins left in the bank
-  ```
-}
+
 
 A new `Player` instance is created, with a request for 100 coins if they're available.
 This `Player` instance is stored in an optional `Player` variable called `playerOne`.
@@ -201,17 +148,7 @@ print("The bank now only has \(Bank.coinsInBank) coins left")
 ```
 
 
-@Comment {
-  - test: `deinitializer`
-  
-  ```swifttest
-  -> playerOne!.win(coins: 2_000)
-  -> print("PlayerOne won 2000 coins & now has \(playerOne!.coinsInPurse) coins")
-  <- PlayerOne won 2000 coins & now has 2100 coins
-  -> print("The bank now only has \(Bank.coinsInBank) coins left")
-  <- The bank now only has 7900 coins left
-  ```
-}
+
 
 Here, the player has won 2,000 coins.
 The player's purse now contains 2,100 coins,
@@ -226,17 +163,7 @@ print("The bank now has \(Bank.coinsInBank) coins")
 ```
 
 
-@Comment {
-  - test: `deinitializer`
-  
-  ```swifttest
-  -> playerOne = nil
-  -> print("PlayerOne has left the game")
-  <- PlayerOne has left the game
-  -> print("The bank now has \(Bank.coinsInBank) coins")
-  <- The bank now has 10000 coins
-  ```
-}
+
 
 The player has now left the game.
 This is indicated by setting the optional `playerOne` variable to `nil`,
@@ -249,12 +176,4 @@ Just before this happens, its deinitializer is called automatically,
 and its coins are returned to the bank.
 
 
-@Comment {
-This source file is part of the Swift.org open source project
 
-Copyright (c) 2014 - 2022 Apple Inc. and the Swift project authors
-Licensed under Apache License v2.0 with Runtime Library Exception
-
-See https://swift.org/LICENSE.txt for license information
-See https://swift.org/CONTRIBUTORS.txt for the list of Swift project authors
-}

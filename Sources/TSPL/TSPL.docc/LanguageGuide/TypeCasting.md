@@ -39,18 +39,7 @@ class MediaItem {
 ```
 
 
-@Comment {
-  - test: `typeCasting, typeCasting-err`
-  
-  ```swifttest
-  -> class MediaItem {
-        var name: String
-        init(name: String) {
-           self.name = name
-        }
-     }
-  ```
-}
+
 
 The next snippet defines two subclasses of `MediaItem`.
 The first subclass, `Movie`, encapsulates additional information about a movie or film.
@@ -78,27 +67,7 @@ class Song: MediaItem {
 ```
 
 
-@Comment {
-  - test: `typeCasting, typeCasting-err`
-  
-  ```swifttest
-  -> class Movie: MediaItem {
-        var director: String
-        init(name: String, director: String) {
-           self.director = director
-           super.init(name: name)
-        }
-     }
-  ---
-  -> class Song: MediaItem {
-        var artist: String
-        init(name: String, artist: String) {
-           self.artist = artist
-           super.init(name: name)
-        }
-     }
-  ```
-}
+
 
 The final snippet creates a constant array called `library`,
 which contains two `Movie` instances and three `Song` instances.
@@ -120,22 +89,7 @@ let library = [
 ```
 
 
-@Comment {
-  - test: `typeCasting`
-  
-  ```swifttest
-  -> let library = [
-        Movie(name: "Casablanca", director: "Michael Curtiz"),
-        Song(name: "Blue Suede Shoes", artist: "Elvis Presley"),
-        Movie(name: "Citizen Kane", director: "Orson Welles"),
-        Song(name: "The One And Only", artist: "Chesney Hawkes"),
-        Song(name: "Never Gonna Give You Up", artist: "Rick Astley")
-     ]
-  >> print(type(of: library))
-  << Array<MediaItem>
-  // the type of "library" is inferred to be [MediaItem]
-  ```
-}
+
 
 The items stored in `library` are still `Movie` and `Song` instances behind the scenes.
 However, if you iterate over the contents of this array,
@@ -173,25 +127,7 @@ print("Media library contains \(movieCount) movies and \(songCount) songs")
 ```
 
 
-@Comment {
-  - test: `typeCasting`
-  
-  ```swifttest
-  -> var movieCount = 0
-  -> var songCount = 0
-  ---
-  -> for item in library {
-        if item is Movie {
-           movieCount += 1
-        } else if item is Song {
-           songCount += 1
-        }
-     }
-  ---
-  -> print("Media library contains \(movieCount) movies and \(songCount) songs")
-  <- Media library contains 2 movies and 3 songs
-  ```
-}
+
 
 This example iterates through all items in the `library` array.
 On each pass, the `for`-`in` loop sets the `item` constant
@@ -259,25 +195,7 @@ for item in library {
 ```
 
 
-@Comment {
-  - test: `typeCasting`
-  
-  ```swifttest
-  -> for item in library {
-        if let movie = item as? Movie {
-           print("Movie: \(movie.name), dir. \(movie.director)")
-        } else if let song = item as? Song {
-           print("Song: \(song.name), by \(song.artist)")
-        }
-     }
-  ---
-  </ Movie: Casablanca, dir. Michael Curtiz
-  </ Song: Blue Suede Shoes, by Elvis Presley
-  </ Movie: Citizen Kane, dir. Orson Welles
-  </ Song: The One And Only, by Chesney Hawkes
-  </ Song: Never Gonna Give You Up, by Rick Astley
-  ```
-}
+
 
 The example starts by trying to downcast the current `item` as a `Movie`.
 Because `item` is a `MediaItem` instance, it's possible that it *might* be a `Movie`;
@@ -310,17 +228,9 @@ whenever a `Song` is found in the library.
 > The underlying instance remains the same; it's simply treated and accessed
 > as an instance of the type to which it has been cast.
 
-@Comment {
-  TODO: This example should be followed by the same example written with switch,
-  to introduce type casting in a pattern matching context
-  and to set up the crazy Any example at the end of the chapter.
-}
 
-@Comment {
-  TODO: No section on upcasting because nobody can come up with
-  an example that isn't excessively contrived.
-  The reference shows the behavior in a contrived example.
-}
+
+
 
 ## Type Casting for Any and AnyObject
 
@@ -351,22 +261,7 @@ things.append({ (name: String) -> String in "Hello, \(name)" })
 ```
 
 
-@Comment {
-  - test: `typeCasting, typeCasting-err`
-  
-  ```swifttest
-  -> var things: [Any] = []
-  ---
-  -> things.append(0)
-  -> things.append(0.0)
-  -> things.append(42)
-  -> things.append(3.14159)
-  -> things.append("hello")
-  -> things.append((3.0, 5.0))
-  -> things.append(Movie(name: "Ghostbusters", director: "Ivan Reitman"))
-  -> things.append({ (name: String) -> String in "Hello, \(name)" })
-  ```
-}
+
 
 The `things` array contains
 two `Int` values, two `Double` values, a `String` value,
@@ -420,45 +315,7 @@ for thing in things {
 ```
 
 
-@Comment {
-  - test: `typeCasting`
-  
-  ```swifttest
-  -> for thing in things {
-        switch thing {
-           case 0 as Int:
-              print("zero as an Int")
-           case 0 as Double:
-              print("zero as a Double")
-           case let someInt as Int:
-              print("an integer value of \(someInt)")
-           case let someDouble as Double where someDouble > 0:
-              print("a positive double value of \(someDouble)")
-           case is Double:
-              print("some other double value that I don't want to print")
-           case let someString as String:
-              print("a string value of \"\(someString)\"")
-           case let (x, y) as (Double, Double):
-              print("an (x, y) point at \(x), \(y)")
-           case let movie as Movie:
-              print("a movie called \(movie.name), dir. \(movie.director)")
-           case let stringConverter as (String) -> String:
-              print(stringConverter("Michael"))
-           default:
-              print("something else")
-        }
-     }
-  ---
-  </ zero as an Int
-  </ zero as a Double
-  </ an integer value of 42
-  </ a positive double value of 3.14159
-  </ a string value of "hello"
-  </ an (x, y) point at 3.0, 5.0
-  </ a movie called Ghostbusters, dir. Ivan Reitman
-  </ Hello, Michael
-  ```
-}
+
 
 > Note: The `Any` type represents values of any type, including optional types.
 > Swift gives you a warning if you use an optional value
@@ -473,69 +330,9 @@ for thing in things {
 > things.append(optionalNumber as Any) // No warning
 > ```
 
-@Comment {
-  - test: `typeCasting-err`
-
-  ```swifttest
-  -> let optionalNumber: Int? = 3
-  -> things.append(optionalNumber)        // Warning
-  !$ warning: expression implicitly coerced from 'Int?' to 'Any'
-  !! things.append(optionalNumber)        // Warning
-  !!               ^~~~~~~~~~~~~~
-  !$ note: provide a default value to avoid this warning
-  !! things.append(optionalNumber)        // Warning
-  !!               ^~~~~~~~~~~~~~
-  !!                              ?? <#default value#>
-  !$ note: force-unwrap the value to avoid this warning
-  !! things.append(optionalNumber)        // Warning
-  !!               ^~~~~~~~~~~~~~
-  !!                              !
-  !$ note: explicitly cast to 'Any' with 'as Any' to silence this warning
-  !! things.append(optionalNumber)        // Warning
-  !!               ^~~~~~~~~~~~~~
-  !!                              as Any
-  -> things.append(optionalNumber as Any) // No warning
-  ```
-}
-
-@Comment {
-  Rejected examples to illustrate AnyObject:
-
-  Array of delegates which may conform to one or more of the class's delegate protocols.
-  
-  ```
-  protocol MovieDelegate {
-      func willPlay(movie: Movie)
-  }
-  
-  class Library {
-      var delegates = [AnyObject]
-      ...
-  }
-  
-  for delegate in delegates {
-      guard let delegate = delegate as MovieDelegate else { continue }
-      delegate.willPlay(movie: m)
-  }
-  ```
-
-  A userData object for associating some opaque piece of data or state with an API call.
-  
-  ```
-  class C {
-      // Not userInfo -- that's usually a Dictionary
-      let userData: AnyObject?  // In Cocoa APIs, userData is a void*
-  }
-  ```
-}
 
 
-@Comment {
-This source file is part of the Swift.org open source project
 
-Copyright (c) 2014 - 2022 Apple Inc. and the Swift project authors
-Licensed under Apache License v2.0 with Runtime Library Exception
 
-See https://swift.org/LICENSE.txt for license information
-See https://swift.org/CONTRIBUTORS.txt for the list of Swift project authors
-}
+
+

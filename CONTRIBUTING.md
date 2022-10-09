@@ -48,15 +48,18 @@ Na tabela abaixo estão listadas algumas palavras importantes que aparecem com r
 | Original | Tradução |
 | ---------| ---------|
 | Tuple | Tupla |
+| Range | Intervalo |
+| To assign/assigned | atribuir/atribuído |
+| Bitwise | Bit a Bit |
 | Array | _Array_ |
 | Set | _Set_ |
 | Dictionary | Dicionário |
 | Class | Classe |
 | Struct | Estrutura |
 | Enumeration | Enumeração |
-| Closure | - |
-| Getter | - |
-| Setter | - |
+| Closure | _Closure_ |
+| Getter | _Getter_ |
+| Setter | _Setter_ |
 | Lazy Properties | Propriedades _Lazy_ |
 | In-Out Parameters | Parâmetros _In-Out_ |
 

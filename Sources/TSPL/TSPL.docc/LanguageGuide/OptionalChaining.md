@@ -54,19 +54,7 @@ class Residence {
 ```
 
 
-@Comment {
-  - test: `optionalChainingIntro, optionalChainingIntroAssert`
-  
-  ```swifttest
-  -> class Person {
-        var residence: Residence?
-     }
-  ---
-  -> class Residence {
-        var numberOfRooms = 1
-     }
-  ```
-}
+
 
 `Residence` instances have a single `Int` property called `numberOfRooms`,
 with a default value of `1`.
@@ -82,13 +70,7 @@ let john = Person()
 ```
 
 
-@Comment {
-  - test: `optionalChainingIntro, optionalChainingIntroAssert`
-  
-  ```swifttest
-  -> let john = Person()
-  ```
-}
+
 
 If you try to access the `numberOfRooms` property of this person's `residence`,
 by placing an exclamation point after `residence` to force the unwrapping of its value,
@@ -101,15 +83,7 @@ let roomCount = john.residence!.numberOfRooms
 ```
 
 
-@Comment {
-  - test: `optionalChainingIntroAssert`
-  
-  ```swifttest
-  -> let roomCount = john.residence!.numberOfRooms
-  xx assert
-  // this triggers a runtime error
-  ```
-}
+
 
 The code above succeeds when `john.residence` has a non-`nil` value
 and will set `roomCount` to an `Int` value containing the appropriate number of rooms.
@@ -129,18 +103,7 @@ if let roomCount = john.residence?.numberOfRooms {
 ```
 
 
-@Comment {
-  - test: `optionalChainingIntro`
-  
-  ```swifttest
-  -> if let roomCount = john.residence?.numberOfRooms {
-        print("John's residence has \(roomCount) room(s).")
-     } else {
-        print("Unable to retrieve the number of rooms.")
-     }
-  <- Unable to retrieve the number of rooms.
-  ```
-}
+
 
 This tells Swift to “chain” on the optional `residence` property
 and to retrieve the value of `numberOfRooms` if `residence` exists.
@@ -167,13 +130,7 @@ john.residence = Residence()
 ```
 
 
-@Comment {
-  - test: `optionalChainingIntro`
-  
-  ```swifttest
-  -> john.residence = Residence()
-  ```
-}
+
 
 `john.residence` now contains an actual `Residence` instance, rather than `nil`.
 If you try to access `numberOfRooms` with the same optional chaining as before,
@@ -190,18 +147,7 @@ if let roomCount = john.residence?.numberOfRooms {
 ```
 
 
-@Comment {
-  - test: `optionalChainingIntro`
-  
-  ```swifttest
-  -> if let roomCount = john.residence?.numberOfRooms {
-        print("John's residence has \(roomCount) room(s).")
-     } else {
-        print("Unable to retrieve the number of rooms.")
-     }
-  <- John's residence has 1 room(s).
-  ```
-}
+
 
 ## Defining Model Classes for Optional Chaining
 
@@ -228,15 +174,7 @@ class Person {
 ```
 
 
-@Comment {
-  - test: `optionalChaining`
-  
-  ```swifttest
-  -> class Person {
-        var residence: Residence?
-     }
-  ```
-}
+
 
 The `Residence` class is more complex than before.
 This time, the `Residence` class defines a variable property called `rooms`,
@@ -264,30 +202,7 @@ class Residence {
 ```
 
 
-@Comment {
-  - test: `optionalChaining`
-  
-  ```swifttest
-  -> class Residence {
-        var rooms: [Room] = []
-        var numberOfRooms: Int {
-           return rooms.count
-        }
-        subscript(i: Int) -> Room {
-           get {
-              return rooms[i]
-           }
-           set {
-              rooms[i] = newValue
-           }
-        }
-        func printNumberOfRooms() {
-           print("The number of rooms is \(numberOfRooms)")
-        }
-        var address: Address?
-     }
-  ```
-}
+
 
 Because this version of `Residence` stores an array of `Room` instances,
 its `numberOfRooms` property is implemented as a computed property,
@@ -318,16 +233,7 @@ class Room {
 ```
 
 
-@Comment {
-  - test: `optionalChaining`
-  
-  ```swifttest
-  -> class Room {
-        let name: String
-        init(name: String) { self.name = name }
-     }
-  ```
-}
+
 
 The final class in this model is called `Address`.
 This class has three optional properties of type `String?`.
@@ -353,26 +259,7 @@ class Address {
 ```
 
 
-@Comment {
-  - test: `optionalChaining`
-  
-  ```swifttest
-  -> class Address {
-        var buildingName: String?
-        var buildingNumber: String?
-        var street: String?
-        func buildingIdentifier() -> String? {
-           if let buildingNumber = buildingNumber, let street = street {
-               return "\(buildingNumber) \(street)"
-           } else if buildingName != nil {
-               return buildingName
-           } else {
-               return nil
-           }
-        }
-     }
-  ```
-}
+
 
 The `Address` class also provides a method called `buildingIdentifier()`,
 which has a return type of `String?`.
@@ -401,19 +288,7 @@ if let roomCount = john.residence?.numberOfRooms {
 ```
 
 
-@Comment {
-  - test: `optionalChaining`
-  
-  ```swifttest
-  -> let john = Person()
-  -> if let roomCount = john.residence?.numberOfRooms {
-        print("John's residence has \(roomCount) room(s).")
-     } else {
-        print("Unable to retrieve the number of rooms.")
-     }
-  <- Unable to retrieve the number of rooms.
-  ```
-}
+
 
 Because `john.residence` is `nil`,
 this optional chaining call fails in the same way as before.
@@ -428,16 +303,7 @@ john.residence?.address = someAddress
 ```
 
 
-@Comment {
-  - test: `optionalChaining`
-  
-  ```swifttest
-  -> let someAddress = Address()
-  -> someAddress.buildingNumber = "29"
-  -> someAddress.street = "Acacia Road"
-  -> john.residence?.address = someAddress
-  ```
-}
+
 
 In this example,
 the attempt to set the `address` property of `john.residence` will fail,
@@ -469,24 +335,7 @@ john.residence?.address = createAddress()
 ```
 
 
-@Comment {
-  - test: `optionalChaining`
-  
-  ```swifttest
-  -> func createAddress() -> Address {
-         print("Function was called.")
-  ---
-         let someAddress = Address()
-         someAddress.buildingNumber = "29"
-         someAddress.street = "Acacia Road"
-  ---
-         return someAddress
-     }
-  -> john.residence?.address = createAddress()
-  >> let _ = createAddress()
-  << Function was called.
-  ```
-}
+
 
 You can tell that the `createAddress()` function isn't called,
 because nothing is printed.
@@ -508,16 +357,7 @@ func printNumberOfRooms() {
 ```
 
 
-@Comment {
-  - test: `optionalChainingCallouts`
-  
-  ```swifttest
-  -> func printNumberOfRooms() {
-  >>    let numberOfRooms = 3
-        print("The number of rooms is \(numberOfRooms)")
-     }
-  ```
-}
+
 
 This method doesn't specify a return type.
 However, functions and methods with no return type have an implicit return type of `Void`,
@@ -543,18 +383,7 @@ if john.residence?.printNumberOfRooms() != nil {
 ```
 
 
-@Comment {
-  - test: `optionalChaining`
-  
-  ```swifttest
-  -> if john.residence?.printNumberOfRooms() != nil {
-        print("It was possible to print the number of rooms.")
-     } else {
-        print("It was not possible to print the number of rooms.")
-     }
-  <- It was not possible to print the number of rooms.
-  ```
-}
+
 
 The same is true if you attempt to set a property through optional chaining.
 The example above in <doc:OptionalChaining#Accessing-Properties-Through-Optional-Chaining>
@@ -573,18 +402,7 @@ if (john.residence?.address = someAddress) != nil {
 ```
 
 
-@Comment {
-  - test: `optionalChaining`
-  
-  ```swifttest
-  -> if (john.residence?.address = someAddress) != nil {
-        print("It was possible to set the address.")
-     } else {
-        print("It was not possible to set the address.")
-     }
-  <- It was not possible to set the address.
-  ```
-}
+
 
 ## Accessing Subscripts Through Optional Chaining
 
@@ -613,18 +431,7 @@ if let firstRoomName = john.residence?[0].name {
 ```
 
 
-@Comment {
-  - test: `optionalChaining`
-  
-  ```swifttest
-  -> if let firstRoomName = john.residence?[0].name {
-        print("The first room name is \(firstRoomName).")
-     } else {
-        print("Unable to retrieve the first room name.")
-     }
-  <- Unable to retrieve the first room name.
-  ```
-}
+
 
 The optional chaining question mark in this subscript call
 is placed immediately after `john.residence`, before the subscript brackets,
@@ -638,13 +445,7 @@ john.residence?[0] = Room(name: "Bathroom")
 ```
 
 
-@Comment {
-  - test: `optionalChaining`
-  
-  ```swifttest
-  -> john.residence?[0] = Room(name: "Bathroom")
-  ```
-}
+
 
 This subscript setting attempt also fails, because `residence` is currently `nil`.
 
@@ -668,23 +469,7 @@ if let firstRoomName = john.residence?[0].name {
 ```
 
 
-@Comment {
-  - test: `optionalChaining`
-  
-  ```swifttest
-  -> let johnsHouse = Residence()
-  -> johnsHouse.rooms.append(Room(name: "Living Room"))
-  -> johnsHouse.rooms.append(Room(name: "Kitchen"))
-  -> john.residence = johnsHouse
-  ---
-  -> if let firstRoomName = john.residence?[0].name {
-        print("The first room name is \(firstRoomName).")
-     } else {
-        print("Unable to retrieve the first room name.")
-     }
-  <- The first room name is Living Room.
-  ```
-}
+
 
 ### Accessing Subscripts of Optional Type
 
@@ -702,20 +487,7 @@ testScores["Brian"]?[0] = 72
 ```
 
 
-@Comment {
-  - test: `optionalChaining`
-  
-  ```swifttest
-  -> var testScores = ["Dave": [86, 82, 84], "Bev": [79, 94, 81]]
-  -> testScores["Dave"]?[0] = 91
-  -> testScores["Bev"]?[0] += 1
-  -> testScores["Brian"]?[0] = 72
-  >> let dave = "Dave"
-  >> let bev = "Bev"
-  /> the \"Dave\" array is now [\(testScores[dave]![0]), \(testScores[dave]![1]), \(testScores[dave]![2])] and the \"Bev\" array is now [\(testScores[bev]![0]), \(testScores[bev]![1]), \(testScores[bev]![2])]
-  </ the "Dave" array is now [91, 82, 84] and the "Bev" array is now [80, 94, 81]
-  ```
-}
+
 
 The example above defines a dictionary called `testScores`,
 which contains two key-value pairs that map a `String` key to an array of `Int` values.
@@ -766,18 +538,7 @@ if let johnsStreet = john.residence?.address?.street {
 ```
 
 
-@Comment {
-  - test: `optionalChaining`
-  
-  ```swifttest
-  -> if let johnsStreet = john.residence?.address?.street {
-        print("John's street name is \(johnsStreet).")
-     } else {
-        print("Unable to retrieve the address.")
-     }
-  <- Unable to retrieve the address.
-  ```
-}
+
 
 The value of `john.residence` currently contains a valid `Residence` instance.
 However, the value of `john.residence.address` is currently `nil`.
@@ -809,23 +570,7 @@ if let johnsStreet = john.residence?.address?.street {
 ```
 
 
-@Comment {
-  - test: `optionalChaining`
-  
-  ```swifttest
-  -> let johnsAddress = Address()
-  -> johnsAddress.buildingName = "The Larches"
-  -> johnsAddress.street = "Laurel Street"
-  -> john.residence?.address = johnsAddress
-  ---
-  -> if let johnsStreet = john.residence?.address?.street {
-        print("John's street name is \(johnsStreet).")
-     } else {
-        print("Unable to retrieve the address.")
-     }
-  <- John's street name is Laurel Street.
-  ```
-}
+
 
 In this example,
 the attempt to set the `address` property of `john.residence` will succeed,
@@ -852,16 +597,7 @@ if let buildingIdentifier = john.residence?.address?.buildingIdentifier() {
 ```
 
 
-@Comment {
-  - test: `optionalChaining`
-  
-  ```swifttest
-  -> if let buildingIdentifier = john.residence?.address?.buildingIdentifier() {
-        print("John's building identifier is \(buildingIdentifier).")
-     }
-  <- John's building identifier is The Larches.
-  ```
-}
+
 
 If you want to perform further optional chaining on this method's return value,
 place the optional chaining question mark *after* the method's parentheses:
@@ -879,21 +615,7 @@ if let beginsWithThe =
 ```
 
 
-@Comment {
-  - test: `optionalChaining`
-  
-  ```swifttest
-  -> if let beginsWithThe =
-        john.residence?.address?.buildingIdentifier()?.hasPrefix("The") {
-        if beginsWithThe {
-           print("John's building identifier begins with \"The\".")
-        } else {
-           print("John's building identifier doesn't begin with \"The\".")
-        }
-     }
-  <- John's building identifier begins with "The".
-  ```
-}
+
 
 > Note: In the example above,
 > you place the optional chaining question mark *after* the parentheses,
@@ -901,19 +623,7 @@ if let beginsWithThe =
 > the `buildingIdentifier()` method's return value,
 > and not the `buildingIdentifier()` method itself.
 
-@Comment {
-  TODO: add an example of chaining on a property of optional function type.
-  This can then be tied in to a revised description of how
-  the sugar for optional protocol requirements works.
-}
 
 
-@Comment {
-This source file is part of the Swift.org open source project
 
-Copyright (c) 2014 - 2022 Apple Inc. and the Swift project authors
-Licensed under Apache License v2.0 with Runtime Library Exception
 
-See https://swift.org/LICENSE.txt for license information
-See https://swift.org/CONTRIBUTORS.txt for the list of Swift project authors
-}

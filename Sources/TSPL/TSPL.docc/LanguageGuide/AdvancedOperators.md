@@ -1,104 +1,93 @@
 
 
-# Advanced Operators
+# Operadores Avançados
 
-In addition to the operators described in <doc:BasicOperators>,
-Swift provides several advanced operators that perform more complex value manipulation.
-These include all of the bitwise and bit shifting operators you will be familiar with
-from C and Objective-C.
+Além dos operadores descritos no tópico <doc:OperadoresBasicos>,
+a linguagem Swift oferece o tópico Operadores Avançados que fazem manipulação de valores mais complexa. 
+Lá são incluídos operadores bit a bit e operadores com deslocamento que estamos familiarizados em C e Objective-C.
 
-Unlike arithmetic operators in C,
-arithmetic operators in Swift don't overflow by default.
-Overflow behavior is trapped and reported as an error.
-To opt in to overflow behavior,
-use Swift's second set of arithmetic operators that overflow by default,
-such as the overflow addition operator (`&+`).
-All of these overflow operators begin with an ampersand (`&`).
 
-When you define your own structures, classes, and enumerations,
-it can be useful to provide your own implementations of
-the standard Swift operators for these custom types.
-Swift makes it easy to provide tailored implementations of these operators
-and to determine exactly what their behavior should be for each type you create.
+Ao contrário dos operadores aritméticos em C,
+os operadores aritméticos em Swift não possuem overflow por padrão.
+O overflow é interceptado e relatado como um erro.
+Para ativar o overflow,
+use o segundo conjunto de operadores aritméticos de Swift,
+como o operador de adição de overflow (`&+`).
+Todos esses operadores de overflow começam com um e comercial (`&`).
 
-You're not limited to the predefined operators.
-Swift gives you the freedom to define your own custom
-infix, prefix, postfix, and assignment operators,
-with custom precedence and associativity values.
-These operators can be used and adopted in your code like any of the predefined operators,
-and you can even extend existing types to support the custom operators you define.
+Quando você define suas próprias estruturas, classes, e enumerações,
+pode ser útil fornecer suas próprias implementações dos
+operadores padrão do Swift para esses tipos personalizados.
+O Swift facilita o fornecimento de implementações personalizadas desses operadores
+e determina exatamente qual deve ser o comportamento deles para cada tipo criado.
 
-## Bitwise Operators
+Você não está limitado a operadores predefinidos.
+A linguagem Swift dá liberdade de definir a forma como personaliza
+operadores de infixo, prefixo, pós-fixo, e atribuição,
+com precedência personalizada e valores associativos.
+Esses operadores podem ser usados e adotados no código como qualquer um dos operadores predefinidos,
+e você pode até estender os tipos existentes para suporte de operadores personalizados que você definir.
 
-*Bitwise operators* enable you to manipulate
-the individual raw data bits within a data structure.
-They're often used in low-level programming,
-such as graphics programming and device driver creation.
-Bitwise operators can also be useful when you work with raw data from external sources,
-such as encoding and decoding data for communication over a custom protocol.
+## Operadores Bit a bit
 
-Swift supports all of the bitwise operators found in C, as described below.
+*Operadores bit a bit* permitem que você manipule 
+os bits de dados brutos individuais, dentro de uma estrutura de dados.
+Eles são frequentemente usados em programação de baixo-nível,
+como em programação gráfica e criação de driver de dispositivo.
+Operadores bit a bit podem ser úteis quando você trabalha com dados brutos para fontes externas,
+como codificação e decodificação de dados para comunicação por meio de um protocolo personalizado.
 
-### Bitwise NOT Operator
+O Swift suporta todos os operadores bit a bit encontrados em C, como descrito abaixo.
 
-The *bitwise NOT operator* (`~`) inverts all bits in a number:
+### Operador _Bitwise NOT_
+
+O *operador _bitwise NOT_* (`~`) inverte todos os bits em um número:
 
 ![](bitwiseNOT)
 
 
-The bitwise NOT operator is a prefix operator,
-and appears immediately before the value it operates on,
-without any white space:
+O operador _bitwise NOT_ é um operador de pré-fixo 
+e aparece imediatamente antes do valor a qual opera,
+sem nenhum espaço em branco:
 
 ```swift
 let initialBits: UInt8 = 0b00001111
-let invertedBits = ~initialBits  // equals 11110000
+let invertedBits = ~initialBits  // igual a 11110000
 ```
 
 
-@Comment {
-  - test: `bitwiseOperators`
-  
-  ```swifttest
-  -> let initialBits: UInt8 = 0b00001111
-  >> assert(initialBits == 15)
-  -> let invertedBits = ~initialBits  // equals 11110000
-  >> assert(invertedBits == 240)
-  ```
-}
 
-`UInt8` integers have eight bits
-and can store any value between `0` and `255`.
-This example initializes a `UInt8` integer with the binary value `00001111`,
-which has its first four bits set to `0`,
-and its second four bits set to `1`.
-This is equivalent to a decimal value of `15`.
 
-@Comment {
-  iBooks Store screenshot begins here.
-}
+O inteiro `UInt8` tem oito bits
+e cada um pode armazenar qualquer valor entre `0` e `255`.
+Este exemplo inicializa um inteiro `UInt8` com o valor binário `00001111`
+que tem `0` nos primeiros quatro bits,
+e `1` nos seu segundo conjunto de quatro bits.
+Isso equivale ao decimal de valor `15`.
 
-The bitwise NOT operator is then used to create a new constant called `invertedBits`,
-which is equal to `initialBits`,
-but with all of the bits inverted.
-Zeros become ones, and ones become zeros.
-The value of `invertedBits` is `11110000`,
-which is equal to an unsigned decimal value of `240`.
 
-### Bitwise AND Operator
 
-The *bitwise AND operator* (`&`) combines the bits of two numbers.
-It returns a new number whose bits are set to `1`
-only if the bits were equal to `1` in *both* input numbers:
+O operador _bitwise NOT_ é então usado para criar uma nova constante chamada `invertedBits`,
+que é igual ao `initialBits`,
+mas com todos os bits invertidos.
+Zeros viram uns e uns viram zeros.
+O valor de `invertedBits` é `11110000`,
+que equivale a um decimal não atribuido de valor `240`.
+
+### Operador Bit a bit AND
+
+O *operador bit a bit AND* (`&`) combina os bits de dois números. 
+Ele retorna um novo número cujo os bits são definitos como  `1`
+somente se os bits forem igual a `1` em ambos os numeros de entrada: 
 
 ![](bitwiseAND)
 
+No exemplo abaixo,
+os valores de `firstSixBits` e `lastSixBits`
+ambos têm quatro bit no meio igual a `1`.
+O operador bit a bit AND combina os dois para formar o número `00111100`,
+que é igual ao decinal não atribuído de valor `60`:
 
-In the example below,
-the values of `firstSixBits` and `lastSixBits`
-both have four middle bits equal to `1`.
-The bitwise AND operator combines them to make the number `00111100`,
-which is equal to an unsigned decimal value of `60`:
 
 ```swift
 let firstSixBits: UInt8 = 0b11111100
@@ -107,52 +96,33 @@ let middleFourBits = firstSixBits & lastSixBits  // equals 00111100
 ```
 
 
-@Comment {
-  - test: `bitwiseOperators`
-  
-  ```swifttest
-  -> let firstSixBits: UInt8 = 0b11111100
-  -> let lastSixBits: UInt8  = 0b00111111
-  -> let middleFourBits = firstSixBits & lastSixBits  // equals 00111100
-  >> assert(middleFourBits == 0b00111100)
-  ```
-}
 
-### Bitwise OR Operator
 
-The *bitwise OR operator* (`|`) compares the bits of two numbers.
-The operator returns a new number whose bits are set to `1`
-if the bits are equal to `1` in *either* input number:
+### Operador bit a bit OR
+
+O *operador bit a bit OR* (`|`) compara os bits de dois números.
+O operador retorna um novo número cujo os bits são definidos como  `1`
+se os bits forem iguais a `1` em *nenhum* dos números de entrada. 
 
 ![](bitwiseOR)
 
 
-@Comment {
-  iBooks Store screenshot ends here.
-}
 
-In the example below,
-the values of `someBits` and `moreBits` have different bits set to `1`.
-The bitwise OR operator combines them to make the number `11111110`,
-which equals an unsigned decimal of `254`:
+
+No exemplo abaixo, 
+os valores de `someBits` e `moreBits` têm diferentes bits definidos como `1`.
+O operador bit a bit OR os combina para formar o número `11111110`,
+que é equivalente ao decimal não atribuído de valor `254`:
+
 
 ```swift
 let someBits: UInt8 = 0b10110010
 let moreBits: UInt8 = 0b01011110
-let combinedbits = someBits | moreBits  // equals 11111110
+let combinedbits = someBits | moreBits  // é igual a 11111110
 ```
 
 
-@Comment {
-  - test: `bitwiseOperators`
-  
-  ```swifttest
-  -> let someBits: UInt8 = 0b10110010
-  -> let moreBits: UInt8 = 0b01011110
-  -> let combinedbits = someBits | moreBits  // equals 11111110
-  >> assert(combinedbits == 0b11111110)
-  ```
-}
+
 
 ### Bitwise XOR Operator
 
@@ -179,523 +149,345 @@ let outputBits = firstBits ^ otherBits  // equals 00010001
 ```
 
 
-@Comment {
-  - test: `bitwiseOperators`
-  
-  ```swifttest
-  -> let firstBits: UInt8 = 0b00010100
-  -> let otherBits: UInt8 = 0b00000101
-  -> let outputBits = firstBits ^ otherBits  // equals 00010001
-  >> assert(outputBits == 0b00010001)
-  ```
-}
 
-### Bitwise Left and Right Shift Operators
+### Deslocamento à esquerda e à direita
 
-The *bitwise left shift operator* (`<<`)
-and *bitwise right shift operator* (`>>`)
-move all bits in a number to the left or the right by a certain number of places,
-according to the rules defined below.
+O *operador com deslocamento à esquerda* (`<<`)
+e o *operador com deslocamento à direita* (`>>`)
+move todos os bits em um número para a esquerda ou para a direita considerando um certo número de espaços,
+de acordo com as regras definidas abaixo.
 
-Bitwise left and right shifts have the effect of
-multiplying or dividing an integer by a factor of two.
-Shifting an integer's bits to the left by one position doubles its value,
-whereas shifting it to the right by one position halves its value.
+Deslocamentos bit a bit à esquerda e à direita têm um efeito de
+multiplicador ou divisor de um número inteiro pelo fator dois.
+Deslocar bits de um inteiro à esquerda em uma posição dobra seu valor,
+enquanto que deslocá-lo para a direita em uma posição reduz pela metade o seu valor.
 
-@Comment {
-  TODO: mention the caveats to this claim.
-}
 
-#### Shifting Behavior for Unsigned Integers
 
-The bit-shifting behavior for unsigned integers is as follows:
+#### Comportamento de deslocamento de bits para inteiros não sinalizados
 
-- Existing bits are moved to the left or right by the requested number of places.
-- Any bits that are moved beyond the bounds of the integer's storage are discarded.
-- Zeros are inserted in the spaces left behind
-   after the original bits are moved to the left or right.
+O comportamento de descolamento de bits para inteiros não sinalizados é o seguinte:
 
-This approach is known as a *logical shift*.
+- Bits existentes são deslocado para a esquerda ou direita pelo número de posições solicitadas.
+- Quaisquer bits que são deslocamento além dos limites do armazenamento dos inteiros são descartados.
+- Os zeros são inseridos em espaços deixados para trás depois que os bits originais foram deslocados para a esquerda ou direita.
 
-The illustration below shows the results of `11111111 << 1`
-(which is `11111111` shifted to the left by `1` place),
-and `11111111 >> 1`
-(which is `11111111` shifted to the right by `1` place).
-Blue numbers are shifted,
-gray numbers are discarded,
-and orange zeros are inserted:
+Essa abordagem é conhecida como *d lógica*.
+
+A ilustração abaixo mostra os resultados de ‘11111111 << 1’
+(o qual '11111111' é movido para a direita por ‘1’ posição),
+e '11111111 >> 1'
+(o qual '11111111' é movido para a direita por ‘1’ posição).
+Os números azuis são movidos,
+os números cinzas são descartados,
+e os zeros laranjas são inseridos.
 
 ![](bitshiftUnsigned)
 
+Confira como o bit movido aparece na Swift:
 
-Here's how bit shifting looks in Swift code:
-
-```swift
+'''swift
 let shiftBits: UInt8 = 4   // 00000100 in binary
 shiftBits << 1             // 00001000
 shiftBits << 2             // 00010000
 shiftBits << 5             // 10000000
 shiftBits << 6             // 00000000
 shiftBits >> 2             // 00000001
-```
+'''
 
+Você pode usar o deslocamento de bit para codificar e descodificar valores com outros tipos de dados:
 
-@Comment {
-  - test: `bitwiseShiftOperators`
-  
-  ```swifttest
-  -> let shiftBits: UInt8 = 4   // 00000100 in binary
-  >> let r0 =
-  -> shiftBits << 1             // 00001000
-  >> assert(r0 == 8)
-  >> let r1 =
-  -> shiftBits << 2             // 00010000
-  >> assert(r1 == 16)
-  >> let r2 =
-  -> shiftBits << 5             // 10000000
-  >> assert(r2 == 128)
-  >> let r3 =
-  -> shiftBits << 6             // 00000000
-  >> assert(r3 == 0)
-  >> let r4 =
-  -> shiftBits >> 2             // 00000001
-  >> assert(r4 == 1)
-  ```
-}
-
-@Comment {
-  Rewrite the above to avoid bare expressions.
-  Tracking bug is <rdar://problem/35301593>
-}
-
-You can use bit shifting to encode and decode values within other data types:
-
-```swift
+'''swift
 let pink: UInt32 = 0xCC6699
 let redComponent = (pink & 0xFF0000) >> 16    // redComponent is 0xCC, or 204
 let greenComponent = (pink & 0x00FF00) >> 8   // greenComponent is 0x66, or 102
 let blueComponent = pink & 0x0000FF           // blueComponent is 0x99, or 153
-```
+'''
 
+#### Comportamento de Deslocamento para Inteiros com Sinal
 
-@Comment {
-  - test: `bitwiseShiftOperators`
-  
-  ```swifttest
-  -> let pink: UInt32 = 0xCC6699
-  -> let redComponent = (pink & 0xFF0000) >> 16    // redComponent is 0xCC, or 204
-  -> let greenComponent = (pink & 0x00FF00) >> 8   // greenComponent is 0x66, or 102
-  -> let blueComponent = pink & 0x0000FF           // blueComponent is 0x99, or 153
-  >> assert(redComponent == 204)
-  >> assert(greenComponent == 102)
-  >> assert(blueComponent == 153)
-  ```
-}
+O comportamento de deslocamento é mais complicado para inteiros com sinal do que para inteiros sem sinal,
+por conta da maneira que são representados em modo binário.
+(Os exemplos a seguir são baseados em inteiros com sinal de 8-bits para simplificar,
+mas os mesmos princípios podem ser aplicados para inteiros com sinal de qualquer tamanho.)
 
-This example uses a `UInt32` constant called `pink` to store a
-Cascading Style Sheets color value for the color pink.
-The CSS color value `#CC6699` is written as
-`0xCC6699` in Swift's hexadecimal number representation.
-This color is then decomposed into its
-red (`CC`), green (`66`), and blue (`99`) components
-by the bitwise AND operator (`&`) and the bitwise right shift operator (`>>`).
+Inteiros com sinal usam o primeiro bit (conhecido como *bit de sinal*)
+para indicar que o inteiro é positivo ou negativo.
+O sinal para o bit `0`siginifica positivo, e o sinal para bit `1` significa negativo. 
 
-The red component is obtained by performing a bitwise AND
-between the numbers `0xCC6699` and `0xFF0000`.
-The zeros in `0xFF0000` effectively “mask” the second and third bytes of `0xCC6699`,
-causing the `6699` to be ignored and leaving `0xCC0000` as the result.
+Os bits restantes (conhecidos como *bits de valor*) armazenam o valor atual.
+Os números positivos são armazenados exatamente da mesma maneira que os inteiros sem sinal,
+adicionando o `0` à posição inicial.
+Veja como os bits dentro do `Int8` buscam o número `4`:
 
-This number is then shifted 16 places to the right (`>> 16`).
-Each pair of characters in a hexadecimal number uses 8 bits,
-so a move 16 places to the right will convert `0xCC0000` into `0x0000CC`.
-This is the same as `0xCC`, which has a decimal value of `204`.
-
-Similarly, the green component is obtained by performing a bitwise AND
-between the numbers `0xCC6699` and `0x00FF00`,
-which gives an output value of `0x006600`.
-This output value is then shifted eight places to the right,
-giving a value of `0x66`, which has a decimal value of `102`.
-
-Finally, the blue component is obtained by performing a bitwise AND
-between the numbers `0xCC6699` and `0x0000FF`,
-which gives an output value of `0x000099`.
-Because `0x000099` already equals `0x99`,
-which has a decimal value of `153`,
-this value is used without shifting it to the right,
-
-#### Shifting Behavior for Signed Integers
-
-The shifting behavior is more complex for signed integers than for unsigned integers,
-because of the way signed integers are represented in binary.
-(The examples below are based on 8-bit signed integers for simplicity,
-but the same principles apply for signed integers of any size.)
-
-Signed integers use their first bit (known as the *sign bit*)
-to indicate whether the integer is positive or negative.
-A sign bit of `0` means positive, and a sign bit of `1` means negative.
-
-The remaining bits (known as the *value bits*) store the actual value.
-Positive numbers are stored in exactly the same way as for unsigned integers,
-counting upwards from `0`.
-Here's how the bits inside an `Int8` look for the number `4`:
 
 ![](bitshiftSignedFour)
 
 
-The sign bit is `0` (meaning “positive”),
-and the seven value bits are just the number `4`,
-written in binary notation.
+O bit de sinal é `0`(significa "positivo")
+e os sete bits de valor são o número `4`
+escrito em notação binária.
 
-Negative numbers, however, are stored differently.
-They're stored by subtracting their absolute value from `2` to the power of `n`,
-where `n` is the number of value bits.
-An eight-bit number has seven value bits,
-so this means `2` to the power of `7`, or `128`.
+Números negativos, no entanto, são armazenados de forma diferente.
+Eles são armazenados subtraindo de seu valor absoluto `2` à potência de `n`,
+onde `n` é o número de bits de valor.
+Um número de oito bits tem sete bits de valor,
+então isso significa `2` elevado a potência `7`, ou `128`.
 
-Here's how the bits inside an `Int8` look for the number `-4`:
+Veja como os bits dentro de um `Int8` buscam o número `-4`:
+
 
 ![](bitshiftSignedMinusFour)
 
 
-This time, the sign bit is `1` (meaning “negative”),
-and the seven value bits have a binary value of `124` (which is `128 - 4`):
+Desta vez, o bit de sinal é `1` (significando “negativo”),
+e os sete bits de valor têm um valor binário de `124` (que é `128 - 4`):
+
 
 ![](bitshiftSignedMinusFourValue)
 
 
-This encoding for negative numbers is known as a *two's complement* representation.
-It may seem an unusual way to represent negative numbers,
-but it has several advantages.
+Essa codificação para números negativos é uma representação conhecida como *complemento de dois*.
+Pode parecer uma maneira incomum de representar números negativos,
+mas tem várias vantagens.
 
-First, you can add `-1` to `-4`,
-simply by performing a standard binary addition of all eight bits
-(including the sign bit),
-and discarding anything that doesn't fit in the eight bits once you're done:
+Primeiro, você pode adicionar `-1` a `-4`,
+simplesmente executando uma adição binária padrão de todos os oito bits
+(incluindo o bit de sinal),
+e descartando qualquer coisa que não se encaixe nos oito bits quando terminar:
+
 
 ![](bitshiftSignedAddition)
 
+Segundo, a representação do complemento de dois também permite que você
+desloque os bits de números negativos para a esquerda e para a direita como números positivos,
+e ainda acabam dobrando-os para cada deslocamento que você faz para a esquerda,
+ou reduzi-los pela metade para cada mudança que você faz para a direita.
+Para conseguir isso, uma regra extra é usada quando os inteiros com sinal são deslocados para a direita:
+Quando você desloca inteiros com sinal para a direita,
+aplique as mesmas regras que para inteiros sem sinal,
+mas preencha quaisquer bits vazios à esquerda com o *bit de sinal*,
+ao invés de um zero.
 
-Second, the two's complement representation also lets you
-shift the bits of negative numbers to the left and right like positive numbers,
-and still end up doubling them for every shift you make to the left,
-or halving them for every shift you make to the right.
-To achieve this, an extra rule is used when signed integers are shifted to the right:
-When you shift signed integers to the right,
-apply the same rules as for unsigned integers,
-but fill any empty bits on the left with the *sign bit*,
-rather than with a zero.
 
 ![](bitshiftSigned)
 
 
-This action ensures that signed integers have the same sign after they're shifted to the right,
-and is known as an *arithmetic shift*.
+Essa ação garante que os inteiros com sinal tenham o mesmo sinal depois de serem deslocados para a direita,
+conhecido como *deslocamento aritmético*.
 
-Because of the special way that positive and negative numbers are stored,
-shifting either of them to the right moves them closer to zero.
-Keeping the sign bit the same during this shift means that
-negative integers remain negative as their value moves closer to zero.
+Por causa da maneira especial que os números positivos e negativos são armazenados,
+deslocar qualquer um deles para a direita os aproxima de zero.
+Manter o bit de sinal o mesmo durante este deslocamento significa que
+inteiros negativos permanecem negativos à medida que seu valor se aproxima de zero.
 
 ## Overflow Operators
 
-If you try to insert a number into an integer constant or variable
-that can't hold that value,
-by default Swift reports an error rather than allowing an invalid value to be created.
-This behavior gives extra safety when you work with numbers that are too large or too small.
 
-For example, the `Int16` integer type can hold
-any signed integer between `-32768` and `32767`.
-Trying to set an `Int16` constant or variable to a number outside of this range
-causes an error:
+Se você tentar inserir um número em uma constante ou variável inteira que não pode manter esse valor,
+por padrão o Swift relata um erro em vez de permitir que um valor inválido seja criado.
+Este comportamento oferece segurança extra ao trabalhar com números muito grandes ou muito pequenos.
+
+Por examplo, o tipo inteiro `Int16` pode conter qualquer inteiro assinado entre `-32768` e `32767`.
+Tentando definir uma constante ou variável `Int16` para um número fora desse intervalo causa um erro:
 
 ```swift
 var potentialOverflow = Int16.max
-// potentialOverflow equals 32767, which is the maximum value an Int16 can hold
+// potentialOverflow igual a 32767, que é o valor máximo que um Int16 pode manter
 potentialOverflow += 1
-// this causes an error
+// isso causa um erro
 ```
 
 
-@Comment {
-  - test: `overflowOperatorsWillFailToOverflow`
-  
-  ```swifttest
-  -> var potentialOverflow = Int16.max
-  /> potentialOverflow equals \(potentialOverflow), which is the maximum value an Int16 can hold
-  </ potentialOverflow equals 32767, which is the maximum value an Int16 can hold
-  -> potentialOverflow += 1
-  xx overflow
-  // this causes an error
-  ```
-}
 
-Providing error handling when values get too large or too small
-gives you much more flexibility when coding for boundary value conditions.
 
-However, when you specifically want an overflow condition
-to truncate the number of available bits,
-you can opt in to this behavior rather than triggering an error.
-Swift provides three arithmetic *overflow operators* that opt in to
-the overflow behavior for integer calculations.
+Fornecendo tratamento de erros quando os valores ficam muito grandes ou muito pequenos oferece muito mais flexibilidade quando codificar para condições de valor limite.
+
+No entanto, quando você quer especificamente uma condição de overflow para truncar o número de bits disponíveis, você pode optar  por este comportamente em vez de desencadear um erro.
+Swift fornece três *operadores de overflow* aritméticos que optam pelo comportamento de overflow para cálculos inteiros.
+Todos esse operadores começam com um `e` comercial (`&`)
 These operators all begin with an ampersand (`&`):
 
-- Overflow addition (`&+`)
-- Overflow subtraction (`&-`)
-- Overflow multiplication (`&*`)
+- Overflow de adição (`&+`)
+- Overflow de subtração (`&-`)
+- Overflow de multiplicação (`&*`)
 
-### Value Overflow
+### Valor de Overflow
 
-Numbers can overflow in both the positive and negative direction.
+Números podem transbordar tanto em direções positivas como em negativas.
 
-Here's an example of what happens when
-an unsigned integer is allowed to overflow in the positive direction,
-using the overflow addition operator (`&+`):
+Aqui está um exemplo do que acontece quando
+um inteiro sem sinal é permitido estourar um sentido positivo,
+usando um operador de adição de overflow.
 
-```swift
+ ('&+'):
+
+'''swift
 var unsignedOverflow = UInt8.max
-// unsignedOverflow equals 255, which is the maximum value a UInt8 can hold
-unsignedOverflow = unsignedOverflow &+ 1
-// unsignedOverflow is now equal to 0
-```
+// O unsignedOverflow é igual a 255, que é o valor máximo que UInt8 pode conterunsignedOverflow = unsignedOverflow &+ 1
+// Agora, o unsignedOverflow é igual a 0.
+'''
 
 
-@Comment {
-  - test: `overflowOperatorsWillOverflowInPositiveDirection`
-  
-  ```swifttest
-  -> var unsignedOverflow = UInt8.max
-  /> unsignedOverflow equals \(unsignedOverflow), which is the maximum value a UInt8 can hold
-  </ unsignedOverflow equals 255, which is the maximum value a UInt8 can hold
-  -> unsignedOverflow = unsignedOverflow &+ 1
-  /> unsignedOverflow is now equal to \(unsignedOverflow)
-  </ unsignedOverflow is now equal to 0
-  ```
-}
 
-The variable `unsignedOverflow` is initialized with the maximum value a `UInt8` can hold
-(`255`, or `11111111` in binary).
-It's then incremented by `1` using the overflow addition operator (`&+`).
-This pushes its binary representation just over the size that a `UInt8` can hold,
-causing it to overflow beyond its bounds,
-as shown in the diagram below.
-The value that remains within the bounds of the `UInt8`
-after the overflow addition is `00000000`, or zero.
+
+
+A variável 'unsignedOverflow' é inicializada com o valor máximo que um 'UInt8' pode conter
+('255' ou '11111111' em binário).
+É então incrementado por '1' usando o operador de adição de overflow('&+').
+Isso empurra sua representação binária um pouco acima do tamanho que um 'UInt8' pode conter,
+fazendo com que ele transborde além de seus limites,
+como mostrado no diagrama abaixo.
+O valor que permanece dentro dos limites do 'UInt8'
+após a adição de overlow é '00000000', ou zero.
 
 ![](overflowAddition)
 
 
-Something similar happens when
-an unsigned integer is allowed to overflow in the negative direction.
-Here's an example using the overflow subtraction operator (`&-`):
+Algo parecido acontece quando
+um inteiro sem sinal é permitido estourar em um sentido negativo.
+Aqui está um exemplo usando um operador de subtração de overflow ('&-'):
 
-```swift
+'''swift
 var unsignedOverflow = UInt8.min
-// unsignedOverflow equals 0, which is the minimum value a UInt8 can hold
+// O unsignedOverflow é igual a 0, que é o valor mínimo que uma UInt8 pode conter
 unsignedOverflow = unsignedOverflow &- 1
-// unsignedOverflow is now equal to 255
-```
+// Agora, o unseignedOverflow é igual a 255
+'''
 
 
-@Comment {
-  - test: `overflowOperatorsWillOverflowInNegativeDirection`
-  
-  ```swifttest
-  -> var unsignedOverflow = UInt8.min
-  /> unsignedOverflow equals \(unsignedOverflow), which is the minimum value a UInt8 can hold
-  </ unsignedOverflow equals 0, which is the minimum value a UInt8 can hold
-  -> unsignedOverflow = unsignedOverflow &- 1
-  /> unsignedOverflow is now equal to \(unsignedOverflow)
-  </ unsignedOverflow is now equal to 255
-  ```
-}
 
-The minimum value that a `UInt8` can hold is zero,
-or `00000000` in binary.
-If you subtract `1` from `00000000` using the overflow subtraction operator (`&-`),
-the number will overflow and wrap around to `11111111`,
-or `255` in decimal.
+
+O valor mínimo que 'UInt8' pode conter é zero,
+ou '00000000' em binário.
+Se você subtrair ‘1’ de ‘00000000’ usando um operador de subtração de overflow ('&-'),
+o número vai estourar e envolver com ‘11111111’
+ou com ‘255’ em decimal. 
 
 ![](overflowUnsignedSubtraction)
 
 
-Overflow also occurs for signed integers.
-All addition and subtraction for signed integers is performed in bitwise fashion,
-with the sign bit included as part of the numbers being added or subtracted,
-as described in <doc:AdvancedOperators#Bitwise-Left-and-Right-Shift-Operators>.
+O overflow também ocorre para inteiros com sinal.
+Todas as somas e subtrações para inteiros com sinal são executadas de forma bit a bit,
+com o bit de sinal incluído como parte dos números sendo adicionados ou subtraídos,
+conforme descrito em <doc:AdvancedOperators#Bitwise-Left-and-Right-Shift-Operators>.
 
-```swift
+'''swift
 var signedOverflow = Int8.min
-// signedOverflow equals -128, which is the minimum value an Int8 can hold
+// O signedOverflow é igual a -128, que é o valor mínimo que uma UInt8 pode conter
 signedOverflow = signedOverflow &- 1
-// signedOverflow is now equal to 127
-```
+// O signedOverflow agora é igual a 127
+'''
 
 
-@Comment {
-  - test: `overflowOperatorsWillOverflowSigned`
-  
-  ```swifttest
-  -> var signedOverflow = Int8.min
-  /> signedOverflow equals \(signedOverflow), which is the minimum value an Int8 can hold
-  </ signedOverflow equals -128, which is the minimum value an Int8 can hold
-  -> signedOverflow = signedOverflow &- 1
-  /> signedOverflow is now equal to \(signedOverflow)
-  </ signedOverflow is now equal to 127
-  ```
-}
 
-The minimum value that an `Int8` can hold is `-128`,
-or `10000000` in binary.
-Subtracting `1` from this binary number with the overflow operator
-gives a binary value of `01111111`,
-which toggles the sign bit and gives positive `127`,
-the maximum positive value that an `Int8` can hold.
+
+O valor mínimo que um ‘Int8’ pode conter é ‘-128’
+ou ‘10000000’ em binário,
+Subtraindo ‘1’ de seu número binário com o operador de overflow
+resulta no valor binário ‘01111111’,
+que alterna o bit de sinal e resulta em positivo ‘127’
+o valor positivo máximo que um ‘Int8’ pode conter.
 
 ![](overflowSignedSubtraction)
 
 
-For both signed and unsigned integers,
-overflow in the positive direction
-wraps around from the maximum valid integer value back to the minimum,
-and overflow in the negative direction
-wraps around from the minimum value to the maximum.
+Para inteiros com e sem sinal,
+o overflow na direção positiva
+envolve do valor inteiro válido máximo de volta ao mínimo,
+e o overflow na direção negativa
+envolve do valor mínimo ao máximo.
 
-## Precedence and Associativity
+## Precedência e Associatividade
 
-Operator *precedence* gives some operators higher priority than others;
-these operators are applied first.
+A *precedência* do operador dá a alguns operadores prioridade mais alta do que a outros;
+esses operadores são aplicados primeiro.
 
-Operator *associativity* defines how operators of the same precedence
-are grouped together ---
-either grouped from the left, or grouped from the right.
-Think of it as meaning “they associate with the expression to their left,”
-or “they associate with the expression to their right.”
+A *associatividade* do operador define como os operadores de mesma precedência
+estão agrupados ---
+agrupados à esquerda ou à direita.
+Pense nisso como significando “eles associam com a expressão à sua esquerda”,
+ou “associam-se à expressão à sua direita”.
 
-It's important to consider
-each operator's precedence and associativity
-when working out the order in which a compound expression will be calculated.
-For example,
-operator precedence explains why the following expression equals `17`.
+É importante considerar
+a precedência e associatividade de cada operador
+ao calcular a ordem na qual uma expressão composta será executada.
+Por exemplo,
+a precedência do operador explica por que a seguinte expressão é igual a `17`.
 
 ```swift
 2 + 3 % 4 * 5
-// this equals 17
+// isso é igual a 17
 ```
 
 
-@Comment {
-  - test: `evaluationOrder`
-  
-  ```swifttest
-  >> let r0 =
-  -> 2 + 3 % 4 * 5
-  >> assert(r0 == 17)
-  /> this equals \(2 + 3 % 4 * 5)
-  </ this equals 17
-  ```
-}
 
-@Comment {
-  Rewrite the above to avoid bare expressions.
-  Tracking bug is <rdar://problem/35301593>
-}
 
-If you read strictly from left to right,
-you might expect the expression to be calculated as follows:
 
-- `2` plus `3` equals `5`
-- `5` remainder `4` equals `1`
-- `1` times `5` equals `5`
 
-However, the actual answer is `17`, not `5`.
-Higher-precedence operators are evaluated before lower-precedence ones.
-In Swift, as in C,
-the remainder operator (`%`) and the multiplication operator (`*`)
-have a higher precedence than the addition operator (`+`).
-As a result, they're both evaluated before the addition is considered.
+Se você ler estritamente da esquerda para a direita,
+você pode esperar que a expressão seja calculada da seguinte forma:
 
-However, remainder and multiplication have the *same* precedence as each other.
-To work out the exact evaluation order to use,
-you also need to consider their associativity.
-Remainder and multiplication both associate with the expression to their left.
-Think of this as adding implicit parentheses around these parts of the expression,
-starting from their left:
+- `2` mais `3` é igual a `5`
+- `5` módulo `4` é igual a `1`
+- `1` vezes `5` é igual a `5`
+
+No entanto, a resposta certa é `17`, não `5`.
+Os operadores de maior precedência são avaliados antes dos de menor precedência.
+Em Swift, como em C,
+o operador de módulo (`%`) e o operador de multiplicação (`*`)
+têm uma precedência maior do que o operador de adição (`+`).
+Como resultado, ambos são avaliados antes que a adição seja considerada.
+
+No entanto, módulo e multiplicação têm a *mesma* precedência.
+Para descobrir a ordem exata de avaliação a ser usada,
+você também precisa considerar sua associatividade.
+O módulo e a multiplicação associam-se à expressão à sua esquerda.
+Pense nisso como adicionar parênteses implícitos em torno dessas partes da expressão,
+começando pela esquerda:
 
 ```swift
 2 + ((3 % 4) * 5)
 ```
 
 
-@Comment {
-  - test: `evaluationOrder`
-  
-  ```swifttest
-  >> let r1 =
-  -> 2 + ((3 % 4) * 5)
-  >> assert(r1 == 17)
-  ```
-}
 
-@Comment {
-  Rewrite the above to avoid bare expressions.
-  Tracking bug is <rdar://problem/35301593>
-}
 
-`(3 % 4)` is `3`, so this is equivalent to:
+
+
+`(3 % 4)` é `3`, então isso é equivalente a:
 
 ```swift
 2 + (3 * 5)
 ```
 
 
-@Comment {
-  - test: `evaluationOrder`
-  
-  ```swifttest
-  >> let r2 =
-  -> 2 + (3 * 5)
-  >> assert(r2 == 17)
-  ```
-}
 
-@Comment {
-  Rewrite the above to avoid bare expressions.
-  Tracking bug is <rdar://problem/35301593>
-}
 
-`(3 * 5)` is `15`, so this is equivalent to:
+
+
+`(3 * 5)` é `15`, então isso é equivalente a:
 
 ```swift
 2 + 15
 ```
 
 
-@Comment {
-  - test: `evaluationOrder`
-  
-  ```swifttest
-  >> let r3 =
-  -> 2 + 15
-  >> assert(r3 == 17)
-  ```
-}
 
-@Comment {
-  Rewrite the above to avoid bare expressions.
-  Tracking bug is <rdar://problem/35301593>
-}
 
-This calculation yields the final answer of `17`.
 
-For information about the operators provided by the Swift standard library,
-including a complete list of the operator precedence groups and associativity settings,
-see [Operator Declarations](https://developer.apple.com/documentation/swift/operator_declarations).
 
-> Note: Swift's operator precedences and associativity rules are simpler and more predictable
-> than those found in C and Objective-C.
-> However, this means that they aren't exactly the same as in C-based languages.
-> Be careful to ensure that operator interactions still behave in the way you intend
-> when porting existing code to Swift.
+Este cálculo produz a resposta final de `17`.
+
+Para obter informações sobre os operadores fornecidos pela biblioteca padrão do Swift,
+incluindo uma lista completa dos grupos de precedência do operador e configurações de associatividade,
+Veja [Operator Declarations](https://developer.apple.com/documentation/swift/operator_declarations).
+
+> Nota: as precedências de operadores e as regras de associatividade do Swift são mais simples e previsíveis
+> do que os encontrados em C e Objective-C.
+> No entanto, isso significa que eles não são exatamente os mesmos que em linguagens baseadas em C.
+> Tenha cuidado em garantir que as interações dos operadores ainda se comportem da maneira esperada
+> ao portar um código para o Swift.
 
 ## Operator Methods
 
@@ -726,21 +518,7 @@ extension Vector2D {
 ```
 
 
-@Comment {
-  - test: `customOperators`
-  
-  ```swifttest
-  -> struct Vector2D {
-        var x = 0.0, y = 0.0
-     }
-  ---
-  -> extension Vector2D {
-         static func + (left: Vector2D, right: Vector2D) -> Vector2D {
-            return Vector2D(x: left.x + right.x, y: left.y + right.y)
-         }
-     }
-  ```
-}
+
 
 The operator method is defined as a type method on `Vector2D`,
 with a method name that matches the operator to be overloaded (`+`).
@@ -770,17 +548,7 @@ let combinedVector = vector + anotherVector
 ```
 
 
-@Comment {
-  - test: `customOperators`
-  
-  ```swifttest
-  -> let vector = Vector2D(x: 3.0, y: 1.0)
-  -> let anotherVector = Vector2D(x: 2.0, y: 4.0)
-  -> let combinedVector = vector + anotherVector
-  /> combinedVector is a Vector2D instance with values of (\(combinedVector.x), \(combinedVector.y))
-  </ combinedVector is a Vector2D instance with values of (5.0, 5.0)
-  ```
-}
+
 
 This example adds together the vectors `(3.0, 1.0)` and `(2.0, 4.0)`
 to make the vector `(5.0, 5.0)`, as illustrated below.
@@ -810,17 +578,7 @@ extension Vector2D {
 ```
 
 
-@Comment {
-  - test: `customOperators`
-  
-  ```swifttest
-  -> extension Vector2D {
-         static prefix func - (vector: Vector2D) -> Vector2D {
-             return Vector2D(x: -vector.x, y: -vector.y)
-         }
-     }
-  ```
-}
+
 
 The example above implements the unary minus operator
 (`-a`) for `Vector2D` instances.
@@ -841,119 +599,59 @@ let alsoPositive = -negative
 ```
 
 
-@Comment {
-  - test: `customOperators`
-  
-  ```swifttest
-  -> let positive = Vector2D(x: 3.0, y: 4.0)
-  -> let negative = -positive
-  /> negative is a Vector2D instance with values of (\(negative.x), \(negative.y))
-  </ negative is a Vector2D instance with values of (-3.0, -4.0)
-  -> let alsoPositive = -negative
-  /> alsoPositive is a Vector2D instance with values of (\(alsoPositive.x), \(alsoPositive.y))
-  </ alsoPositive is a Vector2D instance with values of (3.0, 4.0)
-  ```
-}
 
-### Compound Assignment Operators
 
-*Compound assignment operators* combine assignment (`=`) with another operation.
-For example, the addition assignment operator (`+=`)
-combines addition and assignment into a single operation.
-You mark a compound assignment operator's left input parameter type as `inout`,
-because the parameter's value will be modified directly from within the operator method.
+### Operadores de Atribuição Composta
 
-The example below implements
-an addition assignment operator method for `Vector2D` instances:
+*Operadores de atribuição composta* combinam atribuição ('=') com outra operação.
+Por exemplo, o operador de atribuição de adição ('+=')
+combina adição e atribuição em uma única operação
+Você marca o tipo de parâmetro de entrada esquerdo de um operador de atribuição composto como 'inout',
+pois o valor do parâmetro será modificado diretamente de dentro do método o operador.
 
-```swift
+O exemplo abaixo implementa
+um operador de atribuição de adição para instâncias 'Vector2D':
+
+'''swift
 extension Vector2D {
     static func += (left: inout Vector2D, right: Vector2D) {
         left = left + right
     }
 }
-```
+'''
 
 
-@Comment {
-  - test: `customOperators`
-  
-  ```swifttest
-  -> extension Vector2D {
-         static func += (left: inout Vector2D, right: Vector2D) {
-             left = left + right
-         }
-     }
-  ```
-}
 
-Because an addition operator was defined earlier,
-you don't need to reimplement the addition process here.
-Instead, the addition assignment operator method
-takes advantage of the existing addition operator method,
-and uses it to set the left value to be the left value plus the right value:
 
-```swift
+Como um operador de adição foi definido anteriormente,
+você não precisa reimplementar o processo de adição aqui.
+Nesse caso, o método do operador de atribuição de adição
+aproveita do método de operador de adição existente,
+e o uso para definir o valor esquerdo como o valor esquerdo somado ao valor direito:
+
+'''swift
 var original = Vector2D(x: 1.0, y: 2.0)
 let vectorToAdd = Vector2D(x: 3.0, y: 4.0)
 original += vectorToAdd
-// original now has values of (4.0, 6.0)
-```
+// agora, original tem os valores de (4.0, 6.0)
+'''
 
 
-@Comment {
-  - test: `customOperators`
-  
-  ```swifttest
-  -> var original = Vector2D(x: 1.0, y: 2.0)
-  -> let vectorToAdd = Vector2D(x: 3.0, y: 4.0)
-  -> original += vectorToAdd
-  /> original now has values of (\(original.x), \(original.y))
-  </ original now has values of (4.0, 6.0)
-  ```
-}
 
-> Note: It isn't possible to overload the default
-> assignment operator (`=`).
-> Only the compound assignment operators can be overloaded.
-> Similarly, the ternary conditional operator
-> (`a ? b : c`) can't be overloaded.
 
-@Comment {
-  - test: `cant-overload-assignment`
-  
-  ```swifttest
-  >> struct Vector2D {
-  >>    var x = 0.0, y = 0.0
-  >> }
-  >> extension Vector2D {
-  >>     static func = (left: inout Vector2D, right: Vector2D) {
-  >>         left = right
-  >>     }
-  >> }
-  !$ error: expected identifier in function declaration
-  !! static func = (left: inout Vector2D, right: Vector2D) {
-  !!             ^
-  ```
-}
+> Nota: Não é possível sobrecarregar o padrão
+> operador de atribuição (‘=‘)
+> Somente os operadores de tribuição compostos podem ser sobrecarregados.
+> Igualmente, o operador condicional ternário
+> ('a ? b : c') não podem ser sobrecarregados.
 
-### Equivalence Operators
 
-By default, custom classes and structures don't have an implementation of
-the *equivalence operators*,
-known as the *equal to* operator (`==`) and *not equal to* operator (`!=`).
-You usually implement the `==` operator,
-and use the standard library's default implementation of the `!=` operator
-that negates the result of the `==` operator.
-There are two ways to implement the `==` operator:
-You can implement it yourself,
-or for many types, you can ask Swift to synthesize
-an implementation for you.
-In both cases,
-you add conformance to the standard library's `Equatable` protocol.
 
-You provide an implementation of the `==` operator
-in the same way as you implement other infix operators:
+### Operadores de Equivalência
+
+Por padrão , classes customizadas e structures não possuem uma implementação dos *operadores de equivalência*, conhecidos como os operadores *igual a* (`==`) e *diferente de* (`!=`). Normalmente se implementa o operador `==` e se usa a implementação padrão do operador (`!=`) da biblioteca padrão que nega o resultado do operador `==`. Existem duas maneiras de se implementar o operador `==`: Você pode implementar por conta própria ou, em muitos casos, você pode pedir ao Swift para que sintetize a implementação por você. Em ambos os casos, você adiciona conformidade ao protocolo `Equatable` da biblioteca padrão.
+
+Você pode fornecer a implementação do operador `==` da mesma maneira que implementa outros operadores infixos:
 
 ```swift
 extension Vector2D: Equatable {
@@ -964,26 +662,11 @@ extension Vector2D: Equatable {
 ```
 
 
-@Comment {
-  - test: `customOperators`
-  
-  ```swifttest
-  -> extension Vector2D: Equatable {
-         static func == (left: Vector2D, right: Vector2D) -> Bool {
-            return (left.x == right.x) && (left.y == right.y)
-         }
-     }
-  ```
-}
 
-The example above implements an `==` operator
-to check whether two `Vector2D` instances have equivalent values.
-In the context of `Vector2D`,
-it makes sense to consider “equal” as meaning
-“both instances have the same `x` values and `y` values”,
-and so this is the logic used by the operator implementation.
 
-You can now use this operator to check whether two `Vector2D` instances are equivalent:
+O exemplo acima implementa um operador `==` para verificar se duas instancias de `Vector2D` tem valores equivalentes. No contexto de `Vector2D`, faz sentido considerar que "igual" significa que "ambas as instâncias tem os mesmos valores de `x` e `y`", sendo essa a lógica usada pela implementação  do operador.
+
+Agora você pode usar esse operador para verificar se duas instâncias de `Vector2D` são equivalentes:
 
 ```swift
 let twoThree = Vector2D(x: 2.0, y: 3.0)
@@ -995,22 +678,9 @@ if twoThree == anotherTwoThree {
 ```
 
 
-@Comment {
-  - test: `customOperators`
-  
-  ```swifttest
-  -> let twoThree = Vector2D(x: 2.0, y: 3.0)
-  -> let anotherTwoThree = Vector2D(x: 2.0, y: 3.0)
-  -> if twoThree == anotherTwoThree {
-        print("These two vectors are equivalent.")
-     }
-  <- These two vectors are equivalent.
-  ```
-}
 
-In many simple cases, you can ask Swift
-to provide synthesized implementations of the equivalence operators for you,
-as described in <doc:Protocols#Adopting-a-Protocol-Using-a-Synthesized-Implementation>.
+
+Em muitos casos simples, você pode pedir que o Swift sintetize a implementação dos operadores de equivalência , como descrito em <doc:Protocols#Adopting-a-Protocol-Using-a-Synthesized-Implementation>.
 
 ## Custom Operators
 
@@ -1027,13 +697,7 @@ prefix operator +++
 ```
 
 
-@Comment {
-  - test: `customOperators`
-  
-  ```swifttest
-  -> prefix operator +++
-  ```
-}
+
 
 The example above defines a new prefix operator called `+++`.
 This operator doesn't have an existing meaning in Swift,
@@ -1060,25 +724,7 @@ let afterDoubling = +++toBeDoubled
 ```
 
 
-@Comment {
-  - test: `customOperators`
-  
-  ```swifttest
-  -> extension Vector2D {
-        static prefix func +++ (vector: inout Vector2D) -> Vector2D {
-           vector += vector
-           return vector
-        }
-     }
-  ---
-  -> var toBeDoubled = Vector2D(x: 1.0, y: 4.0)
-  -> let afterDoubling = +++toBeDoubled
-  /> toBeDoubled now has values of (\(toBeDoubled.x), \(toBeDoubled.y))
-  </ toBeDoubled now has values of (2.0, 8.0)
-  /> afterDoubling also has values of (\(afterDoubling.x), \(afterDoubling.y))
-  </ afterDoubling also has values of (2.0, 8.0)
-  ```
-}
+
 
 ### Precedence for Custom Infix Operators
 
@@ -1110,23 +756,7 @@ let plusMinusVector = firstVector +- secondVector
 ```
 
 
-@Comment {
-  - test: `customOperators`
-  
-  ```swifttest
-  -> infix operator +-: AdditionPrecedence
-  -> extension Vector2D {
-        static func +- (left: Vector2D, right: Vector2D) -> Vector2D {
-           return Vector2D(x: left.x + right.x, y: left.y - right.y)
-        }
-     }
-  -> let firstVector = Vector2D(x: 1.0, y: 2.0)
-  -> let secondVector = Vector2D(x: 3.0, y: 4.0)
-  -> let plusMinusVector = firstVector +- secondVector
-  /> plusMinusVector is a Vector2D instance with values of (\(plusMinusVector.x), \(plusMinusVector.y))
-  </ plusMinusVector is a Vector2D instance with values of (4.0, -2.0)
-  ```
-}
+
 
 This operator adds together the `x` values of two vectors,
 and subtracts the `y` value of the second vector from the first.
@@ -1144,30 +774,7 @@ see <doc:Declarations#Operator-Declaration>.
 > However, if you apply both a prefix and a postfix operator to the same operand,
 > the postfix operator is applied first.
 
-@Comment {
-  - test: `postfixOperatorsAreAppliedBeforePrefixOperators`
-  
-  ```swifttest
-  -> prefix operator +++
-  -> postfix operator ---
-  -> extension Int {
-         static prefix func +++ (x: Int) -> Int {
-             return x * 2
-         }
-     }
-  -> extension Int {
-         static postfix func --- (x: Int) -> Int {
-             return x - 1
-         }
-     }
-  -> let x = +++1---
-  -> let y = +++(1---)
-  -> let z = (+++1)---
-  -> print(x, y, z)
-  <- 0 0 1
-  // Note that x==y
-  ```
-}
+
 
 ## Result Builders
 
@@ -1211,37 +818,7 @@ struct AllCaps: Drawable {
 ```
 
 
-@Comment {
-  - test: `result-builder`
-  
-  ```swifttest
-  -> protocol Drawable {
-         func draw() -> String
-     }
-  -> struct Line: Drawable {
-         var elements: [Drawable]
-         func draw() -> String {
-             return elements.map { $0.draw() }.joined(separator: "")
-         }
-     }
-  -> struct Text: Drawable {
-         var content: String
-         init(_ content: String) { self.content = content }
-         func draw() -> String { return content }
-     }
-  -> struct Space: Drawable {
-         func draw() -> String { return " " }
-     }
-  -> struct Stars: Drawable {
-         var length: Int
-         func draw() -> String { return String(repeating: "*", count: length) }
-     }
-  -> struct AllCaps: Drawable {
-         var content: Drawable
-         func draw() -> String { return content.draw().uppercased() }
-     }
-  ```
-}
+
 
 The `Drawable` protocol defines the requirement
 for something that can be drawn, like a line or shape:
@@ -1272,22 +849,7 @@ print(manualDrawing.draw())
 ```
 
 
-@Comment {
-  - test: `result-builder`
-  
-  ```swifttest
-  -> let name: String? = "Ravi Patel"
-  -> let manualDrawing = Line(elements: [
-          Stars(length: 3),
-          Text("Hello"),
-          Space(),
-          AllCaps(content: Text((name ?? "World") + "!")),
-          Stars(length: 2),
-     ])
-  -> print(manualDrawing.draw())
-  <- ***Hello RAVI PATEL!**
-  ```
-}
+
 
 This code works, but it's a little awkward.
 The deeply nested parentheses after `AllCaps` are hard to read.
@@ -1320,24 +882,7 @@ struct DrawingBuilder {
 ```
 
 
-@Comment {
-  - test: `result-builder`
-  
-  ```swifttest
-  -> @resultBuilder
-  -> struct DrawingBuilder {
-         static func buildBlock(_ components: Drawable...) -> Drawable {
-             return Line(elements: components)
-         }
-         static func buildEither(first: Drawable) -> Drawable {
-             return first
-         }
-         static func buildEither(second: Drawable) -> Drawable {
-             return second
-         }
-     }
-  ```
-}
+
 
 The `DrawingBuilder` structure defines three methods
 that implement parts of the result builder syntax.
@@ -1386,42 +931,7 @@ print(personalGreeting.draw())
 ```
 
 
-@Comment {
-  - test: `result-builder`
-  
-  ```swifttest
-  -> func draw(@DrawingBuilder content: () -> Drawable) -> Drawable {
-         return content()
-     }
-  -> func caps(@DrawingBuilder content: () -> Drawable) -> Drawable {
-         return AllCaps(content: content())
-     }
-  ---
-  -> func makeGreeting(for name: String? = nil) -> Drawable {
-         let greeting = draw {
-             Stars(length: 3)
-             Text("Hello")
-             Space()
-             caps {
-                 if let name = name {
-                     Text(name + "!")
-                 } else {
-                     Text("World!")
-                 }
-             }
-             Stars(length: 2)
-         }
-         return greeting
-     }
-  -> let genericGreeting = makeGreeting()
-  -> print(genericGreeting.draw())
-  <- ***Hello WORLD!**
-  ---
-  -> let personalGreeting = makeGreeting(for: "Ravi Patel")
-  -> print(personalGreeting.draw())
-  <- ***Hello RAVI PATEL!**
-  ```
-}
+
 
 The `makeGreeting(for:)` function takes a `name` parameter
 and uses it to draw a personalized greeting.
@@ -1452,25 +962,7 @@ let capsDrawing = caps {
 ```
 
 
-@Comment {
-  - test: `result-builder`
-  
-  ```swifttest
-  -> let capsDrawing = caps {
-         let partialDrawing: Drawable
-         if let name = name {
-             let text = Text(name + "!")
-             partialDrawing = DrawingBuilder.buildEither(first: text)
-         } else {
-             let text = Text("World!")
-             partialDrawing = DrawingBuilder.buildEither(second: text)
-         }
-         return partialDrawing
-  -> }
-  >> print(capsDrawing.draw())
-  << RAVI PATEL!
-  ```
-}
+
 
 Swift transforms the `if`-`else` block into
 calls to the `buildEither(first:)` and `buildEither(second:)` methods.
@@ -1498,26 +990,7 @@ let manyStars = draw {
 ```
 
 
-@Comment {
-  - test: `result-builder`
-  
-  ```swifttest
-  -> extension DrawingBuilder {
-         static func buildArray(_ components: [Drawable]) -> Drawable {
-             return Line(elements: components)
-         }
-     }
-  -> let manyStars = draw {
-         Text("Stars:")
-         for length in 1...3 {
-             Space()
-             Stars(length: length)
-         }
-  -> }
-  >> print(manyStars.draw())
-  << Stars: * ** ***
-  ```
-}
+
 
 In the code above, the `for` loop creates an array of drawings,
 and the `buildArray(_:)` method turns that array into a `Line`.
@@ -1526,97 +999,13 @@ For a complete list of how Swift transforms builder syntax
 into calls to the builder type's methods,
 see <doc:Attributes#resultBuilder>.
 
-@Comment {
-  The following needs more work...
-  
-   Protocol Operator Requirements
-   ------------------------------
-  
-   You can include operators in the requirements of a protocol.
-   A type conforms to the protocol
-   only if there's an implementation of the operator for that type.
-   You use ``Self`` to refer to the type that will conform to the protocol,
-   just like you do in other protocol requirements.
-   For example, the standard library defines the ``Equatable`` protocol
-   which requires the ``==`` operator:
-  
-   .. testcode:: protocolOperator
-  
-      -> protocol Equatable {
-             static func == (lhs: Self, rhs: Self) -> Bool
-         }
-  
-   To make a type conform to the protocol,
-   you need to implement the ``==`` operator for that type.
-   For example:
-  
-   .. testcode:: protocolOperator
-  
-  -> struct Vector3D {
-        var x = 0.0, y = 0.0, z = 0.0
-     }
-  -> extension Vector3D: Equatable {
-         static func == (left: Vector3D, right: Vector3D) -> Bool {
-             return (left.x == right.x) && (left.y == right.y) && (left.z == right.z)
-         }
-     }
-  >> let r0 =
-  >> Vector3D(x: 1.1, y: 2.3, z: 12) == Vector3D(x: 1.1, y: 2.3, z: 12)
-  >> assert(r0)
-}
-
-@Comment {
-  FIXME: This doesn't work
-  <rdar://problem/27536066> SE-0091 -- can't have protocol conformance & operator implementation in different types
-  
-   For operators that take values of two different types,
-   the operator's implementation doesn't have to be
-   a member of the type that conforms to the protocol ---
-   the implementation can also be a member of the other type.
-   For example,
-   the code below defines the ``*`` operator
-   to scale a vector by a given amount.
-   The ``Vector2D`` structure conforms to this protocol
-   because there's an implementation of the operator
-   that takes a ``Vector2D`` as its second argument,
-   even though that implementation is a member of ``Double``.
-  
-   .. testcode:: customOperators
-  
-  -> infix operator *** {}
-  -> protocol AnotherProtocol {
-         // static func * (scale: Double, vector: Self) -> Self
-         static func *** (scale: Double, vector: Vector2D) -> Vector2D
-     }
-  ---
-  -> extension Double {
-         static func *** (scale: Double, vector: Vector2D) -> Vector2D {
-             return Vector2D(x: scale * vector.x, y: scale * vector.y)
-         }
-     }
-  -> extension Vector2D: AnotherProtocol {}
-  -> let unitVector = Vector2D(x: 1.0, y: 1.0)
-  -> print(2.5 *** unitVector)
-  <- Vector2D(x: 2.5, y: 2.5)
-}
-
-@Comment {
-  TODO: However, Doug thought that this might be better covered by Generics,
-  where you know that two things are definitely of the same type.
-  Perhaps mention it here, but don't actually show an example?
-}
-
-@Comment {
-  TODO: generic operators
-}
 
 
-@Comment {
-This source file is part of the Swift.org open source project
 
-Copyright (c) 2014 - 2022 Apple Inc. and the Swift project authors
-Licensed under Apache License v2.0 with Runtime Library Exception
 
-See https://swift.org/LICENSE.txt for license information
-See https://swift.org/CONTRIBUTORS.txt for the list of Swift project authors
-}
+
+
+
+
+
+

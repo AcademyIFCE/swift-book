@@ -138,41 +138,42 @@ struct Fahrenheit {
   ```
 }
 
-## Customizing Initialization
+## Construtores Customizáveis
 
-You can customize the initialization process
-with input parameters and optional property types,
-or by assigning constant properties during initialization,
-as described in the following sections.
+Você pode personalizar o processo de inicialização
+com parâmetros de entrada e tipos de propriedade opcionais,
+ou através da atribuição de propriedades constantes durante a inicialização,
+como descrito nas seções seguintes.
 
-### Initialization Parameters
+### Parâmetros de Inicialização
 
-You can provide *initialization parameters* as part of an initializer's definition,
-to define the types and names of values that customize the initialization process.
-Initialization parameters have the same capabilities and syntax
-as function and method parameters.
+Você pode fornecer *parâmetros de inicialização* como parte da definição de um inicializador,
+para definir os tipos e nomes de valores que personalizam o processo de inicialização.
+Os parâmetros de inicialização têm as mesmas capacidades e sintaxe
+como parâmetros de função e método.
 
-The following example defines a structure called `Celsius`,
-which stores temperatures expressed in degrees Celsius.
-The `Celsius` structure implements two custom initializers called
-`init(fromFahrenheit:)` and `init(fromKelvin:)`,
-which initialize a new instance of the structure
-with a value from a different temperature scale:
+O exemplo seguinte define uma estrutura chamada `Celsius`,
+que armazena temperaturas expressas em graus Celsius.
+A estrutura 'Celsius' implementa dois inicializadores personalizados chamados
+`init(deFahrenheit:)` e `init(deKelvin:)`,
+que inicializam uma nova instância da estrutura
+com um valor a partir de uma escala de temperatura diferente:
+
 
 ```swift
 struct Celsius {
-   var temperatureInCelsius: Double
-   init(fromFahrenheit fahrenheit: Double) {
-      temperatureInCelsius = (fahrenheit - 32.0) / 1.8
+   var temperaturaEmCelsius: Double
+   init(deFahrenheit fahrenheit: Double) {
+    temperaturaEmCelsius = (fahrenheit - 32.0) / 1.8
    }
-   init(fromKelvin kelvin: Double) {
-      temperatureInCelsius = kelvin - 273.15
+   init(deKelvin kelvin: Double) {
+     temperaturaEmCelsius = kelvin - 273.15
    }
 }
-let boilingPointOfWater = Celsius(fromFahrenheit: 212.0)
-// boilingPointOfWater.temperatureInCelsius is 100.0
-let freezingPointOfWater = Celsius(fromKelvin: 273.15)
-// freezingPointOfWater.temperatureInCelsius is 0.0
+let pontoDeEbuliçãoDaAgua = Celsius(deFahrenheit: 212.0)
+// pontoDeEbuliçãoDaAgua.temperaturaEmCelsius é 100.0
+let pontoDeSolidificacaoDaAgua = Celsius(deKelvin: 273.15)
+// pontoDeSolidificacaoDaAgua.temperaturaEmCelsius é 0.0
 ```
 
 
@@ -198,57 +199,57 @@ let freezingPointOfWater = Celsius(fromKelvin: 273.15)
   ```
 }
 
-The first initializer has a single initialization parameter
-with an argument label of `fromFahrenheit` and a parameter name of `fahrenheit`.
-The second initializer has a single initialization parameter
-with an argument label of `fromKelvin` and a parameter name of `kelvin`.
-Both initializers convert their single argument into
-the corresponding Celsius value
-and store this value in a property called `temperatureInCelsius`.
+O primeiro inicializador tem um único parâmetro
+com um rótulo de argumento `deFahrenheit` e um nome de parâmetro de `fahrenheit`.
+O segundo inicializador tem um único parâmetro de inicialização
+com um rótulo de argumento de `deKelvin` e um nome de parâmetro de `kelvin`.
+Ambos os inicializadores convertem seu único argumento em
+valor Celsius correspondente e armazena este valor em uma propriedade chamada `temperaturaEmCelsius`.
+
 
 @Comment {
   TODO: I need to provide an example of default values for initializer parameters,
   to show they can help you to get multiple initializers "for free" (after a fashion).
 }
 
-### Parameter Names and Argument Labels
+### Nomes de parâmetros e etiquetas de argumentos
 
-As with function and method parameters,
-initialization parameters can have both a parameter name
-for use within the initializer's body
-and an argument label for use when calling the initializer.
+Como com os parâmetros de função e método,
+os de inicialização podem ter ambos um nome
+para uso dentro do corpo do inicializador
+e uma etiqueta de argumento para uso ao chamar o construtor.
 
-However, initializers don't have an identifying function name before their parentheses
-in the way that functions and methods do.
-Therefore, the names and types of an initializer's parameters
-play a particularly important role in identifying which initializer should be called.
-Because of this, Swift provides an automatic argument label
-for *every* parameter in an initializer if you don't provide one.
+Entretanto, os inicializadores não têm um nome identificador de função antes de seus parênteses
+da mesma forma que funções e métodos funcionam.
+Portanto, os nomes e tipos de parâmetros de um inicializador
+desempenham um papel particularmente importante na identificação desse que deve ser chamado.
+Por causa disso, Swift fornece um rótulo de argumento automático
+para *todos* os parâmetros, se você não fornecer um.
 
-The following example defines a structure called `Color`,
-with three constant properties called `red`, `green`, and `blue`.
-These properties store a value between `0.0` and `1.0`
-to indicate the amount of red, green, and blue in the color.
 
-`Color` provides an initializer with
-three appropriately named parameters of type `Double`
-for its red, green, and blue components.
-`Color` also provides a second initializer with a single `white` parameter,
-which is used to provide the same value for all three color components.
+O exemplo seguinte define uma estrutura chamada `Cor`,
+com três propriedades constantes chamadas `vermelho`, `verde`, e `azul`.
+Estas propriedades armazenam um valor entre `0.0` e `1.0`.
+para indicar a quantidade de vermelho, verde e azul na cor.
+
 
 ```swift
-struct Color {
-   let red, green, blue: Double
-   init(red: Double, green: Double, blue: Double) {
-      self.red   = red
-      self.green = green
-      self.blue  = blue
+struct Cor {
+
+   let vermelho, verde, azul: Double
+   
+   init(vermelho: Double, verde: Double, azul: Double) {
+      self.vermelho = vermelho 
+      self.verde = verde
+      self.azul  = azul
    }
-   init(white: Double) {
-      red   = white
-      green = white
-      blue  = white
+   
+   init(branco: Double) {
+      vermelho = branco
+      verde = branco
+      azul = branco
    }
+   
 }
 ```
 
@@ -273,14 +274,13 @@ struct Color {
   ```
 }
 
-Both initializers can be used to create a new `Color` instance,
-by providing named values for each initializer parameter:
+Ambos os inicializadores podem ser utilizados para criar uma nova instância `Color`,
+fornecendo valores nomeados para cada parâmetro inicializador:
 
 ```swift
-let magenta = Color(red: 1.0, green: 0.0, blue: 1.0)
-let halfGray = Color(white: 0.5)
+let magenta = Cor(vermelho: 1.0, verde: 0.0, azul: 1.0)
+let meioCinza = Cor(branco: 0.5)
 ```
-
 
 @Comment {
   - test: `externalParameterNames`
@@ -294,14 +294,14 @@ let halfGray = Color(white: 0.5)
   ```
 }
 
-Note that it isn't possible to call these initializers
-without using argument labels.
-Argument labels must always be used in an initializer if they're defined,
-and omitting them is a compile-time error:
+Note que não é possível chamar esses inicializadores de
+sem utilizar etiquetas de argumento.
+As etiquetas de argumento devem ser sempre utilizadas em um inicializador, se forem definidas,
+e omiti-los é um erro de tempo de compilação:
 
 ```swift
-let veryGreen = Color(0.0, 1.0, 0.0)
-// this reports a compile-time error - argument labels are required
+let muitoVerde = Cor(0.0, 1.0, 0.0)
+// isto relata um erro de tempo de compilação - são necessárias etiquetas de argumento
 ```
 
 
@@ -318,32 +318,37 @@ let veryGreen = Color(0.0, 1.0, 0.0)
   ```
 }
 
-### Initializer Parameters Without Argument Labels
+### Parâmetros inicializadores sem etiquetas de argumento
 
-If you don't want to use an argument label for an initializer parameter,
-write an underscore (`_`) instead of an explicit argument label for that parameter
-to override the default behavior.
+Se você não quiser usar um rótulo de argumento para um parâmetro inicializador,
+escrever um sublinhado (`_`) em vez de um rótulo de argumento explícito para esse parâmetro
+a fim de sobrepor-se ao comportamento padrão.
 
-Here's an expanded version of the `Celsius` example
-from <doc:Initialization#Initialization-Parameters> above,
-with an additional initializer to create a new `Celsius` instance
-from a `Double` value that's already in the Celsius scale:
+Aqui está uma versão ampliada do exemplo `Celsius`
+de <doc:Initialization#Initialization-Parameters> acima,
+com um inicializador adicional para criar uma nova instância `Celsius`.
+de um valor `Double` que já está na escala célsius:
 
 ```swift
-struct Celsius {
-   var temperatureInCelsius: Double
-   init(fromFahrenheit fahrenheit: Double) {
-      temperatureInCelsius = (fahrenheit - 32.0) / 1.8
-   }
-   init(fromKelvin kelvin: Double) {
-      temperatureInCelsius = kelvin - 273.15
-   }
-   init(_ celsius: Double) {
-      temperatureInCelsius = celsius
-   }
-}
-let bodyTemperature = Celsius(37.0)
-// bodyTemperature.temperatureInCelsius is 37.0
+
+    struct Celsius {
+    
+       var temperaturaEmCelsius: Double
+       
+       init(deFahrenheit fahrenheit: Double) {
+        temperaturaEmCelsius = (fahrenheit - 32.0) / 1.8
+       }
+       init(deKelvin kelvin: Double) {
+         temperaturaEmCelsius = kelvin - 273.15
+       }
+       
+       init(_ celsius: Double) {
+          temperaturaEmCelsius = celsius
+       }
+    }   
+   
+let temperaturaCorporal = Celsius(37.0)
+// temperaturaCorporal.temperaturaEmCelsius é 37.0
 ```
 
 
@@ -369,39 +374,41 @@ let bodyTemperature = Celsius(37.0)
   ```
 }
 
-The initializer call `Celsius(37.0)` is clear in its intent
-without the need for an argument label.
-It's therefore appropriate to write this initializer as `init(_ celsius: Double)`
-so that it can be called by providing an unnamed `Double` value.
+A chamada ao construtor `Celsius(37.0)` é claro em sua intenção
+sem a necessidade de um rótulo de argumento.
+Portanto, é apropriado escrever este inicializador como `init(_ celsius: Double)``.
+para que possa ser chamado fornecendo um valor `Double` sem nome.
 
-### Optional Property Types
+### Tipos de propriedade opcional
 
-If your custom type has a stored property that's logically allowed to have “no value” ---
-perhaps because its value can't be set during initialization,
-or because it's allowed to have “no value” at some later point ---
-declare the property with an *optional* type.
-Properties of optional type are automatically initialized with a value of `nil`,
-indicating that the property is deliberately intended to have “no value yet”
-during initialization.
+Se seu tipo customizado é permitido ter "nenhum valor" ---
+Talvez porque sua informação não pode ser definida durante a inicialização, ou porque é permitido ter "nenhum valor" em algum momento posterior ---
+declarar o propriedade com um tipo *opcional*.
+Propriedades de tipo opcional são automaticamente inicializadas com um valor de `nil`,
+indicando que o item é deliberadamente destinado a ter "nenhum valor ainda"
+durante a inicialização.
 
-The following example defines a class called `SurveyQuestion`,
-with an optional `String` property called `response`:
+O exemplo a seguir define uma classe chamada `PerguntaDePesquisa`,
+com uma propriedade opcional `String` chamada `resposta`:
 
 ```swift
-class SurveyQuestion {
-   var text: String
-   var response: String?
-   init(text: String) {
-      self.text = text
+class PerguntaDePesquisa {
+   var texto: String
+   var resposta: String?
+   
+   init(texto: String) {
+      self.texto = texto
    }
-   func ask() {
-      print(text)
+   
+   func perguntar() {
+      print(texto)
    }
 }
-let cheeseQuestion = SurveyQuestion(text: "Do you like cheese?")
-cheeseQuestion.ask()
-// Prints "Do you like cheese?"
-cheeseQuestion.response = "Yes, I do like cheese."
+
+let perguntaQueijuda = PerguntaDePesquisa(texto: "Você gosta de queijo?")
+perguntaQueijuda.perguntar()
+// Printa "Você gosta de queijo?"
+perguntaQueijuda.resposta = "Sim, eu gosto"
 ```
 
 
@@ -426,19 +433,19 @@ cheeseQuestion.response = "Yes, I do like cheese."
   ```
 }
 
-The response to a survey question can't be known until it's asked,
-and so the `response` property is declared with a type of `String?`,
-or “optional `String`”.
-It's automatically assigned a default value of `nil`, meaning “no string yet”,
-when a new instance of `SurveyQuestion` is initialized.
+A resposta de uma pergunta da pesquisa não pode ser conhecida até que seja feita,
+e assim a propriedade de `resposta` é declarada com um tipo de `String?`,
+ou “opcional de `String`".
+É automaticamente atribuído um valor padrão de `nil`, significando "sem string ainda",
+quando uma nova instância de `SurveyQuestion` é inicializada.
 
-### Assigning Constant Properties During Initialization
+### Atribuição de propriedades constantes durante a Inicialização
 
-You can assign a value to a constant property
-at any point during initialization,
-as long as it's set to a definite value by the time initialization finishes.
-Once a constant property is assigned a value,
-it can't be further modified.
+Você pode atribuir um valor a um propriedade constante
+a qualquer momento durante a inicialização,
+desde que seja estabelecida a um valor definido até o momento em que a inicialização terminar.
+Uma vez que uma propriedade constante é atribuída a um valor,
+não pode ser mais modificado.
 
 @Comment {
   - test: `constantPropertyAssignment`
@@ -484,32 +491,33 @@ it can't be further modified.
   ```
 }
 
-> Note: For class instances,
-> a constant property can be modified during initialization
-> only by the class that introduces it.
-> It can't be modified by a subclass.
+> Nota: Para instâncias de classe,
+> uma propriedade constante pode ser modificada durante a inicialização
+> somente pela classe que a apresenta.
+> Não pode ser modificado por uma subclasse.
 
-You can revise the `SurveyQuestion` example from above to use
-a constant property rather than a variable property for the `text` property of the question,
-to indicate that the question doesn't change once an instance of `SurveyQuestion` is created.
-Even though the `text` property is now a constant,
-it can still be set within the class's initializer:
+Você pode revisar o exemplo de `PerguntaDePesquisa` de cima para utilizar
+uma propriedade constante em vez de uma variável para a propriedade "texto" da questão,
+indicando que a questão não muda uma vez criada uma instância de "Pesquisa".
+Mesmo que a propriedade `texto` seja agora uma constante,
+ainda pode ser definido dentro do inicializador da classe:
 
 ```swift
-class SurveyQuestion {
-   let text: String
-   var response: String?
-   init(text: String) {
-      self.text = text
+class PerguntaDePesquisa {
+   let texto: String
+   var resposta: String?
+   init(texto: String) {
+      self.texto = texto
    }
-   func ask() {
-      print(text)
+   func perguntar() {
+      print(texto)
    }
 }
-let beetsQuestion = SurveyQuestion(text: "How about beets?")
-beetsQuestion.ask()
-// Prints "How about beets?"
-beetsQuestion.response = "I also like beets. (But not with cheese.)"
+
+let perguntarBeterraba = PerguntaDePesquisa(text: "Que tal beterraba?")
+perguntarBeterraba.perguntar()
+// Printa "Que tal beterraba?"
+beetsQuestion.response = "Também gosto de beterraba. (Mas não com queijo)."
 ```
 
 

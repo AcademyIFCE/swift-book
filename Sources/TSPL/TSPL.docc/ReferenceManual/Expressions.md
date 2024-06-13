@@ -325,15 +325,16 @@ conditional-operator --> ``?`` expression ``:``
 ```
 
 
-### Type-Casting Operators
 
-There are four type-casting operators:
-the `is` operator,
-the `as` operator,
-the `as?` operator,
-and the `as!` operator.
+### Operadores de _Type-Casting_
 
-They have the following form:
+Existem quatro operadores de impressão:
+o operador `is`,
+o operador `as`,
+o operador `as?`,
+e o operador `as!`.
+
+Eles tem a seguinte forma:
 
 ```
 <#expression#> is <#type#>
@@ -343,22 +344,24 @@ They have the following form:
 ```
 
 
-The `is` operator checks at runtime whether the *expression*
-can be cast to the specified *type*.
-It returns `true` if the *expression* can be cast to the specified *type*;
-otherwise, it returns `false`.
+O operador `is` checa em tempo de execução se a *expression*
+pode ser usada como do *type* específico.
+O operador retorna _true_ se a *expression* pode ser usada como o *type* específico;
+caso contrário, retorna _false_.
 
 
 
 
 
-The `as` operator performs a cast
-when it's known at compile time
-that the cast always succeeds,
-such as upcasting or bridging.
-Upcasting lets you use an expression as an instance of its type's supertype,
-without using an intermediate variable.
-The following approaches are equivalent:
+
+O operador `as` performa uma instância
+quando se sabe em tempo de compilação
+que a instância sempre funciona, 
+assim como _upcasting_ e _bridging_.
+_Upcasting_ permite que se use uma expressão como uma instância do tipo de seu supertipo
+sem usar uma variável intermediária.
+As abordagens seguintes são equivalentes:
+
 
 ```swift
 func f(_ any: Any) { print("Function for Any") }
@@ -378,32 +381,32 @@ f(x as Any)
 
 
 
-Bridging lets you use an expression of
-a Swift standard library type such as `String`
-as its corresponding Foundation type such as `NSString`
-without needing to create a new instance.
-For more information on bridging,
-see [Working with Foundation Types](https://developer.apple.com/documentation/swift/imported_c_and_objective_c_apis/working_with_foundation_types).
+_Bridging_ permite que você use uma expressão da
+biblioteca padrão do Swift, por exemplo uma `String`
+como seu tipo correspondente do Foundation, por exemplo uma `NSString`
+sem precisar criar uma nova instância.
+Para mais informação sobre _bridging_,
+veja [Trabalhando com tipos do Foudation](https://developer.apple.com/documentation/swift/imported_c_and_objective_c_apis/working_with_foundation_types).
 
-The `as?` operator
-performs a conditional cast of the *expression*
-to the specified *type*.
-The `as?` operator returns an optional of the specified *type*.
-At runtime, if the cast succeeds,
-the value of *expression* is wrapped in an optional and returned;
-otherwise, the value returned is `nil`.
-If casting to the specified *type*
-is guaranteed to fail or is guaranteed to succeed,
-a compile-time error is raised.
+O operador `as?`
+performa uma instância condiconal da *expression*
+para o *type* específico.
+O operador _as?_ retorna um opcional do *type* específico.
+Em tempo de execução, se a instância sucede,
+o valor da *expression* é embrulhada em um opcional e retornada;
+caso contrário, o valor retornado é `nil`.
+Se instanciar o *type* específico
+é garantido de falhar ou suceder,
+um erro em tempo de compilação é emitido.
 
-The `as!` operator performs a forced cast of the *expression* to the specified *type*.
-The `as!` operator returns a value of the specified *type*, not an optional type.
-If the cast fails, a runtime error is raised.
-The behavior of `x as! T` is the same as the behavior of `(x as? T)!`.
+O operador `as!` performa uma instâncian forçada de uma *expression* para o *type* específico.
+O operador `as!` retorna o valor do *type* específico, não um valor opcional.
+Se a instância falha, um erro em tempo de execução é emitido.
+O comportamento de `x as! T` é igual ao comportamento de `(x as? T)!`.
 
-For more information about type casting
-and to see examples that use the type-casting operators,
-see <doc:TypeCasting>.
+Para mais informações sobre _type casting_
+e para ver exemplos que usem operadores _type-casting_, 
+veja <doc:TypeCasting>
 
 ```
 Grammar of a type-casting operator

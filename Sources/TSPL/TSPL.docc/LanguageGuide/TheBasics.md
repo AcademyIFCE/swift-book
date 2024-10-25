@@ -124,127 +124,112 @@ print("The current value of friendlyWelcome is \(friendlyWelcome)")
 
 > Nota: Todas as opções que você pode usar com a interpolação de strings são descritas em <doc:StringsAndCharacters#String-Interpolation>.
 
-## Comments
+## Comentários
 
-Use comments to include nonexecutable text in your code,
-as a note or reminder to yourself.
-Comments are ignored by the Swift compiler when your code is compiled.
+Use comentários para adicionar texto não executável em seu código,
+como notas ou lembretes para você mesmo.
+Comentários são ignorados pelo compilador do Swift quando o seu código é compilado.
 
-Comments in Swift are very similar to comments in C.
-Single-line comments begin with two forward-slashes (`//`):
-
-```swift
-// This is a comment.
-```
-
-
-
-
-Multiline comments start with a forward-slash followed by an asterisk (`/*`)
-and end with an asterisk followed by a forward-slash (`*/`):
+Os comentários em Swift são bem similares aos em C.
+Comentários de uma única linha começam com duas barras inclinadas (`//`): 
 
 ```swift
-/* This is also a comment
-but is written over multiple lines. */
+// Isso é um comentário.
 ```
 
-
-
-
-Unlike multiline comments in C,
-multiline comments in Swift can be nested inside other multiline comments.
-You write nested comments by starting a multiline comment block
-and then starting a second multiline comment within the first block.
-The second block is then closed, followed by the first block:
+Comentários multilinha começam com uma barra inclinada seguida por um asterisco (`/*`)
+e terminam com um asterisco seguido por uma barra inclinadas (`*/`):
 
 ```swift
-/* This is the start of the first multiline comment.
-   /* This is the second, nested multiline comment. */
-This is the end of the first multiline comment. */
+/* Isso também é um comentário
+mas está foi escrito em várias linhas. */
 ```
 
+Diferentemente dos comentários multilinha em C,
+comentários multilinha em Swift podem ser aninhados dentro de outro cometário multilinha.
+Você escreve comentários aninhados começando um bloco de comentário multilinha 
+e então começando um segundo comentário multilinha dentro do primeiro bloco. 
+O segundo bloco é então fechado, seguindo pelo primeiro bloco:
 
+```swift
+/* Esse é o começo do primeiro comentário multilinha.
+   /* Esse é o segundo, comentário multilinha aninhado. */
+Esse é o final do primeiro comentário multilinha. */
+```
 
+Comentários multilinha aninhados permitem que você comente grandes blocos de código rapidamente e facilmente,
+mesmo quando o código já contém comentários multilinha.
 
-Nested multiline comments enable you to comment out large blocks of code quickly and easily,
-even if the code already contains multiline comments.
+## Ponto e vígula
 
-## Semicolons
-
-Unlike many other languages,
-Swift doesn't require you to write a semicolon (`;`) after each statement in your code,
-although you can do so if you wish.
-However, semicolons *are* required
-if you want to write multiple separate statements on a single line:
+Diferentemente de outras linguagens,
+Swift não requer que você escreva um ponto e vírgula (`;`) depois de cada instrução do seu código,
+embora você pode fazer se desejar.
+No entanto, pontos e vírgulas *são* necessários
+caso você queira escrever multiplas instruções em uma única linhas:
 
 ```swift
 let cat = "🐱"; print(cat)
-// Prints "🐱"
+// Imprime "🐱"
 ```
 
+## Inteiros
 
+*Inteiros* são todos os números sem componente fracionário,
+como `42` e `-23`.
+Inteiros também podem possuir sinal (positivo, zero, ou negativo)
+ou não possuir sinal (positivo ou zero).
 
+Swift dispõe inteiros com sinal e sem sinal nas formas de 8, 16, 32 e 64 bits.
+Esses inteiros seguem uma convenção de nomeclatura similar ao C,
+em que um inteiro sem sinal de 8 bits é do tipo `UInt8`,
+e um inteiro com sinal de 32 bits é do tipo `Int32`.
+Como todos os tipos em Swift, esses tipos inteiros possuem nomes com a primeira letra maiúscula.
 
-## Integers
+### Limites Inteiros 
 
-*Integers* are whole numbers with no fractional component,
-such as `42` and `-23`.
-Integers are either *signed* (positive, zero, or negative)
-or *unsigned* (positive or zero).
-
-Swift provides signed and unsigned integers in 8, 16, 32, and 64 bit forms.
-These integers follow a naming convention similar to C,
-in that an 8-bit unsigned integer is of type `UInt8`,
-and a 32-bit signed integer is of type `Int32`.
-Like all types in Swift, these integer types have capitalized names.
-
-### Integer Bounds
-
-You can access the minimum and maximum values of each integer type
-with its `min` and `max` properties:
+Você pode acessar o valor mínimo e máximo de cada tipo inteiro
+com as propriedades `min` e `max`:
 
 ```swift
-let minValue = UInt8.min  // minValue is equal to 0, and is of type UInt8
-let maxValue = UInt8.max  // maxValue is equal to 255, and is of type UInt8
+let minValue = UInt8.min  // minValue é igual a 0, e é do tipo UInt8
+let maxValue = UInt8.max  // maxValue é igual a 255, e é do tipo UInt8
 ```
 
-
-
-
-The values of these properties are of the appropriate-sized number type
-(such as `UInt8` in the example above)
-and can therefore be used in expressions alongside other values of the same type.
+Os valores dessas propriedades têm o tamanho apropriado para o tipo numérico
+(como o `UInt8` do exemplo acima)
+e, por isso, podem ser usados em expressões com outros valores do mesmo tipo.
 
 ### Int
 
-In most cases, you don't need to pick a specific size of integer to use in your code.
-Swift provides an additional integer type, `Int`,
-which has the same size as the current platform's native word size:
+Na maioria dos casos, você não precisa escolher um tamanho específico de inteiro para usar no seu código.
+Swift dispõe de um inteiro adicional, `Int`,
+que possui o mesmo tamanho que a palavra nativa da plataforma atual:
 
-- On a 32-bit platform, `Int` is the same size as `Int32`.
-- On a 64-bit platform, `Int` is the same size as `Int64`.
+- Em uma plataforma de 32 bits, `Int` é do mesmo tamanho que o `Int32`.
+- Em uma plataforma de 64 bits, `Int` é do mesmo tamanho que o `Int64`.
 
-Unless you need to work with a specific size of integer,
-always use `Int` for integer values in your code.
-This aids code consistency and interoperability.
-Even on 32-bit platforms, `Int` can store any value between `-2,147,483,648` and `2,147,483,647`,
-and is large enough for many integer ranges.
+A menos que você precise trabalhar com um tamanho específico de inteiro,
+sempre use `Int` para valores inteiros no seu código.
+Isso contribui para a consistência do código e interpolaridade.
+Mesmo em plataforma de 32 bits, `Int` pode armazenar qualquer valor entre `-2,147,483,648` e `2,147,483,647`,
+e é sufucientemente grande para muitos intervalos de números inteiros.
 
 ### UInt
 
-Swift also provides an unsigned integer type, `UInt`,
-which has the same size as the current platform's native word size:
+Swift também fornece um tipo inteiro sem sinal, `UInt`,
+que possui o mesmo tamanho que a palavra nativa da plataforma atual:
 
-- On a 32-bit platform, `UInt` is the same size as `UInt32`.
-- On a 64-bit platform, `UInt` is the same size as `UInt64`.
+- Em uma plataforma de 32 bits, `UInt` é do mesmo tamanho que o `UInt32`.
+- Em uma plataforma de 64 bits, `UInt` é do mesmo tamanho que o `UInt64`.
 
-> Note: Use `UInt` only when you specifically need
-> an unsigned integer type with the same size as the platform's native word size.
-> If this isn't the case, `Int` is preferred,
-> even when the values to be stored are known to be nonnegative.
-> A consistent use of `Int` for integer values aids code interoperability,
-> avoids the need to convert between different number types,
-> and matches integer type inference, as described in <doc:TheBasics#Type-Safety-and-Type-Inference>.
+> Nota: Use `UInt` apenas quando você precisar especificamente
+> de um tipo inteiro sem sinal com o mesmo tamanho que a palavra nativa da plataforma atual.
+> Se esse não for o caso, `Int` é preferido,
+> mesmo quando os valores para serem armazenados são conhecidamente não negativos.
+> O uso consistente do `Int` para valores inteiros contribui para a interpolaridade do código,
+> evitando a necessidade de conversão entre diferentes tipos numéricos,
+> e corresponde à inferência de tipo de inteiro, como descrito em <doc:TheBasics#Type-Safety-and-Type-Inference>.
 
 ## Floating-Point Numbers
 

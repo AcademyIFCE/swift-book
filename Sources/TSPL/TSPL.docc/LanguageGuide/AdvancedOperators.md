@@ -720,21 +720,20 @@ let afterDoubling = +++toBeDoubled
 
 
 
-### Precedence for Custom Infix Operators
+### Precedência para operadores infixos personalizados
 
-Custom infix operators each belong to a precedence group.
-A precedence group specifies an operator's precedence relative
-to other infix operators, as well as the operator's associativity.
-See <doc:AdvancedOperators#Precedence-and-Associativity> for an explanation of
-how these characteristics affect an infix operator's interaction
-with other infix operators.
+Cada operador infixo personalizado pertence a um grupo de precedência.
+Um grupo de precedência especifica a precedência de um operador em relação
+a outros operadores infixos, bem como a sua associatividade.
+Consulte <doc:AdvancedOperators#Precedence-and-Associativity> para obter uma explicação sobre
+como essas características afetam a interação de um operador infixo
+com outros operadores infixos.
 
-A custom infix operator that isn't explicitly placed into a precedence group is
-given a default precedence group with a precedence immediately higher
-than the precedence of the ternary conditional operator.
+Se um operador infixo personalizado não for explicitamente colocado em um grupo de precedência, lhe é atribuído um grupo de precedência padrão com uma precedência imediatamente maior
+do que a precedência do operador condicional ternário.
 
-The following example defines a new custom infix operator called `+-`,
-which belongs to the precedence group `AdditionPrecedence`:
+O exemplo a seguir define um novo operador infixo personalizado chamado `+-`,
+que pertence ao grupo de precedência `_AdditionPrecedence_`:
 
 ```swift
 infix operator +-: AdditionPrecedence
@@ -746,27 +745,27 @@ extension Vector2D {
 let firstVector = Vector2D(x: 1.0, y: 2.0)
 let secondVector = Vector2D(x: 3.0, y: 4.0)
 let plusMinusVector = firstVector +- secondVector
-// plusMinusVector is a Vector2D instance with values of (4.0, -2.0)
+// 'plusMinusVector' é uma instância de Vector2D com valores de (4.0, -2.0)
 ```
 
 
 
 
-This operator adds together the `x` values of two vectors,
-and subtracts the `y` value of the second vector from the first.
-Because it's in essence an “additive” operator,
-it has been given the same precedence group
-as additive infix operators such as `+` and `-`.
-For information about the operators provided by the Swift standard library,
-including a complete list of the operator precedence groups and associativity settings,
-see [Operator Declarations](https://developer.apple.com/documentation/swift/operator_declarations).
-For more information about precedence groups and to see the syntax for
-defining your own operators and precedence groups,
-see <doc:Declarations#Operator-Declaration>.
+Este operador soma os valores `x` de dois vetores,
+e subtrai o valor `y` do segundo vetor do primeiro.
+Porque é essencialmente um operador "aditivo",
+foi dado o mesmo grupo de precedência
+dos operadores infixos aditivos como `+` e `-`.
+Para obter informações sobre os operadores fornecidos pela biblioteca padrão do Swift,
+incluindo uma lista completa dos grupos de precedência do operador e configurações de associatividade,
+consulte  [Operator Declarations](https://developer.apple.com/documentation/swift/operator_declarations).
+Para obter mais informações sobre grupos de precedência e para ver a sintaxe de
+definição dos seus próprios operadores e grupos de precedência,
+consulte <doc:Declarations#Operator-Declaration>.
 
-> Note: You don't specify a precedence when defining a prefix or postfix operator.
-> However, if you apply both a prefix and a postfix operator to the same operand,
-> the postfix operator is applied first.
+> Nota: Você não especifica uma precedência ao definir um operador prefixo ou pósfixo.
+> No entanto, se você aplicar um prefixo e um operador pósfixo ao mesmo operando,
+> o operador pósfixo é aplicado primeiro.
 
 
 

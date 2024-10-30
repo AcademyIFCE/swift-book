@@ -2,25 +2,53 @@
 
 Trabalhe com tipos comuns de dados e escreva sintaxe básica.
 
-Swift é uma linguagem de programação para desenvolvimento de aplicativos iOS, macOS, watchOS e tvOS. Se você tem experiência em desenvolvimento em C ou Objective-C, muitas partes do Swift serão familiares para você.
+Swift fornece muitos tipos de dados fundamentais,
+incluindo `Int` para inteiros,
+`Double` para valores de ponto flutuante,
+`Bool` para valores booleanos,
+e `String` para texto.
+Swift também fornece versões poderosas dos três tipos de coleção primários,
+`Array`, `Set` e `Dictionary`,
+conforme descrito em <doc:CollectionTypes>.
 
-Swift fornece suas próprias versões de todos os tipos fundamentais de C e Objective-C, incluindo `Int` para inteiros, `Double` e `Float` para valores de ponto flutuante, `Bool` para valores booleanos e `String` para dados textuais. Swift também fornece versões poderosas dos três tipos principais de coleção, `Array`, `Set` e `Dictionary`, conforme descrito em <doc:CollectionTypes>.
+Swift usa variáveis ​​para armazenar e se referir a valores por um nome de identificação.
+Swift também faz uso extensivo de variáveis ​​cujos valores não podem ser alterados.
+Elas são conhecidas como constantes e são usadas para tornar o código mais seguro e claro na intenção
+quando você trabalha com valores que não precisam ser alterados.
 
-Como C, Swift usa variáveis para armazenar e referir-se a valores por um nome identificador. Swift também faz uso extensivo de variáveis cujos valores não podem ser alterados. Elas são conhecidas como constantes e são muito mais poderosas do que as constantes em C. As constantes são usadas para tornar o código mais seguro e mais claro na intenção quando você trabalha com valores que não precisam ser alterados.
+Além dos tipos familiares,
+Swift introduz tipos avançados, como tuplas.
+As tuplas permitem que você crie e passe agrupamentos de valores.
+Você pode usar uma tupla para retornar vários valores de uma função como um único valor composto.
 
-Além dos tipos familiares, Swift apresenta tipos avançados não encontrados em Objective-C, como tuplas. As tuplas permitem que você crie e transmita agrupamentos de valores. Você pode usar uma tupla para retornar vários valores de uma função como um único valor composto.
+Swift também introduz tipos opcionais,
+que lidam com a ausência de um valor.
+Os opcionais dizem "**há** um valor, e ele é igual a **x**"
+ou "**não há** nenhum valor".
 
-Swift também apresenta tipos opcionais, que lidam com a ausência de um valor. Os opcionais dizem “*há* um valor e é igual a *x*” ou “*não há* nenhum valor”. Usar opcionais é semelhante a usar `nil` com ponteiros em Objective-C, mas eles funcionam para qualquer tipo, não apenas para classes. Os opcionais não são apenas mais seguros e expressivos do que os ponteiros `nil` em Objective-C, eles estão no centro de muitos dos recursos mais poderosos de Swift.
-
-Swift é uma linguagem *type-safe*, o que significa que a linguagem ajuda você a ser claro sobre os tipos de valores com os quais seu código pode trabalhar. Se parte do seu código requer um `String`, segurança de tipo impede que você passe um `Int` por engano. Da mesma forma, a segurança de tipo evita que você passe acidentalmente uma `String` opcional para um trecho de código que requer uma `String` não opcional. A segurança de tipo ajuda a detectar e corrigir erros o mais cedo possível no processo de desenvolvimento.
+Swift é uma linguagem **type-safe**,
+o que significa que a linguagem ajuda você a ser claro sobre os tipos de valores com os quais seu código pode trabalhar.
+Se parte do seu código requer uma `String`,
+a segurança de tipos impede que você passe um `Int` por engano.
+Da mesma forma, a segurança de tipos impede que você passe
+acidentalmente uma `String` opcional
+para um pedaço de código que requer uma `String` não opcional.
+A segurança de tipos ajuda você a detectar e corrigir erros o mais cedo possível no processo de desenvolvimento.
 
 ## Constantes e Variáveis 
 
-Constantes e variáveis associam um nome (como `maximumNumberOfLoginAttempts` ou `welcomeMessage`) com um valor de um tipo específico (como o número `10` ou a string `"Hello"`). O valor de uma *constante* não pode ser alterado depois de definido, enquanto uma *variável* pode ser definida com um valor diferente no futuro.
+Constantes e variáveis associam um nome
+(como `maximumNumberOfLoginAttempts` ou `welcomeMessage`)
+com um valor de um tipo específico (como o número `10` ou a string `"Hello"`).
+O valor de uma **constante** não pode ser alterado depois de definido,
+enquanto uma **variável** pode ser definida com um valor diferente no futuro.
 
 ### Declarando Constantes e Variáveis 
 
-Constantes e variáveis devem ser declaradas antes de serem usadas. Você declara constantes com a palavra-chave `let` e variáveis com a palavra-chave `var`. Aqui está um exemplo de como constantes e variáveis podem ser usadas para rastrear o número de tentativas de login feitas por um usuário:
+Constantes e variáveis devem ser declaradas antes de serem usadas.
+Você declara constantes com a palavra-chave `let` e variáveis com a palavra-chave `var`.
+Aqui está um exemplo de como constantes e variáveis podem 
+ser usadas para rastrear o número de tentativas de login feitas por um usuário:
 
 ```swift
 let maximumNumberOfLoginAttempts = 10
@@ -29,9 +57,53 @@ var currentLoginAttempt = 0
 
 Esse código pode ser lido como:
 
-“Declare uma nova constante chamada `maximumNumberOfLoginAttempts` e dê a ela um valor de `10`. Em seguida, declare uma nova variável chamada `currentLoginAttempt` e dê a ela um valor inicial de `0`.”
+“Declare uma nova constante chamada `maximumNumberOfLoginAttempts`
+e dê a ela um valor de `10`. 
+Em seguida, declare uma nova variável chamada `currentLoginAttempt` 
+e dê a ela um valor inicial de `0`.”
 
-Neste exemplo, o número máximo de tentativas de login permitidas é declarado como uma constante, porque o valor máximo nunca muda. O contador de tentativas de login atual é declarado como uma variável, porque esse valor deve ser incrementado após cada tentativa de login com falha.
+Neste exemplo, o número máximo de tentativas de login permitidas
+é declarado como uma constante, porque o valor máximo nunca muda.
+O contador de tentativas de login atual é declarado como uma variável,
+porque esse valor deve ser incrementado após cada tentativa de login com falha.
+
+Se um valor armazenado no seu código não mudar,
+sempre declare-o como uma constante com a palavra-chave `let`.
+Use variáveis ​​somente para armazenar valores que mudam.
+
+Quando você declara uma constante ou uma variável,
+você pode dar a ela um valor como parte dessa declaração,
+como os exemplos acima.
+Como alternativa,
+você pode atribuir seu valor inicial mais tarde no programa,
+desde que seja garantido que ele tenha um valor
+antes da primeira leitura.
+
+```swift
+var environment = "development"
+let maximumNumberOfLoginAttempts: Int
+// `maximumNumberOfLoginAttempts` não tem valor ainda.
+
+if environment == "development" {
+    maximumNumberOfLoginAttempts = 100
+} else {
+    maximumNumberOfLoginAttempts = 10
+}
+// Agora `maximumNumberOfLoginAttempts` tem um valor, e pode ser lida.
+```
+
+Neste exemplo,
+o número máximo de tentativas de login é constante,
+e seu valor depende do ambiente.
+No ambiente de desenvolvimento,
+ele tem um valor de 100;
+em qualquer outro ambiente, seu valor é 10.
+Ambos os ramos da instrução `if`
+inicializam `maximumNumberOfLoginAttempts` com algum valor,
+garantindo que a constante sempre obtenha um valor.
+Para obter informações sobre como Swift verifica seu código
+quando você define um valor inicial dessa forma,
+consulte <doc:Declarations#Constant-Declaration>.
 
 Você pode declarar várias constantes ou várias variáveis em uma única linha, separadas por vírgulas:
 
@@ -39,41 +111,53 @@ Você pode declarar várias constantes ou várias variáveis em uma única linha
 var x = 0.0, y = 0.0, z = 0.0
 ```
 
-> Nota: Se um valor armazenado em seu código não mudar, sempre declare-o como uma constante com a palavra-chave `let`. Use variáveis apenas para armazenar valores que precisam poder mudar.
-
 ### Anotações de Tipo
 
-Você pode fornecer uma *anotação de tipo* ao declarar uma constante ou variável, para ser claro sobre o tipo de valores que a constante ou variável pode armazenar. Escreva uma anotação de tipo colocando dois pontos após o nome da constante ou variável, seguido de um espaço, seguido do nome do tipo a ser usado.
+Você pode fornecer uma **anotação de tipo** ao declarar uma constante ou variável, 
+para ser claro sobre o tipo de valores que a constante ou variável pode armazenar. 
+Escreva uma anotação de tipo colocando dois pontos após o nome da constante ou variável, 
+seguido de um espaço e do nome do tipo a ser usado.
 
-Este exemplo fornece uma anotação de tipo para uma variável chamada `welcomeMessage`, para indicar que a variável pode armazenar valores `String`:
+Este exemplo fornece uma anotação de tipo para uma variável chamada `welcomeMessage`, 
+para indicar que a variável pode armazenar valores do tipo `String`:
 
 ```swift
 var welcomeMessage: String
 ```
 
-Os dois pontos na declaração significam “…do tipo…”, então o código acima pode ser lido como:
+Os dois pontos na declaração significam “…do tipo…”, 
+então o código acima pode ser lido como:
 
 “Declare uma variável chamada `welcomeMessage` que é do tipo `String`.”
 
-A frase “do tipo `String`” significa “pode armazenar qualquer valor `String`.” Pense nisso como significando “o tipo de coisa” que pode ser armazenado.
+A frase “do tipo `String`” significa “pode armazenar qualquer valor `String`.” 
+Pense nisso como significando “o tipo de coisa” que pode ser armazenado.
 
-A variável `welcomeMessage` agora pode ser definida para qualquer valor de string sem erro:
+A variável `welcomeMessage` agora pode ser definida para qualquer valor de _string_ sem erro:
 
 ```swift
 welcomeMessage = "Hello"
 ```
 
-Você pode definir várias variáveis relacionadas do mesmo tipo em uma única linha, separadas por vírgulas, com uma única anotação de tipo após o nome da variável final:
+Você pode definir várias variáveis relacionadas do mesmo tipo em uma única linha,
+separadas por vírgulas, com uma única anotação de tipo após o nome da variável final:
 
 ```swift
 var red, green, blue: Double
 ```
 
-> Nota: É raro que você precise escrever anotações de tipo na prática. Se você fornecer um valor inicial para uma constante ou variável no ponto em que ela é definida, a linguagem quase sempre pode inferir o tipo a ser usado para essa constante ou variável, conforme descrito em <doc:TheBasics#Type-Safety-and-Type- Inferência>. No exemplo `welcomeMessage` acima, nenhum valor inicial é fornecido e, portanto, o tipo da variável `welcomeMessage` é especificado com uma anotação de tipo em vez de ser inferido de um valor inicial.
+> Nota: É raro que você precise escrever anotações de tipo na prática. 
+> Se você fornecer um valor inicial para uma constante ou variável no ponto em que ela é definida,
+> a linguagem quase sempre pode inferir o tipo a ser usado para essa constante ou variável,
+> conforme descrito em <doc:TheBasics#Type-Safety-and-Type- Inferência>.
+> No exemplo `welcomeMessage` acima, nenhum valor inicial é fornecido e,
+> portanto, o tipo da variável `welcomeMessage` é especificado com uma anotação de tipo 
+> em vez de ser inferido de um valor inicial.
 
 ### Nomeando Constantes e Variáveis 
 
-Os nomes de constantes e variáveis podem conter praticamente qualquer caractere, incluindo caracteres Unicode:
+Os nomes de constantes e variáveis podem conter praticamente qualquer caractere,
+incluindo caracteres **Unicode**:
 
 ```swift
 let π = 3.14159
@@ -81,26 +165,38 @@ let 你好 = "你好世界"
 let 🐶🐮 = "dogcow"
 ```
 
-Os nomes de constantes e variáveis não podem conter caracteres de espaço em branco, símbolos matemáticos, setas, valores escalares Unicode de uso privado ou caracteres de desenho de linha e caixa. Eles também não podem começar com um número, embora os números possam ser incluídos em outro lugar dentro do nome.
+Os nomes de constantes e variáveis não podem conter 
+caracteres de espaço em branco, símbolos matemáticos, setas, valores escalares Unicode de uso privado 
+ou caracteres de desenho de linha e caixa.
+Eles também não podem começar com um número,
+embora os números possam ser incluídos em outra posição dentro do nome.
 
-Depois de declarar uma constante ou variável de um determinado tipo, você não pode declará-la novamente com o mesmo nome ou alterá-la para armazenar valores de um tipo diferente. Nem você pode transformar uma constante em uma variável ou uma variável em uma constante.
+Depois de declarar uma constante ou variável de um determinado tipo,
+você não pode declará-la novamente com o mesmo nome
+ou alterá-la para armazenar valores de um tipo diferente. 
+Nem você pode transformar uma constante em uma variável 
+ou uma variável em uma constante.
 
-> Nota: Se você precisar dar a uma constante ou variável o mesmo nome de uma palavra-chave reservada do Swift, coloque a palavra-chave entre crases (```) ao usá-la como um nome. No entanto, evite usar palavras-chave como nomes, a menos que você não tenha escolha.
+> Nota: Se você precisar dar a uma constante ou variável o mesmo nome de uma palavra-chave reservada, 
+> coloque a palavra-chave entre crases (```) ao usá-la como um nome. 
+> No entanto, evite usar palavras-chave como nomes, a menos que você não tenha escolha.
 
-Você pode alterar o valor de uma variável existente para outro valor de tipo compatível. Neste exemplo, o valor de `friendlyWelcome` é alterado de `"Hello!"` para `"Bonjour!"`:
+Você pode alterar o valor de uma variável existente para outro valor de tipo compatível. 
+Neste exemplo, o valor de `friendlyWelcome` é alterado de `"Hello!"` para `"Bonjour!"`:
 
 ```swift
 var friendlyWelcome = "Hello!"
 friendlyWelcome = "Bonjour!"
-// friendlyWelcome agora é "Bonjour!"
+// `friendlyWelcome` agora é "Bonjour!"
 ```
 
-Ao contrário de uma variável, o valor de uma constante não pode ser alterado depois de definido. Tentar fazer isso é indicado como um erro quando seu código é compilado:
+Ao contrário de uma variável, o valor de uma constante não pode ser alterado depois de definido. 
+Tentar fazer isso é indicado como um erro quando seu código é compilado:
 
 ```swift
 let languageName = "Swift"
 languageName = "Swift++"
-// Este é um erro de tempo de compilação: languageName não pode ser alterado.
+// Este é um erro de tempo de compilação: `languageName` não pode ser alterado.
 ```
 
 ### Imprimindo Constantes e Variáveis
@@ -112,23 +208,36 @@ print(friendlyWelcome)
 // Imprime "Bonjour!"
 ```
 
-A função `print(_:separator:terminator:)` é uma função global que imprime um ou mais valores para uma saída apropriada. No Xcode, por exemplo, a função `print(_:separator:terminator:)` imprime sua saída no painel “console” do Xcode. Os parâmetros `separator` e `terminator` possuem valores padrão, então você pode omiti-los quando chamar esta função. Por padrão, a função termina a linha que imprime adicionando uma quebra de linha. Para imprimir um valor sem uma quebra de linha após ele, passe uma string vazia como terminador --- por exemplo, `print(someValue, terminator: "")`. Para obter informações sobre parâmetros com valores padrão, consulte <doc:Functions#Default-Parameter-Values>.
+A função `print(_:separator:terminator:)` é uma função global 
+que imprime um ou mais valores para uma saída apropriada. 
+No Xcode, por exemplo, a função `print(_:separator:terminator:)` imprime sua saída no painel “console” do Xcode.
+Os parâmetros `separator` e `terminator` possuem valores padrão, 
+então você pode omiti-los quando chamar esta função.
+Por padrão, a função termina a linha que imprime adicionando uma quebra de linha. 
+Para imprimir um valor sem uma quebra de linha após ele, passe uma string vazia como terminador --- 
+por exemplo, `print(someValue, terminator: "")`. 
+Para obter informações sobre parâmetros com valores padrão, 
+consulte <doc:Functions#Default-Parameter-Values>.
 
 
-O Swift usa *interpolação de string* para incluir o nome de uma constante ou variável como um espaço reservado em uma string mais longa e para solicitar ao Swift que o substitua pelo valor atual dessa constante ou variável. Coloque o nome entre parênteses e escape com uma barra invertida antes do parêntese de abertura:
+Swift usa **interpolação de _string_** para incluir o nome de uma constante ou variável 
+como um espaço reservado em uma _string_ mais longa e para solicitar 
+a substituição pelo valor atual dessa constante ou variável.
+Coloque o nome entre parênteses e escape com uma barra invertida antes do parêntese de abertura:
 
 ```swift
 print("The current value of friendlyWelcome is \(friendlyWelcome)")
 // Imprime "The current value of friendlyWelcome is Bonjour!"
 ```
 
-> Nota: Todas as opções que você pode usar com a interpolação de strings são descritas em <doc:StringsAndCharacters#String-Interpolation>.
+> Nota: Todas as opções que você pode usar com a interpolação de _string_ 
+são descritas em <doc:StringsAndCharacters#String-Interpolation>.
 
 ## Comentários
 
 Use comentários para adicionar texto não executável em seu código,
 como notas ou lembretes para você mesmo.
-Comentários são ignorados pelo compilador do Swift quando o seu código é compilado.
+Comentários são ignorados pelo compilador quando o seu código é compilado.
 
 Os comentários em Swift são bem similares aos em C.
 Comentários de uma única linha começam com duas barras inclinadas (`//`): 
@@ -138,11 +247,11 @@ Comentários de uma única linha começam com duas barras inclinadas (`//`):
 ```
 
 Comentários multilinha começam com uma barra inclinada seguida por um asterisco (`/*`)
-e terminam com um asterisco seguido por uma barra inclinadas (`*/`):
+e terminam com um asterisco seguido por uma barra inclinada (`*/`):
 
 ```swift
 /* Isso também é um comentário
-mas está foi escrito em várias linhas. */
+mas foi escrito em várias linhas. */
 ```
 
 Diferentemente dos comentários multilinha em C,
@@ -160,13 +269,13 @@ Esse é o final do primeiro comentário multilinha. */
 Comentários multilinha aninhados permitem que você comente grandes blocos de código rapidamente e facilmente,
 mesmo quando o código já contém comentários multilinha.
 
-## Ponto e vígula
+## Ponto e Vígula
 
 Diferentemente de outras linguagens,
 Swift não requer que você escreva um ponto e vírgula (`;`) depois de cada instrução do seu código,
 embora você pode fazer se desejar.
-No entanto, pontos e vírgulas *são* necessários
-caso você queira escrever multiplas instruções em uma única linhas:
+No entanto, pontos e vírgulas **são** necessários
+caso você queira escrever multiplas instruções em uma única linha:
 
 ```swift
 let cat = "🐱"; print(cat)
@@ -180,10 +289,10 @@ como `42` e `-23`.
 Inteiros também podem possuir sinal (positivo, zero, ou negativo)
 ou não possuir sinal (positivo ou zero).
 
-Swift dispõe inteiros com sinal e sem sinal nas formas de 8, 16, 32 e 64 bits.
-Esses inteiros seguem uma convenção de nomeclatura similar ao C,
-em que um inteiro sem sinal de 8 bits é do tipo `UInt8`,
-e um inteiro com sinal de 32 bits é do tipo `Int32`.
+Swift dispõe de inteiros com sinal e sem sinal nas formas de 8, 16, 32 e 64 _bits_.
+Esses inteiros seguem uma convenção de nomeclatura similar a C,
+em que um inteiro sem sinal de 8 _bits_ é do tipo `UInt8`,
+e um inteiro com sinal de 32 _bits_ é do tipo `Int32`.
 Como todos os tipos em Swift, esses tipos inteiros possuem nomes com a primeira letra maiúscula.
 
 ### Limites Inteiros 
@@ -192,8 +301,8 @@ Você pode acessar o valor mínimo e máximo de cada tipo inteiro
 com as propriedades `min` e `max`:
 
 ```swift
-let minValue = UInt8.min  // minValue é igual a 0, e é do tipo UInt8
-let maxValue = UInt8.max  // maxValue é igual a 255, e é do tipo UInt8
+let minValue = UInt8.min  // `minValue` é igual a 0, e é do tipo `UInt8`
+let maxValue = UInt8.max  // `maxValue` é igual a 255, e é do tipo `UInt8`
 ```
 
 Os valores dessas propriedades têm o tamanho apropriado para o tipo numérico
@@ -206,13 +315,13 @@ Na maioria dos casos, você não precisa escolher um tamanho específico de inte
 Swift dispõe de um inteiro adicional, `Int`,
 que possui o mesmo tamanho que a palavra nativa da plataforma atual:
 
-- Em uma plataforma de 32 bits, `Int` é do mesmo tamanho que o `Int32`.
-- Em uma plataforma de 64 bits, `Int` é do mesmo tamanho que o `Int64`.
+- Em uma plataforma de 32 _bits_, `Int` é do mesmo tamanho que o `Int32`.
+- Em uma plataforma de 64 _bits_, `Int` é do mesmo tamanho que o `Int64`.
 
 A menos que você precise trabalhar com um tamanho específico de inteiro,
 sempre use `Int` para valores inteiros no seu código.
-Isso contribui para a consistência do código e interpolaridade.
-Mesmo em plataforma de 32 bits, `Int` pode armazenar qualquer valor entre `-2,147,483,648` e `2,147,483,647`,
+Isso contribui para a consistência do código e interoperabilidade.
+Mesmo em plataforma de 32 _bits_, `Int` pode armazenar qualquer valor entre `-2,147,483,648` e `2,147,483,647`,
 e é sufucientemente grande para muitos intervalos de números inteiros.
 
 ### UInt
@@ -220,8 +329,8 @@ e é sufucientemente grande para muitos intervalos de números inteiros.
 Swift também fornece um tipo inteiro sem sinal, `UInt`,
 que possui o mesmo tamanho que a palavra nativa da plataforma atual:
 
-- Em uma plataforma de 32 bits, `UInt` é do mesmo tamanho que o `UInt32`.
-- Em uma plataforma de 64 bits, `UInt` é do mesmo tamanho que o `UInt64`.
+- Em uma plataforma de 32 _bits_, `UInt` é do mesmo tamanho que o `UInt32`.
+- Em uma plataforma de 64 _bits_, `UInt` é do mesmo tamanho que o `UInt64`.
 
 > Nota: Use `UInt` apenas quando você precisar especificamente
 > de um tipo inteiro sem sinal com o mesmo tamanho que a palavra nativa da plataforma atual.
@@ -231,149 +340,130 @@ que possui o mesmo tamanho que a palavra nativa da plataforma atual:
 > evitando a necessidade de conversão entre diferentes tipos numéricos,
 > e corresponde à inferência de tipo de inteiro, como descrito em <doc:TheBasics#Type-Safety-and-Type-Inference>.
 
-## Floating-Point Numbers
+## Números de Ponto Flutuante
 
-*Floating-point numbers* are numbers with a fractional component,
-such as `3.14159`, `0.1`, and `-273.15`.
+*Números de ponto flutuante* são números com um componente fracionário,
+como `3.14159`, `0.1` e `-273.15`.
 
-Floating-point types can represent a much wider range of values than integer types,
-and can store numbers that are much larger or smaller than can be stored in an `Int`.
-Swift provides two signed floating-point number types:
+Tipos de ponto flutuante podem representar uma gama muito maior de valores do que tipos inteiros,
+e podem armazenar números que são muito maiores ou menores do que podem ser armazenados em um `Int`.
+Swift fornece dois tipos de números de ponto flutuante com sinal:
 
-- `Double` represents a 64-bit floating-point number.
-- `Float` represents a 32-bit floating-point number.
+- `Double` representa um número de ponto flutuante de 64 _bits_.
+- `Float` representa um número de ponto flutuante de 32 _bits_.
 
-> Note: `Double` has a precision of at least 15 decimal digits,
-> whereas the precision of `Float` can be as little as 6 decimal digits.
-> The appropriate floating-point type to use depends on the nature and range of
-> values you need to work with in your code.
-> In situations where either type would be appropriate, `Double` is preferred.
-
-
+> Nota: `Double` tem uma precisão de pelo menos 15 dígitos decimais,
+> enquanto a precisão de `Float` pode ser de apenas 6 dígitos decimais.
+> O tipo de ponto flutuante apropriado a ser usado depende da natureza e do intervalo de
+> valores com os quais você precisa trabalhar em seu código.
+> Em situações em que qualquer tipo seria apropriado, `Double` é preferivel.
 
 
+## Segurança de Tipo e Inferência de Tipo
 
-## Type Safety and Type Inference
+Swift é uma linguagem **type-safe**.
+Uma linguagem **type-safe** encoraja você a ser claro sobre
+os tipos de valores com os quais seu código pode trabalhar.
+Se parte do seu código requer uma `String`, você não pode passar um `Int` por engano.
 
-Swift is a *type-safe* language.
-A type safe language encourages you to be clear about
-the types of values your code can work with.
-If part of your code requires a `String`, you can't pass it an `Int` by mistake.
+Como Swift é **type-safe**,
+o compilador realiza **verificações de tipo** ao compilar seu código
+e sinaliza quaisquer tipos incompatíveis como erros.
+Isso permite que você detecte e corrija erros o mais cedo possível no processo de desenvolvimento.
 
-Because Swift is type safe,
-it performs *type checks* when compiling your code
-and flags any mismatched types as errors.
-This enables you to catch and fix errors as early as possible in the development process.
+A verificação de tipo ajuda a evitar erros quando você está trabalhando com diferentes tipos de valores.
+No entanto, isso não significa que você precisa especificar o tipo de
+cada constante e variável que você declara.
+Se você não especificar o tipo de valor que precisa,
+Swift usa **inferência de tipo** para descobrir o tipo apropriado.
+A inferência de tipo permite que um compilador
+deduza o tipo de uma expressão específica automaticamente quando compila seu código,
+simplesmente examinando os valores que você fornece.
 
-Type-checking helps you avoid errors when you're working with different types of values.
-However, this doesn't mean that you have to specify the type of
-every constant and variable that you declare.
-If you don't specify the type of value you need,
-Swift uses *type inference* to work out the appropriate type.
-Type inference enables a compiler to
-deduce the type of a particular expression automatically when it compiles your code,
-simply by examining the values you provide.
+Por causa da inferência de tipo, Swift requer muito menos declarações de tipo
+do que linguagens como C ou Objective-C.
+Constantes e variáveis ​​ainda são explicitamente tipadas,
+mas muito do trabalho de especificar seu tipo é feito para você.
 
-Because of type inference, Swift requires far fewer type declarations
-than languages such as C or Objective-C.
-Constants and variables are still explicitly typed,
-but much of the work of specifying their type is done for you.
+A inferência de tipo é particularmente útil
+quando você declara uma constante ou variável com um valor inicial.
+Isso geralmente é feito atribuindo um **valor literal**
+à constante ou variável no ponto em que você a declara.
+(Um valor literal é um valor que aparece diretamente no seu código-fonte,
+como `42` e `3.14159` nos exemplos abaixo.)
 
-Type inference is particularly useful
-when you declare a constant or variable with an initial value.
-This is often done by assigning a *literal value* (or *literal*)
-to the constant or variable at the point that you declare it.
-(A literal value is a value that appears directly in your source code,
-such as `42` and `3.14159` in the examples below.)
-
-For example, if you assign a literal value of `42` to a new constant
-without saying what type it is,
-Swift infers that you want the constant to be an `Int`,
-because you have initialized it with a number that looks like an integer:
+Por exemplo, se você atribuir um valor literal de `42` a uma nova constante
+sem dizer qual é o tipo dela,
+Swift infere que você quer que a constante seja um `Int`,
+porque você a inicializou com um número que parece um inteiro:
 
 ```swift
 let meaningOfLife = 42
-// meaningOfLife is inferred to be of type Int
+// `meaningOfLife` é inferida como do tipo `Int`
 ```
 
-
-
-
-Likewise, if you don't specify a type for a floating-point literal,
-Swift infers that you want to create a `Double`:
+Da mesma forma, se você não especificar um tipo para um literal de ponto flutuante,
+Swift infere que você deseja criar um `Double`:
 
 ```swift
 let pi = 3.14159
-// pi is inferred to be of type Double
+// `pi` é inferida como do tipo `Double`
 ```
 
+Swift sempre escolhe `Double` (em vez de `Float`)
+ao inferir o tipo de números de ponto flutuante.
 
-
-
-Swift always chooses `Double` (rather than `Float`)
-when inferring the type of floating-point numbers.
-
-If you combine integer and floating-point literals in an expression,
-a type of `Double` will be inferred from the context:
+Se você combinar inteiros e literais de ponto flutuante em uma expressão,
+um tipo de `Double` será inferido do contexto:
 
 ```swift
 let anotherPi = 3 + 0.14159
-// anotherPi is also inferred to be of type Double
+// `anotherPi` também é inferida como do tipo `Double`
 ```
 
+O valor literal `3` não tem um tipo explícito em si mesmo,
+e assim um tipo de saída apropriado de `Double` é inferido
+da presença de um literal de ponto flutuante como parte da adição.
 
+## Literais Numéricos
 
+Literais inteiros podem ser escritos como:
 
-The literal value of `3` has no explicit type in and of itself,
-and so an appropriate output type of `Double` is inferred
-from the presence of a floating-point literal as part of the addition.
+- Um número *decimal*, sem prefixo
+- Um número *binário*, com um prefixo `0b`
+- Um número *octal*, com um prefixo `0o`
+- Um número *hexadecimal*, com um prefixo `0x`
 
-## Numeric Literals
-
-Integer literals can be written as:
-
-- A *decimal* number, with no prefix
-- A *binary* number, with a `0b` prefix
-- An *octal* number, with a `0o` prefix
-- A *hexadecimal* number, with a `0x` prefix
-
-All of these integer literals have a decimal value of `17`:
+Todos esses literais inteiros têm um valor decimal de `17`:
 
 ```swift
 let decimalInteger = 17
-let binaryInteger = 0b10001       // 17 in binary notation
-let octalInteger = 0o21           // 17 in octal notation
-let hexadecimalInteger = 0x11     // 17 in hexadecimal notation
+let binaryInteger = 0b10001       // 17 em notação binária
+let octalInteger = 0o21           // 17 em notação octal
+let hexadecimalInteger = 0x11     // 17 em notação hexadecimal
 ```
 
+Literais de ponto flutuante podem ser decimais (sem prefixo),
+ou hexadecimais (com um prefixo `0x`).
+Eles devem sempre ter um número (ou número hexadecimal) em ambos os lados do ponto decimal.
+Floats decimais também podem ter um **expoente** opcional,
+indicado por um `e` maiúsculo ou minúsculo;
+floats hexadecimais devem ter um expoente,
+indicado por um `p` maiúsculo ou minúsculo.
 
+Para números decimais com um expoente de `x`,
+o número base é multiplicado por 10ˣ:
 
+- `1.25e2` significa 1.25 x 10², ou `125.0`.
+- `1.25e-2` significa 1.25 x 10⁻², ou `0.0125`.
 
-Floating-point literals can be decimal (with no prefix),
-or hexadecimal (with a `0x` prefix).
-They must always have a number (or hexadecimal number) on both sides of the decimal point.
-Decimal floats can also have an optional *exponent*,
-indicated by an uppercase or lowercase `e`;
-hexadecimal floats must have an exponent,
-indicated by an uppercase or lowercase `p`.
+Para números hexadecimais com um expoente de `x`,
+o número base é multiplicado por 2ˣ:
 
+- `0xFp2` significa 15 x 2², ou `60.0`.
+- `0xFp-2` significa 15 x 2⁻², ou `3.75`.
 
-
-
-
-For decimal numbers with an exponent of `x`,
-the base number is multiplied by 10ˣ:
-
-- `1.25e2` means 1.25 x 10², or `125.0`.
-- `1.25e-2` means 1.25 x 10⁻², or `0.0125`.
-
-For hexadecimal numbers with an exponent of `x`,
-the base number is multiplied by 2ˣ:
-
-- `0xFp2` means 15 x 2², or `60.0`.
-- `0xFp-2` means 15 x 2⁻², or `3.75`.
-
-All of these floating-point literals have a decimal value of `12.1875`:
+Todos esses literais de ponto flutuante têm um valor decimal de `12.1875`:
 
 ```swift
 let decimalDouble = 12.1875
@@ -381,13 +471,10 @@ let exponentDouble = 1.21875e1
 let hexadecimalDouble = 0xC.3p0
 ```
 
-
-
-
-Numeric literals can contain extra formatting to make them easier to read.
-Both integers and floats can be padded with extra zeros
-and can contain underscores to help with readability.
-Neither type of formatting affects the underlying value of the literal:
+Literais numéricos podem conter formatação extra para torná-los mais fáceis de ler.
+Tanto inteiros quanto flutuantes podem ser preenchidos com zeros extras
+e podem conter sublinhados para ajudar na legibilidade.
+Nenhum tipo de formatação afeta o valor subjacente do literal:
 
 ```swift
 let paddedDouble = 000123.456
@@ -395,59 +482,53 @@ let oneMillion = 1_000_000
 let justOverOneMillion = 1_000_000.000_000_1
 ```
 
+## Conversão de Tipo Numérico
 
+Use o tipo `Int` para todas as constantes e variáveis ​​inteiras de uso geral em seu código,
+mesmo que sejam conhecidas por serem não negativas.
+Usar o tipo inteiro padrão em situações cotidianas significa que
+constantes e variáveis ​​inteiras são imediatamente interoperáveis ​​em seu código
+e corresponderão ao tipo inferido para valores literais inteiros.
 
+Use outros tipos inteiros somente quando forem especificamente necessários para a tarefa em questão,
+por causa de dados explicitamente dimensionados de uma fonte externa,
+ou para desempenho, uso de memória ou outra otimização necessária.
+Usar tipos explicitamente dimensionados nessas situações
+ajuda a capturar quaisquer _overflow_ de valor acidental
+e documenta implicitamente a natureza dos dados que estão sendo usados.
 
-## Numeric Type Conversion
+### Conversão de inteiros
 
-Use the `Int` type for all general-purpose integer constants and variables in your code,
-even if they're known to be nonnegative.
-Using the default integer type in everyday situations means that
-integer constants and variables are immediately interoperable in your code
-and will match the inferred type for integer literal values.
-
-Use other integer types only when they're specifically needed for the task at hand,
-because of explicitly sized data from an external source,
-or for performance, memory usage, or other necessary optimization.
-Using explicitly sized types in these situations
-helps to catch any accidental value overflows
-and implicitly documents the nature of the data being used.
-
-### Integer Conversion
-
-The range of numbers that can be stored in an integer constant or variable
-is different for each numeric type.
-An `Int8` constant or variable can store numbers between `-128` and `127`,
-whereas a `UInt8` constant or variable can store numbers between `0` and `255`.
-A number that won't fit into a constant or variable of a sized integer type
-is reported as an error when your code is compiled:
+O intervalo de números que podem ser armazenados em uma constante ou variável inteira
+é diferente para cada tipo numérico.
+Uma constante ou variável `Int8` pode armazenar números entre `-128` e `127`,
+enquanto uma constante ou variável `UInt8` pode armazenar números entre `0` e `255`.
+Um número que não se encaixa em uma constante ou variável de um tipo inteiro dimensionado
+é reportado como um erro quando seu código é compilado:
 
 ```swift
 let cannotBeNegative: UInt8 = -1
-// UInt8 can't store negative numbers, and so this will report an error
+// `UInt8` não pode armazenar números negativos, então isso irá reportar um erro
 let tooBig: Int8 = Int8.max + 1
-// Int8 can't store a number larger than its maximum value,
-// and so this will also report an error
+// `Int8` não pode armazenar um número maior que seu valor máximo,
+// e isso também reportará um erro
 ```
 
+Como cada tipo numérico pode armazenar um intervalo diferente de valores,
+você deve optar pela conversão de tipo numérico caso a caso.
+Essa abordagem `opt-in` previne erros de conversão ocultos
+e ajuda a tornar as intenções de conversão de tipo explícitas em seu código.
 
-
-
-Because each numeric type can store a different range of values,
-you must opt in to numeric type conversion on a case-by-case basis.
-This opt-in approach prevents hidden conversion errors
-and helps make type conversion intentions explicit in your code.
-
-To convert one specific number type to another,
-you initialize a new number of the desired type with the existing value.
-In the example below,
-the constant `twoThousand` is of type `UInt16`,
-whereas the constant `one` is of type `UInt8`.
-They can't be added together directly,
-because they're not of the same type.
-Instead, this example calls `UInt16(one)` to create
-a new `UInt16` initialized with the value of `one`,
-and uses this value in place of the original:
+Para converter um tipo de número específico em outro,
+você inicializa um novo número do tipo desejado com o valor existente.
+No exemplo abaixo,
+a constante `twoThousand` é do tipo `UInt16`,
+enquanto a constante `one` é do tipo `UInt8`.
+Elas não podem ser adicionadas diretamente,
+porque não são do mesmo tipo.
+Em vez disso, o exemplo abaixo usa `UInt16(one)` para criar
+uma nova `UInt16` inicializada com o valor de `one`,
+e usa esse valor no lugar do original:
 
 ```swift
 let twoThousand: UInt16 = 2_000
@@ -455,123 +536,103 @@ let one: UInt8 = 1
 let twoThousandAndOne = twoThousand + UInt16(one)
 ```
 
+Como ambos os lados da adição agora são do tipo `UInt16`,
+a adição é permitida.
+A constante de saída (`twoThousandAndOne`) é inferida como sendo do tipo `UInt16`,
+porque é a soma de dois valores `UInt16`.
 
+`SomeType(ofInitialValue)` é a maneira padrão de chamar o inicializador de um tipo Swift
+e passar um valor inicial.
+Nos bastidores, `UInt16` tem um inicializador que aceita um valor `UInt8`,
+e então esse inicializador é usado para fazer um novo `UInt16` a partir de um `UInt8` existente.
+Você não pode passar **qualquer** tipo aqui, no entanto ---
+ele tem que ser um tipo para o qual `UInt16` fornece um inicializador.
+Estender tipos existentes para fornecer inicializadores que aceitam novos tipos
+(incluindo suas próprias definições de tipo)
+é abordado em <doc:Extensions>.
 
+### Conversão de Inteiros e de Ponto Flutuante
 
-Because both sides of the addition are now of type `UInt16`,
-the addition is allowed.
-The output constant (`twoThousandAndOne`) is inferred to be of type `UInt16`,
-because it's the sum of two `UInt16` values.
-
-`SomeType(ofInitialValue)` is the default way to call the initializer of a Swift type
-and pass in an initial value.
-Behind the scenes, `UInt16` has an initializer that accepts a `UInt8` value,
-and so this initializer is used to make a new `UInt16` from an existing `UInt8`.
-You can't pass in *any* type here, however ---
-it has to be a type for which `UInt16` provides an initializer.
-Extending existing types to provide initializers that accept new types
-(including your own type definitions)
-is covered in <doc:Extensions>.
-
-### Integer and Floating-Point Conversion
-
-Conversions between integer and floating-point numeric types must be made explicit:
+As conversões entre tipos numéricos de inteiros e de ponto flutuante devem ser explicitadas:
 
 ```swift
 let three = 3
 let pointOneFourOneFiveNine = 0.14159
 let pi = Double(three) + pointOneFourOneFiveNine
-// pi equals 3.14159, and is inferred to be of type Double
+// `pi` é igual a 3.14159, e é inferido como do tipo `Double`
 ```
 
+O valor da constante `three` é usado para criar um novo valor do tipo `Double`,
+para que ambos os lados da adição sejam do mesmo tipo.
+Sem essa conversão em vigor, a adição não seria permitida.
 
-
-
-Here, the value of the constant `three` is used to create a new value of type `Double`,
-so that both sides of the addition are of the same type.
-Without this conversion in place, the addition would not be allowed.
-
-Floating-point to integer conversion must also be made explicit.
-An integer type can be initialized with a `Double` or `Float` value:
+A conversão de ponto flutuante para inteiro também deve ser explicota.
+Um tipo inteiro pode ser inicializado com um valor `Double` ou `Float`:
 
 ```swift
 let integerPi = Int(pi)
-// integerPi equals 3, and is inferred to be of type Int
+// `integerPi` é igual a 3, e é inferido como do tipo `Int`
 ```
 
+Valores de ponto flutuante são sempre truncados quando usados ​​para inicializar um novo valor inteiro dessa forma.
+Isso significa que `4.75` se torna `4` e `-3.9` se torna `-3`.
 
+> Nota: As regras para combinar constantes e variáveis ​​numéricas são diferentes
+> das regras para literais numéricos.
+> O valor literal `3` pode ser adicionado diretamente ao valor literal `0.14159`,
+> porque  um literal numérico não têm um tipo explícito por si só.
+> Seu tipo é inferido apenas no ponto em que são avaliados pelo compilador.
 
+## Apelidos de Tipo
 
-Floating-point values are always truncated when used to initialize a new integer value in this way.
-This means that `4.75` becomes `4`, and `-3.9` becomes `-3`.
+**Apelidos de tipo** definem um nome alternativo para um tipo existente.
+Você define apelidos de tipo com a palavra-chave `typealias`.
 
-> Note: The rules for combining numeric constants and variables are different from
-> the rules for numeric literals.
-> The literal value `3` can be added directly to the literal value `0.14159`,
-> because number literals don't have an explicit type in and of themselves.
-> Their type is inferred only at the point that they're evaluated by the compiler.
-
-
-
-## Type Aliases
-
-*Type aliases* define an alternative name for an existing type.
-You define type aliases with the `typealias` keyword.
-
-Type aliases are useful when you want to refer to an existing type
-by a name that's contextually more appropriate,
-such as when working with data of a specific size from an external source:
+Apelidos de tipo são úteis quando você quer se referir a um tipo existente
+por um nome que seja contextualmente mais apropriado,
+como ao trabalhar com dados de um tamanho específico de uma fonte externa:
 
 ```swift
 typealias AudioSample = UInt16
 ```
 
-
-
-
-Once you define a type alias,
-you can use the alias anywhere you might use the original name:
+Depois de definir um apelido de tipo,
+você pode usar o apelido em qualquer lugar em que usaria o nome original:
 
 ```swift
 var maxAmplitudeFound = AudioSample.min
-// maxAmplitudeFound is now 0
+// `maxAmplitudeFound` agora é 0
 ```
 
+Aqui, `AudioSample` é definido como um apelido para `UInt16`.
+Por ser um apelido,
+a chamada para `AudioSample.min` na verdade chama `UInt16.min`,
+que fornece um valor inicial de `0` para a variável `maxAmplitudeFound`.
 
+## Booleanos
 
-
-Here, `AudioSample` is defined as an alias for `UInt16`.
-Because it's an alias,
-the call to `AudioSample.min` actually calls `UInt16.min`,
-which provides an initial value of `0` for the `maxAmplitudeFound` variable.
-
-## Booleans
-
-Swift has a basic *Boolean* type, called `Bool`.
-Boolean values are referred to as *logical*,
-because they can only ever be true or false.
-Swift provides two Boolean constant values,
-`true` and `false`:
+O Swift tem um tipo *Booleano* básico, chamado `Bool`.
+Os valores booleanos são chamados de **lógicos**,
+porque eles só podem ser verdadeiros ou falsos.
+Swift fornece dois valores constantes booleanos,
+`true` e `false`:
 
 ```swift
 let orangesAreOrange = true
 let turnipsAreDelicious = false
 ```
 
+Os tipos de `orangesAreOrange` e `turnipsAreDelicious`
+foram inferidos como `Bool` pelo fato de que
+eles foram inicializados com valores literais booleanos.
+Assim como com `Int` e `Double` acima,
+você não precisa declarar constantes ou variáveis ​​como `Bool`
+se você defini-las como `true` ou `false` assim que criá-las.
+A inferência de tipos ajuda a tornar o código mais conciso e legível
+quando inicializa constantes ou variáveis ​​com outros valores cujo tipo já é conhecido.
 
-
-
-The types of `orangesAreOrange` and `turnipsAreDelicious`
-have been inferred as `Bool` from the fact that
-they were initialized with Boolean literal values.
-As with `Int` and `Double` above,
-you don't need to declare constants or variables as `Bool`
-if you set them to `true` or `false` as soon as you create them.
-Type inference helps make Swift code more concise and readable
-when it initializes constants or variables with other values whose type is already known.
-
-Boolean values are particularly useful when you work with conditional statements
-such as the `if` statement:
+Os valores booleanos são particularmente úteis quando você trabalha com instruções condicionais
+como a instrução `if`:
 
 ```swift
 if turnipsAreDelicious {
@@ -579,291 +640,241 @@ if turnipsAreDelicious {
 } else {
    print("Eww, turnips are horrible.")
 }
-// Prints "Eww, turnips are horrible."
+// Imprime "Eww, turnips are horrible."
 ```
 
+Instruções condicionais como a instrução `if` são abordadas com mais detalhes em <doc:ControlFlow>.
 
-
-
-Conditional statements such as the `if` statement are covered in more detail in <doc:ControlFlow>.
-
-Swift's type safety prevents non-Boolean values from being substituted for `Bool`.
-The following example reports a compile-time error:
+A segurança de tipo impede que valores não booleanos sejam substituídos por `Bool`.
+O exemplo a seguir relata um erro de tempo de compilação:
 
 ```swift
 let i = 1
 if i {
-   // this example will not compile, and will report an error
+   // este exemplo não será compilado e reportará um erro
 }
 ```
 
-
-
-
-However, the alternative example below is valid:
+Entretanto, o exemplo alternativo abaixo é válido:
 
 ```swift
 let i = 1
 if i == 1 {
-   // this example will compile successfully
+   // esse exemplo será compilado com sucesso
 }
 ```
 
+O resultado da comparação `i == 1` é do tipo `Bool`,
+e então este segundo exemplo passa na verificação de tipo.
+Comparações como `i == 1` são discutidas em <doc:BasicOperators>.
 
+Assim como outros exemplos de segurança de tipo em Swift,
+esta abordagem evita erros acidentais
+e garante que a intenção de uma seção específica do código esteja sempre clara.
 
+## Tuplas
 
-The result of the `i == 1` comparison is of type `Bool`,
-and so this second example passes the type-check.
-Comparisons like `i == 1` are discussed in <doc:BasicOperators>.
+*Tuplas* agrupam vários valores em um único valor composto.
+Os valores dentro de uma tupla podem ser de qualquer tipo
+e não precisam ser do mesmo tipo uns dos outros.
 
-As with other examples of type safety in Swift,
-this approach avoids accidental errors
-and ensures that the intention of a particular section of code is always clear.
-
-## Tuples
-
-*Tuples* group multiple values into a single compound value.
-The values within a tuple can be of any type
-and don't have to be of the same type as each other.
-
-In this example, `(404, "Not Found")` is a tuple that describes an *HTTP status code*.
-An HTTP status code is a special value returned by a web server whenever you request a web page.
-A status code of `404 Not Found` is returned if you request a webpage that doesn't exist.
+Neste exemplo, `(404, "Not Found")` é uma tupla que descreve um **código de status HTTP**.
+Um código de status HTTP é um valor especial retornado por um servidor web sempre que você solicita uma página web.
+Um código de status `404 Not Found` é retornado se você solicitar uma página web que não existe.
 
 ```swift
 let http404Error = (404, "Not Found")
-// http404Error is of type (Int, String), and equals (404, "Not Found")
+// `http404Error` é do tipo `(Int, String)`, e igual a (404, "Not Found")
 ```
 
+A tupla `(404, "Not Found")` agrupa um `Int` e uma `String`
+para dar ao código de status HTTP dois valores separados:
+um número e uma descrição legível por humanos.
+Ele pode ser descrito como “uma tupla do tipo `(Int, String)`”.
 
+Você pode criar tuplas de qualquer permutação de tipos,
+e elas podem conter quantos tipos diferentes você quiser.
+Não há nada que impeça você de ter
+uma tupla do tipo `(Int, Int, Int)`, ou `(String, Bool)`,
+ou de fato qualquer outra permutação que você precise.
 
-
-The `(404, "Not Found")` tuple groups together an `Int` and a `String`
-to give the HTTP status code two separate values:
-a number and a human-readable description.
-It can be described as “a tuple of type `(Int, String)`”.
-
-You can create tuples from any permutation of types,
-and they can contain as many different types as you like.
-There's nothing stopping you from having
-a tuple of type `(Int, Int, Int)`, or `(String, Bool)`,
-or indeed any other permutation you require.
-
-You can *decompose* a tuple's contents into separate constants or variables,
-which you then access as usual:
+Você pode **decompor** o conteúdo de uma tupla em constantes ou variáveis ​​separadas,
+que você então acessa normalmente:
 
 ```swift
 let (statusCode, statusMessage) = http404Error
 print("The status code is \(statusCode)")
-// Prints "The status code is 404"
+// Imprime "The status code is 404"
 print("The status message is \(statusMessage)")
-// Prints "The status message is Not Found"
+// Imprime "The status message is Not Found"
 ```
 
-
-
-
-If you only need some of the tuple's values,
-ignore parts of the tuple with an underscore (`_`)
-when you decompose the tuple:
+Se você só precisa de alguns valores da tupla,
+ignore partes da tupla com um sublinhado (`_`)
+quando você decompõe a tupla:
 
 ```swift
 let (justTheStatusCode, _) = http404Error
 print("The status code is \(justTheStatusCode)")
-// Prints "The status code is 404"
+// Imprime "The status code is 404"
 ```
 
-
-
-
-Alternatively,
-access the individual element values in a tuple using index numbers starting at zero:
+Alternativamente,
+acesse os valores dos elementos individuais em uma tupla usando números de índice começando em zero:
 
 ```swift
 print("The status code is \(http404Error.0)")
-// Prints "The status code is 404"
+// Imprime "The status code is 404"
 print("The status message is \(http404Error.1)")
-// Prints "The status message is Not Found"
+// Imprime "The status message is Not Found"
 ```
 
-
-
-
-You can name the individual elements in a tuple when the tuple is defined:
+Você pode nomear os elementos individuais em uma tupla quando a tupla é definida:
 
 ```swift
 let http200Status = (statusCode: 200, description: "OK")
 ```
 
-
-
-
-If you name the elements in a tuple,
-you can use the element names to access the values of those elements:
+Se você nomear os elementos em uma tupla,
+você pode usar os nomes dos elementos para acessar os valores desses elementos:
 
 ```swift
 print("The status code is \(http200Status.statusCode)")
-// Prints "The status code is 200"
+// Imprime "The status code is 200"
 print("The status message is \(http200Status.description)")
-// Prints "The status message is OK"
+// Imprime "The status message is OK"
 ```
 
+Uma função que tenta recuperar uma página da web pode retornar o tipo de tupla `(Int, String)`
+para descrever o sucesso ou a falha da recuperação da página.
+Ao retornar uma tupla com dois valores distintos,
+cada um de um tipo diferente,
+a função fornece informações mais úteis sobre seu resultado
+do que se pudesse retornar apenas um único valor de um único tipo.
+Para obter mais informações, consulte <doc:Functions#Functions-with-Multiple-Return-Values>.
 
+> Nota: Tuplas são úteis para grupos simples de valores relacionados.
+> Elas não são adequadas para a criação de estruturas de dados complexas.
+> Se sua estrutura de dados provavelmente for mais complexa,
+> modele-a como uma classe ou estrutura, em vez de uma tupla.
+> Para obter mais informações, consulte <doc:ClassesAndStructures>.
 
+## Opcionais
 
-Tuples are particularly useful as the return values of functions.
-A function that tries to retrieve a web page might return the `(Int, String)` tuple type
-to describe the success or failure of the page retrieval.
-By returning a tuple with two distinct values,
-each of a different type,
-the function provides more useful information about its outcome
-than if it could only return a single value of a single type.
-For more information, see <doc:Functions#Functions-with-Multiple-Return-Values>.
+Você usa **opcionais** em situações em que um valor pode estar ausente.
+Um opcional representa duas possibilidades:
+Ou *há* um valor, e você pode desempacotar o opcional para acessar esse valor,
+ou *não há* nenhum valor.
 
-> Note: Tuples are useful for simple groups of related values.
-> They're not suited to the creation of complex data structures.
-> If your data structure is likely to be more complex,
-> model it as a class or structure, rather than as a tuple.
-> For more information, see <doc:ClassesAndStructures>.
-
-## Optionals
-
-You use *optionals* in situations where a value may be absent.
-An optional represents two possibilities:
-Either there *is* a value, and you can unwrap the optional to access that value,
-or there *isn't* a value at all.
-
-> Note: The concept of optionals doesn't exist in C or Objective-C.
-> The nearest thing in Objective-C is
-> the ability to return `nil` from a method that would otherwise return an object,
-> with `nil` meaning “the absence of a valid object.”
-> However, this only works for objects --- it doesn't work for
-> structures, basic C types, or enumeration values.
-> For these types,
-> Objective-C methods typically return a special value (such as `NSNotFound`)
-> to indicate the absence of a value.
-> This approach assumes that the method's caller knows there's a special value to test against
-> and remembers to check for it.
-> Swift's optionals let you indicate the absence of a value for *any type at all*,
-> without the need for special constants.
-
-Here's an example of how optionals can be used to cope with the absence of a value.
-Swift's `Int` type has an initializer
-which tries to convert a `String` value into an `Int` value.
-However, not every string can be converted into an integer.
-The string `"123"` can be converted into the numeric value `123`,
-but the string `"hello, world"` doesn't have an obvious numeric value to convert to.
-
-The example below uses the initializer to try to convert a `String` into an `Int`:
+Como exemplo de um valor que pode estar faltando,
+o tipo `Int` em Swift tem um inicializador
+que tenta converter um valor `String` em um valor `Int`.
+No entanto, apenas algumas _strings_ podem ser convertidas em inteiros.
+A _string_ `"123"` pode ser convertida no valor numérico `123`,
+mas a _string_ `"hello, world"` não tem um valor numérico correspondente.
+O exemplo abaixo usa o inicializador para tentar converter uma `String` em um `Int`:
 
 ```swift
 let possibleNumber = "123"
 let convertedNumber = Int(possibleNumber)
-// convertedNumber is inferred to be of type "Int?", or "optional Int"
+// O tipo de `convertedNumber` é `Int` opcional
 ```
 
-
-
-
-Because the initializer might fail,
-it returns an *optional* `Int`, rather than an `Int`.
-An optional `Int` is written as `Int?`, not `Int`.
-The question mark indicates that the value it contains is optional,
-meaning that it might contain *some* `Int` value,
-or it might contain *no value at all*.
-(It can't contain anything else, such as a `Bool` value or a `String` value.
-It's either an `Int`, or it's nothing at all.)
+Como o inicializador pode falhar,
+ele retorna um `Int` **opcional**, em vez de um `Int`.
+Um `Int` opcional é escrito como `Int?`, não `Int`.
+O ponto de interrogação indica que o valor que ele contém é opcional,
+o que significa que ele pode conter **algum** valor `Int`,
+ou pode não conter **nenhum** valor.
+(Ele não pode conter nada mais, como um valor `Bool` ou um valor `String`.
+Ele é um `Int` ou não é nada.)
 
 ### nil
 
-You set an optional variable to a valueless state
-by assigning it the special value `nil`:
+Você define uma variável opcional para um estado sem valor
+atribuindo a ela o valor especial `nil`:
 
 ```swift
 var serverResponseCode: Int? = 404
-// serverResponseCode contains an actual Int value of 404
+// `serverResponseCode` contém um valor `Int` de 404
 serverResponseCode = nil
-// serverResponseCode now contains no value
+// `serverResponseCode` agora não contém nenhum valor
 ```
 
-
-
-
-> Note: You can't use `nil` with non-optional constants and variables.
-> If a constant or variable in your code needs to work with
-> the absence of a value under certain conditions,
-> always declare it as an optional value of the appropriate type.
-
-If you define an optional variable without providing a default value,
-the variable is automatically set to `nil` for you:
+Se você definir uma variável opcional sem fornecer um valor padrão,
+a variável será automaticamente definida como `nil`:
 
 ```swift
 var surveyAnswer: String?
-// surveyAnswer is automatically set to nil
+// `surveyAnswer` é automaticamente definida como `nil`
 ```
 
+Você pode usar uma instrução `if` para descobrir se um opcional contém um valor
+comparando o opcional com `nil`.
+Você realiza essa comparação com o operador “igual a” (`==`)
+ou o operador “diferente de” (`!=`).
 
-
-
-> Note: Swift's `nil` isn't the same as `nil` in Objective-C.
-> In Objective-C, `nil` is a pointer to a nonexistent object.
-> In Swift, `nil` isn't a pointer --- it's the absence of a value of a certain type.
-> Optionals of *any* type can be set to `nil`, not just object types.
-
-### If Statements and Forced Unwrapping
-
-You can use an `if` statement to find out whether an optional contains a value
-by comparing the optional against `nil`.
-You perform this comparison with the “equal to” operator (`==`)
-or the “not equal to” operator (`!=`).
-
-If an optional has a value, it's considered to be “not equal to” `nil`:
+Se um opcional tiver um valor, ele é considerado “diferente de” `nil`:
 
 ```swift
+let possibleNumber = "123"
+let convertedNumber = Int(possibleNumber)
+
 if convertedNumber != nil {
-   print("convertedNumber contains some integer value.")
+    print("convertedNumber contains some integer value.")
 }
-// Prints "convertedNumber contains some integer value."
+// Imprime "convertedNumber contains some integer value."
 ```
 
+Você não pode usar `nil` com constantes ou variáveis ​​não opcionais.
+Se uma constante ou variável no seu código precisa trabalhar com
+a ausência de um valor sob certas condições,
+declare-a como um valor opcional do tipo apropriado.
+Uma constante ou variável que é declarada como um valor não opcional
+tem a garantia de nunca conter um valor `nil`.
+Se você tentar atribuir `nil` a um valor não opcional,
+você obterá um erro de tempo de compilação.
 
+Essa separação de valores opcionais e não opcionais
+permite que você marque explicitamente quais informações podem estar faltando
+e facilita a escrita de código que lida com ausência de valores.
+Você não pode tratar acidentalmente um opcional como se fosse não opcional
+porque isso produz um erro em tempo de compilação.
+Depois de desempacotar o valor,
+nenhum outro código que funciona com esse valor precisa verificar `nil`,
+então não há necessidade de verificar repetidamente o mesmo valor
+em diferentes partes do seu código.
 
+Quando você acessa um valor opcional,
+seu código sempre lida com o caso `nil` e não `nil`.
+Há várias coisas que você pode fazer quando um valor está faltando,
+conforme descrito nas seções a seguir:
 
-Once you're sure that the optional *does* contain a value,
-you can access its underlying value
-by adding an exclamation point (`!`) to the end of the optional's name.
-The exclamation point effectively says,
-“I know that this optional definitely has a value; please use it.”
-This is known as *forced unwrapping* of the optional's value:
+- Pular o código que opera no valor quando ele é `nil`.
 
-```swift
-if convertedNumber != nil {
-   print("convertedNumber has an integer value of \(convertedNumber!).")
-}
-// Prints "convertedNumber has an integer value of 123."
-```
+- Propagar o valor `nil`, retornando `nil`
+ou usando o operador `?.` descrito em <doc:OptionalChaining>.
 
+- Fornecer um valor de _fallback_, usando o operador `??`.
 
+- Parar a execução do programa, usando o operador `!`.
 
+> Nota:
+> Em Objective-C, `nil` é um ponteiro para um objeto inexistente.
+> Em Swift, `nil` não é um ponteiro --- é a ausência de um valor de um certo tipo.
+> Opcionais de **qualquer** tipo podem ser definidos como `nil`, não apenas tipos de objeto.
 
-For more about the `if` statement, see <doc:ControlFlow>.
+### _Binding_ Opcional
 
-> Note: Trying to use `!` to access a nonexistent optional value triggers
-> a runtime error.
-> Always make sure that an optional contains a non-`nil` value
-> before using `!` to force-unwrap its value.
+Você usa **_binding_ opcional** para descobrir se um opcional contém um valor,
+e se sim, para tornar esse valor disponível como uma constante ou variável temporária.
+Um _binding_ opcional pode ser usada com instruções `if`, `guard` e `while`
+para verificar um valor dentro de um opcional,
+e para extrair esse valor em uma constante ou variável,
+como parte de uma única ação.
+Para mais informações sobre `if`, `guard` e `while`, consulte <doc:ControlFlow>.
 
-### Optional Binding
-
-You use *optional binding* to find out whether an optional contains a value,
-and if so, to make that value available as a temporary constant or variable.
-Optional binding can be used with `if` and `while` statements
-to check for a value inside an optional,
-and to extract that value into a constant or variable,
-as part of a single action.
-`if` and `while` statements are described in more detail in <doc:ControlFlow>.
-
-Write an optional binding for an `if` statement as follows:
+Escreva um _binding_ opcional para uma instrução `if` da seguinte maneira:
 
 ```
 if let <#constantName#> = <#someOptional#> {
@@ -871,10 +882,9 @@ if let <#constantName#> = <#someOptional#> {
 }
 ```
 
-
-You can rewrite the `possibleNumber` example from
-the <doc:TheBasics#Optionals> section
-to use optional binding rather than forced unwrapping:
+Você pode reescrever o exemplo `possibleNumber` da
+seção <doc:TheBasics#Optionals>
+para usar _binding_ opcional em vez de desempacotamente forçado:
 
 ```swift
 if let actualNumber = Int(possibleNumber) {
@@ -882,90 +892,81 @@ if let actualNumber = Int(possibleNumber) {
 } else {
    print("The string \"\(possibleNumber)\" couldn't be converted to an integer")
 }
-// Prints "The string "123" has an integer value of 123"
+// Imprime "The string "123" has an integer value of 123"
 ```
 
+Este código pode ser lido como:
 
+“Se o opcional `Int` retornado por `Int(possibleNumber)` contém um valor,
+defina uma nova constante chamada `actualNumber` para o valor contido no opcional.”
 
+Se a conversão for bem-sucedida,
+a constante `actualNumber` se torna disponível para uso dentro
+do primeiro ramo da declaração `if`.
+Ela já foi inicializada com o valor contido **dentro** do opcional,
+e então você não usa o sufixo `!` para acessar seu valor.
+Neste exemplo, `actualNumber` é simplesmente usado para imprimir o resultado da conversão.
 
-This code can be read as:
-
-“If the optional `Int` returned by `Int(possibleNumber)` contains a value,
-set a new constant called `actualNumber` to the value contained in the optional.”
-
-If the conversion is successful,
-the `actualNumber` constant becomes available for use within
-the first branch of the `if` statement.
-It has already been initialized with the value contained *within* the optional,
-and so you don't use the `!` suffix to access its value.
-In this example, `actualNumber` is simply used to print the result of the conversion.
-
-If you don't need to refer to the original, optional constant or variable
-after accessing the value it contains,
-you can use the same name for the new constant or variable:
+Se você não precisar se referir à constante ou variável original e opcional
+depois de acessar o valor que ela contém,
+você pode usar o mesmo nome para a nova constante ou variável:
 
 ```swift
 let myNumber = Int(possibleNumber)
-// Here, myNumber is an optional integer
+// Aqui `myNumber` é um inteiro opcional
 if let myNumber = myNumber {
-    // Here, myNumber is a non-optional integer
+    // Aqui `myNumber` um inteiro não opcional
     print("My number is \(myNumber)")
 }
-// Prints "My number is 123"
+// Imprime "My number is 123"
 ```
 
+Este código começa verificando se `myNumber` contém um valor,
+assim como o código no exemplo anterior.
+Se `myNumber` tiver um valor,
+Uma nova constante chamada `myNumber` é definida como esse valor.
+Dentro do corpo da declaração `if`,
+escrever `myNumber` se refere a essa nova constante não opcional.
+Antes do início da declaração `if` e após seu fim,
+escrever `myNumber` se refere à constante inteira opcional.
 
-
-
-This code starts by checking whether `myNumber` contains a value,
-just like the code in the previous example.
-If `myNumber` has a value,
-the value of a new constant named `myNumber` is set to that value.
-Inside the body of the `if` statement,
-writing `myNumber` refers to that new non-optional constant.
-Before the beginning of the `if` statement and after its end,
-writing `myNumber` refers to the optional integer constant.
-
-Because this kind of code is so common,
-you can use a shorter spelling to unwrap an optional value:
-write just the name of the constant or variable that you're unwrapping.
-The new, unwrapped constant or variable
-implicitly uses the same name as the optional value.
+Como esse tipo de código é tão comum,
+você pode usar uma abreviação para desempacotar um valor opcional:
+escreva apenas o nome da constante ou variável que você está desempacotando.
+A nova constante ou variável desempacotando
+implicitamente usa o mesmo nome do valor opcional.
 
 ```swift
 if let myNumber {
     print("My number is \(myNumber)")
 }
-// Prints "My number is 123"
+// Imprime "My number is 123"
 ```
 
+Você pode usar constantes e variáveis ​​com _binding_ opcional.
+Se você quisesse manipular o valor de `myNumber`
+dentro do primeiro ramo da declaração `if`,
+você poderia escrever `if var myNumber` em vez disso,
+e o valor contido dentro do opcional
+seria disponibilizado como uma variável em vez de uma constante.
+As alterações que você fizer em `myNumber` dentro do corpo da declaração `if`
+se aplicam somente àquela variável local,
+**não** à constante ou variável original e opcional que você desempacotou.
 
-
-
-You can use both constants and variables with optional binding.
-If you wanted to manipulate the value of `myNumber`
-within the first branch of the `if` statement,
-you could write `if var myNumber` instead,
-and the value contained within the optional
-would be made available as a variable rather than a constant.
-Changes you make to `myNumber` inside the body of the `if` statement
-apply only to that local variable,
-*not* to the original, optional constant or variable that you unwrapped.
-
-You can include as many optional bindings and Boolean conditions
-in a single `if` statement as you need to,
-separated by commas.
-If any of the values in the optional bindings are `nil`
-or any Boolean condition evaluates to `false`,
-the whole `if` statement's condition
-is considered to be `false`.
-The following `if` statements are equivalent:
+Você pode incluir quantas _binding_ opcionais e condições booleanas
+em uma única instrução `if` forem necessárias,
+separadas por vírgulas.
+Se qualquer um dos valores nos _binding_ opcionais for `nil`
+ou qualquer condição booleana for avaliada como `false`,
+toda a condição da instrução `if`
+será considerada `false`.
+As seguintes instruções `if` são equivalentes:
 
 ```swift
 if let firstNumber = Int("4"), let secondNumber = Int("42"), firstNumber < secondNumber && secondNumber < 100 {
    print("\(firstNumber) < \(secondNumber) < 100")
 }
-// Prints "4 < 42 < 100"
+// Imprime "4 < 42 < 100"
 
 if let firstNumber = Int("4") {
     if let secondNumber = Int("42") {
@@ -974,169 +975,204 @@ if let firstNumber = Int("4") {
         }
     }
 }
-// Prints "4 < 42 < 100"
+// Imprime "4 < 42 < 100"
 ```
 
+> Nota: Constantes e variáveis ​​criadas com _binding_ opcional em uma instrução `if`
+> estão disponíveis somente dentro do corpo da instrução `if`.
+> Em contraste, as constantes e variáveis ​​criadas com uma instrução `guard`
+> estão disponíveis nas linhas de código que seguem a instrução `guard`,
+> conforme descrito em <doc:ControlFlow#Early-Exit>.
 
+### Fornecendo um Valor de _Fallback_
 
+Outra maneira de lidar com um valor ausente é fornecer
+um valor padrão usando o operador _nil-coalescing_ (`??`).
+Se o opcional à esquerda de `??` não for `nil`,
+esse valor será desembrulhado e usado.
+Caso contrário, o valor à direita de `??` será usado.
+Por exemplo,
+o código abaixo cumprimenta alguém pelo nome, se um for especificado,
+e usa uma saudação genérica quando o nome for `nil`.
 
+```swift
+let name: String? = nil
+let greeting = "Hello, " + (name ?? "friend") + "!"
+print(greeting)
+// Imprime "Hello, friend!"
+```
 
+Para obter mais informações sobre o uso de `??` para fornecer um valor de _fallback_,
+consulte <doc:BasicOperators#Nil-Coalescing-Operator>.
 
-> Note: Constants and variables created with optional binding in an `if` statement
-> are available only within the body of the `if` statement.
-> In contrast, the constants and variables created with a `guard` statement
-> are available in the lines of code that follow the `guard` statement,
-> as described in <doc:ControlFlow#Early-Exit>.
+### Desempacotamento Forçado
 
-### Implicitly Unwrapped Optionals
+Quando `nil` representa uma falha irrecuperável,
+como um erro de programador ou estado corrompido,
+você pode acessar o valor subjacente
+adicionando um ponto de exclamação (`!`) ao final do nome do opcional.
+Isso é conhecido como **forçar o desempacotamento** do valor do opcional.
+Quando você força o desempacotamento de um valor não `nil`,
+o resultado é seu valor desempacotado.
+Forçar o desempacotamento de um valor `nil` dispara um erro em tempo de execução.
 
-As described above,
-optionals indicate that a constant or variable is allowed to have “no value”.
-Optionals can be checked with an `if` statement to see if a value exists,
-and can be conditionally unwrapped with optional binding
-to access the optional's value if it does exist.
+O `!` é, efetivamente, uma grafia mais curta de [`fatalError(_:file:line:)`][].
+Por exemplo, o código abaixo mostra duas abordagens equivalentes:
 
-Sometimes it's clear from a program's structure that an optional will *always* have a value,
-after that value is first set.
-In these cases, it's useful to remove the need
-to check and unwrap the optional's value every time it's accessed,
-because it can be safely assumed to have a value all of the time.
+[`fatalError(_:file:line:)`]: https://developer.apple.com/documentation/swift/fatalerror(_:file:line:)
 
-These kinds of optionals are defined as *implicitly unwrapped optionals*.
-You write an implicitly unwrapped optional by placing an exclamation point (`String!`)
-rather than a question mark (`String?`) after the type that you want to make optional.
-Rather than placing an exclamation point after the optional's name when you use it,
-you place an exclamation point after the optional's type when you declare it.
+```swift
+let possibleNumber = "123"
+let convertedNumber = Int(possibleNumber)
 
-Implicitly unwrapped optionals are useful when
-an optional's value is confirmed to exist immediately after the optional is first defined
-and can definitely be assumed to exist at every point thereafter.
-The primary use of implicitly unwrapped optionals in Swift is during class initialization,
-as described in <doc:AutomaticReferenceCounting#Unowned-References-and-Implicitly-Unwrapped-Optional-Properties>.
+let number = convertedNumber!
 
-An implicitly unwrapped optional is a normal optional behind the scenes,
-but can also be used like a non-optional value,
-without the need to unwrap the optional value each time it's accessed.
-The following example shows the difference in behavior between
-an optional string and an implicitly unwrapped optional string
-when accessing their wrapped value as an explicit `String`:
+guard let number = convertedNumber else {
+    fatalError("The number was invalid")
+}
+```
+
+Ambas as versões do código acima dependem de `convertedNumber`
+sempre contendo um valor.
+Escrever esse requisito como parte do código,
+usando qualquer uma das abordagens acima,
+permite que seu código verifique se o requisito é verdadeiro em tempo de execução.
+
+Para obter mais informações sobre como impor requisitos de dados
+e verificar suposições em tempo de execução,
+consulte <doc:TheBasics#Assertions-and-Preconditions>.
+
+### Opcionais Implicitamente Desempacotados
+
+Conforme descrito acima,
+opcionais indicam que uma constante ou variável pode ter "nenhum valor".
+Opcionais podem ser verificados com uma instrução `if` para ver se um valor existe,
+e podem ser condicionalmente desempacotados com _binding_ opcionais
+para acessar o valor do opcional se ele existir.
+
+Às vezes fica claro na estrutura de um programa que um opcional **sempre** terá um valor,
+depois que esse valor for definido pela primeira vez.
+Nesses casos, é útil remover a necessidade
+de verificar e desempacotar o valor do opcional toda vez que ele for acessado,
+porque pode-se presumir com segurança que ele tem um valor o tempo todo.
+
+Esses tipos de opcionais são definidos como **opcionais implicitamente desempacotados**.
+Você escreve um opcional implicitamente desempacotado colocando um ponto de exclamação (`String!`)
+em vez de um ponto de interrogação (`String?`) após o tipo que você quer tornar opcional.
+Em vez de colocar um ponto de exclamação após o nome do opcional quando você o usa,
+você coloca um ponto de exclamação após o tipo do opcional quando você o declara.
+
+Opcionais implicitamente desempacotados são úteis quando
+o valor de um opcional é confirmado como existente imediatamente após o opcional ser definido pela primeira vez
+e pode definitivamente ser assumido como existente em todos os pontos depois disso.
+O uso primário de opcionais implicitamente desempacotados em Swift é durante a inicialização de classes,
+conforme descrito em <doc:AutomaticReferenceCounting#Unowned-References-and-Implicitly-Unwrapped-Optional-Properties>.
+
+Não use um opcional implicitamente desempacotado quando houver a possibilidade de
+uma variável se tornar `nil` em um ponto posterior.
+Sempre use um tipo opcional normal se precisar verificar um valor `nil`
+durante o tempo de vida de uma variável.
+
+Um opcional implicitamente desempacotado é um opcional normal nos bastidores,
+mas também pode ser usado como um valor não opcional,
+sem a necessidade de desempacotar o valor opcional toda vez que ele for acessado.
+O exemplo a seguir mostra a diferença de comportamento entre
+uma _string_ opcional e uma _string opcional_ implicitamente desempacotada
+ao acessar seu valor encapsulado como uma `String` explícita:
 
 ```swift
 let possibleString: String? = "An optional string."
-let forcedString: String = possibleString! // requires an exclamation point
+let forcedString: String = possibleString! // necessário ponto de exclamação
 
 let assumedString: String! = "An implicitly unwrapped optional string."
-let implicitString: String = assumedString // no need for an exclamation point
+let implicitString: String = assumedString // não necessário ponto de exclamação
 ```
 
-
-
-
-You can think of an implicitly unwrapped optional as
-giving permission for the optional to be force-unwrapped if needed.
-When you use an implicitly unwrapped optional value,
-Swift first tries to use it as an ordinary optional value;
-if it can't be used as an optional, Swift force-unwraps the value.
-In the code above,
-the optional value `assumedString` is force-unwrapped
-before assigning its value to `implicitString`
-because `implicitString` has an explicit, non-optional type of `String`.
-In code below,
-`optionalString` doesn't have an explicit type
-so it's an ordinary optional.
+Você pode pensar em um opcional implicitamente desempacotado como
+dando permissão para que o opcional seja desempacotado à força, se necessário.
+Quando você usa um valor opcional implicitamente desempacotado,
+o compilador primeiro tenta usá-lo como um valor opcional comum;
+se ele não puder ser usado como um opcional, valor é desempacotado à força.
+No código acima,
+o valor opcional `assumedString` é desempacotado à força
+antes de atribuir seu valor a `implicitString`
+porque `implicitString` tem um tipo explícito e não opcional de `String`.
+No código abaixo,
+`optionalString` não tem um tipo explícito
+então é um opcional comum.
 
 ```swift
 let optionalString = assumedString
-// The type of optionalString is "String?" and assumedString isn't force-unwrapped.
+// O tipo de `optionalString` é "String?" e `assumedString` é desempacotado à força.
 ```
 
+Se um opcional implicitamente desempacotado for `nil` e você tentar acessar seu valor encapsulado,
+você disparará um erro de tempo de execução.
+O resultado é exatamente o mesmo que se você escrevesse um ponto de exclamação
+para forçar o desempacotamento de um opcional normal que não contém um valor.
 
-
-
-If an implicitly unwrapped optional is `nil` and you try to access its wrapped value,
-you'll trigger a runtime error.
-The result is exactly the same as if you place an exclamation point
-after a normal optional that doesn't contain a value.
-
-You can check whether an implicitly unwrapped optional is `nil`
-the same way you check a normal optional:
+Você pode verificar se um opcional implicitamente desempacotado é `nil`
+da mesma forma que verifica um opcional normal:
 
 ```swift
 if assumedString != nil {
    print(assumedString!)
 }
-// Prints "An implicitly unwrapped optional string."
+// Imprime "An implicitly unwrapped optional string."
 ```
 
-
-
-
-You can also use an implicitly unwrapped optional with optional binding,
-to check and unwrap its value in a single statement:
+Você também pode usar um opcional implicitamente desempacotado com opcional _binding_,
+para verificar e desempacotado seu valor em uma única declaração:
 
 ```swift
 if let definiteString = assumedString {
    print(definiteString)
 }
-// Prints "An implicitly unwrapped optional string."
+// Imprime "An implicitly unwrapped optional string."
 ```
 
+## Tratamento de Erros
 
+Você usa **tratamento de erros** para responder a condições de erro
+que seu programa pode encontrar durante a execução.
 
+Ao contrário dos opcionais,
+que podem usar a presença ou ausência de um valor
+para comunicar o sucesso ou falha de uma função,
+o tratamento de erros permite que você determine a causa especifica da falha,
+e, se necessário, propague o erro para outra parte do seu programa.
 
-> Note: Don't use an implicitly unwrapped optional when there's a possibility of
-> a variable becoming `nil` at a later point.
-> Always use a normal optional type if you need to check for a `nil` value
-> during the lifetime of a variable.
-
-## Error Handling
-
-You use *error handling* to respond to error conditions
-your program may encounter during execution.
-
-In contrast to optionals,
-which can use the presence or absence of a value
-to communicate success or failure of a function,
-error handling allows you to determine the underlying cause of failure,
-and, if necessary, propagate the error to another part of your program.
-
-When a function encounters an error condition, it *throws* an error.
-That function's caller can then *catch* the error and respond appropriately.
+Quando uma função encontra uma condição de erro, ela **lança** um erro.
+O chamador dessa função pode então **capturar** o erro e responder apropriadamente.
 
 ```swift
 func canThrowAnError() throws {
-   // this function may or may not throw an error
+   // esta função pode ou não gerar um erro
 }
 ```
 
+Uma função indica que pode lançar um erro
+ao incluir a palavra-chave `throws` em sua declaração.
+Quando você chama uma função que pode lançar um erro,
+você acrescenta a palavra-chave `try` à expressão.
 
-
-
-A function indicates that it can throw an error
-by including the `throws` keyword in its declaration.
-When you call a function that can throw an error,
-you prepend the `try` keyword to the expression.
-
-Swift automatically propagates errors out of their current scope
-until they're handled by a `catch` clause.
+O Swift propaga automaticamente os erros para fora do escopo atual
+até que sejam manipulados por uma cláusula `catch`.
 
 ```swift
 do {
    try canThrowAnError()
-   // no error was thrown
+   // nenhum erro lançado
 } catch {
-   // an error was thrown
+   // algum erro lançado
 }
 ```
 
+Uma declaração `do` cria um novo escopo de contenção,
+que permite que erros sejam propagados para uma ou mais cláusulas `catch`.
 
-
-
-A `do` statement creates a new containing scope,
-which allows errors to be propagated to one or more `catch` clauses.
-
-Here's an example of how error handling can be used
-to respond to different error conditions:
+Aqui está um exemplo de como o tratamento de erros pode ser usado
+para responder a diferentes condições de erro:
 
 ```swift
 func makeASandwich() throws {
@@ -1153,122 +1189,118 @@ do {
 }
 ```
 
+Neste exemplo, a função `makeASandwich()` lançará um erro
+se não houver pratos limpos disponíveis
+ou se algum ingrediente estiver faltando.
+Como `makeASandwich()` pode lançar um erro,
+a chamada de função é encapsulada em uma expressão `try`.
+Ao encapsular a chamada de função em uma instrução `do`,
+quaisquer erros lançados serão propagados
+para as cláusulas `catch` fornecidas.
 
+Se nenhum erro for lançado, a função `eatASandwich()` será chamada.
+Se um erro for lançado e ele corresponder ao caso `SandwichError.outOfCleanDishes`,
+então a função `washDishes()` será chamada.
+Se um erro for lançado e ele corresponder ao caso `SandwichError.missingIngredients`,
+então a função `buyGroceries(_:)` será chamada
+com o valor `[String]` associado capturado pela cláusula `catch`.
 
-
-In this example, the `makeASandwich()` function will throw an error
-if no clean dishes are available
-or if any ingredients are missing.
-Because `makeASandwich()` can throw an error,
-the function call is wrapped in a `try` expression.
-By wrapping the function call in a `do` statement,
-any errors that are thrown will be propagated
-to the provided `catch` clauses.
-
-If no error is thrown, the `eatASandwich()` function is called.
-If an error is thrown and it matches the `SandwichError.outOfCleanDishes` case,
-then the `washDishes()` function will be called.
-If an error is thrown and it matches the `SandwichError.missingIngredients` case,
-then the `buyGroceries(_:)` function is called
-with the associated `[String]` value captured by the `catch` pattern.
-
-Throwing, catching, and propagating errors is covered in greater detail in
+Lançar, capturar e propagar erros é abordado com mais detalhes em
 <doc:ErrorHandling>.
 
-## Assertions and Preconditions
+## Asserções e Precondições
 
-*Assertions* and *preconditions*
-are checks that happen at runtime.
-You use them to make sure an essential condition is satisfied
-before executing any further code.
-If the Boolean condition in the assertion or precondition
-evaluates to `true`,
-code execution continues as usual.
-If the condition evaluates to `false`,
-the current state of the program is invalid;
-code execution ends, and your app is terminated.
+**Asserções** e **precondições**
+são verificações que acontecem em tempo de execução.
+Você as usa para garantir que uma condição essencial seja satisfeita
+antes de executar qualquer código adicional.
+Se a condição booleana na afirmação ou pré-condição
+for avaliada como `true`,
+a execução do código continua normalmente.
+Se a condição for avaliada como `false`,
+o estado atual do programa é inválido;
+a execução do código termina e seu aplicativo é encerrado.
 
-You use assertions and preconditions
-to express the assumptions you make
-and the expectations you have
-while coding,
-so you can include them as part of your code.
-Assertions help you find mistakes and incorrect assumptions during development,
-and preconditions help you detect issues in production.
+Você usa asserções e precondições
+para expressar as suposições que você faz
+e as expectativas que você tem
+ao codificar,
+para que você possa incluí-las como parte do seu código.
+Asserções ajudam você a encontrar erros e suposições incorretas durante o desenvolvimento,
+e as precondições ajudam você a detectar problemas na produção.
 
-In addition to verifying your expectations at runtime,
-assertions and preconditions also become a useful form of documentation
-within the code.
-Unlike the error conditions discussed in <doc:TheBasics#Error-Handling> above,
-assertions and preconditions aren't used
-for recoverable or expected errors.
-Because a failed assertion or precondition
-indicates an invalid program state,
-there's no way to catch a failed assertion.
+Além de verificar suas expectativas em tempo de execução,
+asserções e precondições também se tornam uma forma útil de documentação
+dentro do código.
+Ao contrário das condições de erro discutidas em <doc:TheBasics#Error-Handling> acima,
+asserções e precondições não são usadas
+para erros recuperáveis ​​ou esperados.
+Como uma asserção ou precondição com falha
+indica um estado de programa inválido,
+não há como capturar uma asserção com falha.
+A recuperação de um estado inválido é impossível.
+Quando uma asserção falha,
+pelo menos uma parte dos dados do programa é inválida ---
+mas você não sabe por que é inválida
+ou se um estado adicional também é inválido.
 
-Using assertions and preconditions
-isn't a substitute for designing your code in such a way
-that invalid conditions are unlikely to arise.
-However,
-using them to enforce valid data and state
-causes your app to terminate more predictably
-if an invalid state occurs,
-and helps make the problem easier to debug.
-Stopping execution as soon as an invalid state is detected
-also helps limit the damage caused by that invalid state.
+Usar asserções e precondições
+não é um substituto para projetar seu código de tal forma
+que condições inválidas sejam improváveis ​​de surgir.
+No entanto,
+usá-las para impor dados e estados válidos
+faz com que seu programa seja encerrado de forma mais previsível
+se um estado inválido ocorrer,
+e ajuda a tornar o problema mais fácil de depurar.
+Quando as suposições não são verificadas,
+você pode não notar esse tipo de problema até muito mais tarde
+quando o código em outro lugar começar a falhar visivelmente,
+e depois que os dados do usuário forem silenciosamente corrompidos.
+Parar a execução assim que um estado inválido for detectado
+também ajuda a limitar os danos causados ​​por esse estado inválido.
 
-The difference between assertions and preconditions is in when they're checked:
-Assertions are checked only in debug builds,
-but preconditions are checked in both debug and production builds.
-In production builds,
-the condition inside an assertion isn't evaluated.
-This means you can use as many assertions as you want
-during your development process,
-without impacting performance in production.
+A diferença entre asserções e precondições está em quando elas são verificadas:
+Asserções são verificadas apenas em compilações em modo _debug_,
+mas as precondições são verificadas em compilações em modo _debug_ e _release_.
+Em compilações em modo _release_,
+a condição dentro de uma asserção não é avaliada.
+Isso significa que você pode usar quantas asserções quiser
+durante seu processo de desenvolvimento,
+sem impactar o desempenho em produção.
 
-### Debugging with Assertions
+### Debugando com Asserções
 
-
-
-You write an assertion by calling the
-[assert(_:_:file:line:)](https://developer.apple.com/documentation/swift/1541112-assert) function
-from the Swift standard library.
-You pass this function an expression that evaluates to `true` or `false`
-and a message to display if the result of the condition is `false`.
-For example:
+Você escreve uma asserção chamando a função
+[`assert(_:_:file:line:)`](https://developer.apple.com/documentation/swift/1541112-assert)
+da biblioteca padrão.
+Você passa para essa função uma expressão que avalia como `true` ou `false`
+e uma mensagem para exibir se o resultado da condição for `false`.
+Por exemplo:
 
 ```swift
 let age = -3
 assert(age >= 0, "A person's age can't be less than zero.")
-// This assertion fails because -3 isn't >= 0.
+// Essa asserção fala porque -3 não é maior que 0.
 ```
 
+Neste exemplo, a execução do código continua se `age >= 0` for avaliado como `true`,
+isto é, se o valor de `age` for não negativo.
+Se o valor de `age` for negativo, como no código acima,
+então `age >= 0` será avaliado como `false`,
+e a asserção falha, encerrando o programa.
 
-
-
-In this example, code execution continues if `age >= 0` evaluates to `true`,
-that is, if the value of `age` is nonnegative.
-If the value of `age` is negative, as in the code above,
-then `age >= 0` evaluates to `false`,
-and the assertion fails, terminating the application.
-
-You can omit the assertion message ---
-for example, when it would just repeat the condition as prose.
+Você pode omitir a mensagem de asserção ---
+por exemplo, quando ela apenas repetiria a condição como prosa.
 
 ```swift
 assert(age >= 0)
 ```
 
-
-
-
-
-
-If the code already checks the condition,
-you use the
-[assertionFailure(_:file:line:)](https://developer.apple.com/documentation/swift/1539616-assertionfailure) function
-to indicate that an assertion has failed.
-For example:
+Se o código já verificar a condição,
+você usa a função
+[`assertionFailure(_:file:line:)`](https://developer.apple.com/documentation/swift/1539616-assertionfailure)
+para indicar que uma asserção falhou.
+Por exemplo:
 
 ```swift
 if age > 10 {
@@ -1280,52 +1312,46 @@ if age > 10 {
 }
 ```
 
+### Impondo Precondições
 
+Use uma precondição sempre que uma condição tiver o potencial de ser falsa,
+mas deve **definitivamente** ser verdadeira para que seu código continue a execução.
+Por exemplo, use uma precondição para verificar se um subscrito não está fora dos limites,
+ou para verificar se uma função recebeu um valor válido.
 
-
-### Enforcing Preconditions
-
-Use a precondition whenever a condition has the potential to be false,
-but must *definitely* be true for your code to continue execution.
-For example, use a precondition to check that a subscript isn't out of bounds,
-or to check that a function has been passed a valid value.
-
-You write a precondition by calling the
-[precondition(_:_:file:line:)](https://developer.apple.com/documentation/swift/1540960-precondition) function.
-You pass this function an expression that evaluates to `true` or `false`
-and a message to display if the result of the condition is `false`.
-For example:
+Você escreve uma precondição chamando a função
+[`precondition(_:_:file:line:)`](https://developer.apple.com/documentation/swift/1540960-precondition).
+Você passa para essa função uma expressão que avalia como `true` ou `false`
+e uma mensagem para exibir se o resultado da condição for `false`.
+Por exemplo:
 
 ```swift
-// In the implementation of a subscript...
+// Na implementação de um subscrito...
 precondition(index > 0, "Index must be greater than zero.")
 ```
 
+Você também pode chamar a função
+[`preconditionFailure(_:file:line:)`](https://developer.apple.com/documentation/swift/1539374-preconditionfailure)
+para indicar que ocorreu uma falha ---
+por exemplo, se o caso padrão de um _switch_ foi usado,
+mas todos os dados de entrada válidos deveriam ter sido manipulados
+por um dos outros casos do _switch_.
 
-
-
-You can also call the
-[preconditionFailure(_:file:line:)](https://developer.apple.com/documentation/swift/1539374-preconditionfailure) function
-to indicate that a failure has occurred ---
-for example, if the default case of a switch was taken,
-but all valid input data should have been handled
-by one of the switch's other cases.
-
-> Note: If you compile in unchecked mode (`-Ounchecked`),
-> preconditions aren't checked.
-> The compiler assumes that preconditions are always true,
-> and it optimizes your code accordingly.
-> However, the `fatalError(_:file:line:)` function always halts execution,
-> regardless of optimization settings.You can use the `fatalError(_:file:line:)` function
-> during prototyping and early development
-> to create stubs for functionality that hasn't been implemented yet,
-> by writing `fatalError("Unimplemented")` as the stub implementation.
-> Because fatal errors are never optimized out,
-> unlike assertions or preconditions,
-> you can be sure that execution always halts
-> if it encounters a stub implementation.
-
-
+> Nota: Se você compilar no modo não verificado (`-Ounchecked`),
+> as precondições não serão verificadas.
+> O compilador assume que as precondições são sempre verdadeiras,
+> e otimiza seu código de acordo.
+> No entanto, a função `fatalError(_:file:line:)` sempre interrompe a execução,
+> independentemente das configurações de otimização.
+>
+> Você pode usar a função `fatalError(_:file:line:)`
+> durante a prototipagem e o desenvolvimento inicial
+> para criar _stubs_ para funcionalidades que ainda não foram implementadas,
+> escrevendo `fatalError("Unimplemented")` como a implementação do _stub_.
+> Como os erros fatais nunca são otimizados,
+> ao contrário de asserções ou precondições,
+> você pode ter certeza de que a execução sempre para
+> se encontrar uma implementação de _stub_.
 
 
 

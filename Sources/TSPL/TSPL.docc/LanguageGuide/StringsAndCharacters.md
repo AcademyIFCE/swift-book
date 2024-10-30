@@ -47,14 +47,12 @@ let someString = "Some string literal value"
 Note que Swift infere um tipo de `String` para a constante `someString` 
 porque é inicializado com um valor literal de _string_.
 
-### Multiline String Literals
+### Strings Literais Multilinha
 
-If you need a string that spans several lines,
-use a multiline string literal ---
-a sequence of characters
-surrounded by three double quotation marks:
-
-
+Se você precisar de uma _string_ que ocupe várias linhas,
+use _string_ literal multilinha ---
+uma sequência de caracteres
+cercada por três aspas duplas:
 
 ```swift
 let quotation = """
@@ -66,15 +64,11 @@ till you come to the end; then stop."
 """
 ```
 
-
-
-
-A multiline string literal includes all of the lines between
-its opening and closing quotation marks.
-The string begins on the first line after the opening quotation marks (`"""`)
-and ends on the line before the closing quotation marks,
-which means that neither of the strings below
-start or end with a line break:
+Uma _string_ literal multilinha inclui todas as linhas entre
+a abertura e o fechamento das aspas.
+A string começa na primeira linha após as aspas de abertura (`"""`)
+e termina na linha anterior das aspas de fechamento,
+o que significa que nenhuma das strings abaixo começa ou termina com a quebra de linha: 
 
 ```swift
 let singleLineString = "These are the same."
@@ -83,16 +77,13 @@ These are the same.
 """
 ```
 
-
-
-
-When your source code includes a line break
-inside of a multiline string literal,
-that line break also appears in the string's value.
-If you want to use line breaks
-to make your source code easier to read,
-but you don't want the line breaks to be part of the string's value,
-write a backslash (`\`) at the end of those lines:
+Quando seu código-fonte inclui uma quebra de linha
+dentro de uma _string_ literal multilinha,
+essa quebra de linha também aparece no valor da _string_.
+Se você quiser usar quebras de linha
+para fazer seu código-fonte mais fácil de ler,
+mas não deseja que as quebras de linha façam parte do valor da _string_,
+escreva uma barra invertida (`\`) no final dessas linhas:
 
 ```swift
 let softWrappedQuotation = """
@@ -104,12 +95,9 @@ till you come to the end; then stop."
 """
 ```
 
-
-
-
-To make a multiline string literal that begins or ends with a line feed,
-write a blank line as the first or last line.
-For example:
+Para fazer uma _string_ literal multilinha que comece ou termine com uma quebra de linha,
+escreva uma linha em branco como a primeira ou a última linha.
+Por exemplo:
 
 ```swift
 let lineBreaks = """
@@ -120,66 +108,51 @@ It also ends with a line break.
 """
 ```
 
-
-
-
-
-
-A multiline string can be indented to match the surrounding code.
-The whitespace before the closing quotation marks (`"""`)
-tells Swift what whitespace to ignore before all of the other lines.
-However, if you write whitespace at the beginning of a line
-in addition to what's before the closing quotation marks,
-that whitespace *is* included.
+Uma _string_ multilinha pode ser indentada para alinhar com o código ao redor.
+O espaço em branco antes das aspas de fechamento (`"""`)
+informa ao Swift qual espaço em branco ignorar antes de todas as outras linhas.
+No entanto, se você adiconar espaço em branco no começo de uma linha, 
+além do que está antes das aspas de fechamento, 
+esse espaço em branco *é* incluído.
 
 ![](multilineStringWhitespace)
 
+No exemplo acima,
+embora todo _string_ literal multilinha seja indentada,
+as primeiras e as últimas linhas da _string_ não começam com nenhum espaço em branco.
+A linha do meio tem mais indentação do que a linha das aspas de fechamento,
+então ela começa com esses quatro espaços adicionais de indentação.
 
+### Caracteres Especiais em Strings Literais 
 
+_Strings_ literais podem incluir os seguintes caracteres especiais:
 
+- Os caracteres especiais com escape `\0` (caracter nulo), `\\` (barra invertida),
+  `\t` (tabulação horizontal), `\n` (quebra de linha), `\r` (_carriage return_), 
+  `\"` (aspas duplas) and `\'` (aspas simples)
+- Um valor escalar _Unicode_ arbitrário, escrito com `\\u{`*n*`}`,
+  onde *n* é um número hexadecimal de 1 a 8 dígitos
+  (_Unicode_ é discutido em <doc:StringsAndCharacters#Unicode>)
 
-
-In the example above,
-even though the entire multiline string literal is indented,
-the first and last lines in the string don't begin with any whitespace.
-The middle line has more indentation than the closing quotation marks,
-so it starts with that extra four-space indentation.
-
-### Special Characters in String Literals
-
-String literals can include the following special characters:
-
-- The escaped special characters `\0` (null character), `\\` (backslash),
-  `\t` (horizontal tab), `\n` (line feed), `\r` (carriage return),
-  `\"` (double quotation mark) and `\'` (single quotation mark)
-- An arbitrary Unicode scalar value, written as `\\u{`*n*`}`,
-  where *n* is a 1--8 digit hexadecimal number
-  (Unicode is discussed in <doc:StringsAndCharacters#Unicode> below)
-
-
-
-The code below shows four examples of these special characters.
-The `wiseWords` constant contains two escaped double quotation marks.
-The `dollarSign`, `blackHeart`, and `sparklingHeart` constants
-demonstrate the Unicode scalar format:
+O código abaixo mostra quatro exemplos desses caracteres especiais.
+A constante `wiseWords` contém duas aspas duplas com escape.
+As contantes `dollarSign`, `blackHeart` e `sparklingHeart`
+demonstram o formato escalar _Unicode_:
 
 ```swift
 let wiseWords = "\"Imagination is more important than knowledge\" - Einstein"
 // "Imagination is more important than knowledge" - Einstein
-let dollarSign = "\u{24}"        // $,  Unicode scalar U+0024
-let blackHeart = "\u{2665}"      // ♥,  Unicode scalar U+2665
-let sparklingHeart = "\u{1F496}" // 💖, Unicode scalar U+1F496
+let dollarSign = "\u{24}"        // $,  Unicode escalar U+0024
+let blackHeart = "\u{2665}"      // ♥,  Unicode escalar U+2665
+let sparklingHeart = "\u{1F496}" // 💖, Unicode escalar U+1F496
 ```
 
-
-
-
-Because multiline string literals use three double quotation marks instead of just one,
-you can include a double quotation mark (`"`) inside of a multiline string literal
-without escaping it.
-To include the text `"""` in a multiline string,
-escape at least one of the quotation marks.
-For example:
+Como _strings_ literais multilinhas usam três aspas duplas em vez de apenas uma,
+você pode incluir uma aspa dupla (`"`) dentro de uma _string_ literal multilinha
+sem precisar fazer o escape.
+Para incluir o texto `"""` em uma _string_ multilinha,
+faça o escape de pelo menos uma das aspas duplas.
+Por exemplo: 
 
 ```swift
 let threeDoubleQuotationMarks = """
@@ -188,31 +161,28 @@ Escaping all three quotation marks \"\"\"
 """
 ```
 
+### Delimitadores de Strings Estendidos
 
+Você pode colocar uma _string_ literal dentro de *delimitadores estendidos*
+para incluir caracteres especiais em uma _string_
+sem invocar seus efeitos.
+Você coloca sua _string_ entre aspas duplas (`"`)
+e cerca com o sinal númerico cerquilha (`#`).
+Por exemplo, imprimir a _string_ literal `#"Line 1\nLine 2"#`
+imprime a sequência de escape para quebra de linha (`\n`)
+em vez de imprimir a _string_ em duas linhas.
 
+Se você precisar dos efeitos de um caractere especial em uma _string_ literal,
+combine o sinal numérico cerquilha dentro da _string_
+após o caracter de escape (`\`).
+Por exemplo, se a sua _string_ é `#"Line 1\nLine 2"#`
+e você quer quebrar a linha,
+pode substituir por `#"Line 1\#nLine 2"#`.
+De maneira similar, `###"Line1\###nLine2"###` também quebra linha.
 
-### Extended String Delimiters
-
-You can place a string literal within *extended delimiters*
-to include special characters in a string
-without invoking their effect.
-You place your string within quotation marks (`"`)
-and surround that with number signs (`#`).
-For example, printing the string literal `#"Line 1\nLine 2"#`
-prints the line feed escape sequence (`\n`)
-rather than printing the string across two lines.
-
-If you need the special effects of a character in a string literal,
-match the number of number signs within the string
-following the escape character (`\`).
-For example, if your string is `#"Line 1\nLine 2"#`
-and you want to break the line,
-you can use `#"Line 1\#nLine 2"#` instead.
-Similarly, `###"Line1\###nLine2"###` also breaks the line.
-
-String literals created using extended delimiters can also be multiline string literals.
-You can use extended delimiters to include the text `"""` in a multiline string,
-overriding the default behavior that ends the literal. For example:
+_Strings_ literias criadas usando delimitadores estendidos também podem ser _strings_ literais multilinha.
+Você pode usar delimitadores estendidos para incluir o texto `"""` em uma _string_ multilinha,
+substituindo o comportamento padrão que encerra o literal. Por exemplo:
 
 ```swift
 let threeMoreDoubleQuotationMarks = #"""
@@ -220,21 +190,15 @@ Here are three more double quotes: """
 """#
 ```
 
-
-
-
 ## Inicializando Uma String Vazia
 
 Para criar uma `String` de valor vazio como ponto de partida para se construir uma string maior, você pode atribuir uma string vazia para uma variável ou inicializar uma nova instâncias de `String` com sintaxe de inicializador:
 
 ```swift
-var emptyString = ""               // empty string literal
-var anotherEmptyString = String()  // initializer syntax
-// these two strings are both empty, and are equivalent to each other
+var emptyString = ""               // string literal vazia
+var anotherEmptyString = String()  // sintaxe do inicializador
+// Essas duas string estão ambas vazias, e são equivalentes uma com a outra
 ```
-
-
-
 
 Descubra se uma `String` possui valor vazio verificando sua propriedade Booleana `isEmpty`:
 
@@ -242,38 +206,28 @@ Descubra se uma `String` possui valor vazio verificando sua propriedade Booleana
 if emptyString.isEmpty {
    print("Nothing to see here")
 }
-// Prints "Nothing to see here"
+// Imprime "Nothing to see here"
 ```
 
+## Mutabilidade de String
 
-
-
-
-
-## String Mutability
-
-You indicate whether a particular `String` can be modified (or *mutated*)
-by assigning it to a variable (in which case it can be modified),
-or to a constant (in which case it can't be modified):
+Você pode indicar se uma determinada `String` pode ser modificada (ou *mutável*)
+atribuindo-a a uma variável (nesse caso, ela pode ser modificada),
+ou a uma contante (nesse caso, ela não pode ser modificada):
 
 ```swift
 var variableString = "Horse"
 variableString += " and carriage"
-// variableString is now "Horse and carriage"
+// variableString é agora "Horse and carriage"
 
 let constantString = "Highlander"
 constantString += " and another Highlander"
-// this reports a compile-time error - a constant string cannot be modified
+// Isso gera um erro de compilação - uma string constante não pode ser modificada
 ```
 
-
-
-
-
-
-> Note: This approach is different from string mutation in Objective-C and Cocoa,
-> where you choose between two classes (`NSString` and `NSMutableString`)
-> to indicate whether a string can be mutated.
+> Nota: Essa abordagem é diferente da mutação de _strings_ em Obsective-C e Cocoa,
+> onde você escolhe entre duas classes (`NSString` and `NSMutableString`)
+> para indicar se uma _string_ pode ser mutável.
 
 ## Strings São Tipos de Valor
 
@@ -312,9 +266,6 @@ for character in "Dog!🐶" {
 // 🐶
 ```
 
-
-
-
 O laço `for`-`in` está descrito em <doc:ControlFlow#For-In-Loops>.
 
 Alternativamente, você pode criar uma constante ou variável autônoma `Character`
@@ -323,9 +274,6 @@ de um string literal de caractere único fornecendo uma notação do tipo `Chara
 ```swift
 let exclamationMark: Character = "!"
 ```
-
-
-
 
 Valores `String` podem ser construídos passando um vetor de valores `Character` 
 como um argumento para o inicializador:
@@ -337,56 +285,44 @@ print(catString)
 // Imprime "Cat!🐱"
 ```
 
+## Concatenando String e Caracteres
 
-
-
-## Concatenating Strings and Characters
-
-`String` values can be added together (or *concatenated*)
-with the addition operator (`+`) to create a new `String` value:
+Valores `String` podem ser adicionados entre si (ou *concatenados*)
+com o operador de adição (`+`) para criar um novo valor de `String`:
 
 ```swift
 let string1 = "hello"
 let string2 = " there"
 var welcome = string1 + string2
-// welcome now equals "hello there"
+// welcome agora é igual a "hello there"
 ```
 
-
-
-
-You can also append a `String` value to an existing `String` variable
-with the addition assignment operator (`+=`):
+Você também pode adicionar um valor de `String` em uma variável `String` existente
+com o operador de atribuição de adição (`+=`):
 
 ```swift
 var instruction = "look over"
 instruction += string2
-// instruction now equals "look over there"
+// instruction agora é igual a "look over there"
 ```
 
-
-
-
-You can append a `Character` value to a `String` variable
-with the `String` type's `append()` method:
+Você pode adicionar um valor `Character` a uma váriavel `String`
+com o método `append()` do tipo `String`:
 
 ```swift
 let exclamationMark: Character = "!"
 welcome.append(exclamationMark)
-// welcome now equals "hello there!"
+// welcome agora é igual a "hello there!"
 ```
 
+> Nota: Você não pode adicionar uma `String` ou `Character` a uma váriavel `Character` existente,
+> pois um valor `Character` deve conter apenas um único caractere.
 
-
-
-> Note: You can't append a `String` or `Character` to an existing `Character` variable,
-> because a `Character` value must contain a single character only.
-
-If you're using multiline string literals
-to build up the lines of a longer string,
-you want every line in the string to end with a line break,
-including the last line.
-For example:
+Se você está usando _strings_ literais multilinha
+para construir as linhas de uma _string_ mais longa,
+você deseja que toda linha da _string_ termine com uma quebra de linha,
+incluindo a última linha.
+Por exemplo:
 
 ```swift
 let badStart = """
@@ -397,7 +333,7 @@ let end = """
     three
     """
 print(badStart + end)
-// Prints two lines:
+// Imprime duas linhas:
 // one
 // twothree
 
@@ -407,110 +343,98 @@ let goodStart = """
 
     """
 print(goodStart + end)
-// Prints three lines:
+// Imprime três linhas:
 // one
 // two
 // three
 ```
 
+No código acima,
+concatenar `badStart` com `end`
+produz uma _string_ de duas linhas,
+o que não é o resultado desejado.
+Como a última linha de `badStart`
+não termina com uma quebra de linha,
+essa linha é combinada com a primeira linha de `end`.
+Por outro lado,
+as linhas de `goodStart` terminam com quebra de linha,
+então, quando combinada com `end`
+o resultado possui três linhas,
+como esperado.
 
+## Interpolação de Strings 
 
-
-In the code above,
-concatenating `badStart` with `end`
-produces a two-line string,
-which isn't the desired result.
-Because the last line of `badStart`
-doesn't end with a line break,
-that line gets combined with the first line of `end`.
-In contrast,
-both lines of `goodStart` end with a line break,
-so when it's combined with `end`
-the result has three lines,
-as expected.
-
-## String Interpolation
-
-*String interpolation* is a way to construct a new `String` value
-from a mix of constants, variables, literals, and expressions
-by including their values inside a string literal.
-You can use string interpolation
-in both single-line and multiline string literals.
-Each item that you insert into the string literal is wrapped in
-a pair of parentheses, prefixed by a backslash (`\`):
+A *Interpolação de _strings_* é uma maneira de contruir um novo valor `String`
+a partir de uma combinação de constantes, variáveis, literais e expressões
+incluindo seus valores dentro de uma _string_ literal.
+Você pode usar interpolação de _strings_
+tanto em _string_ literais de uma única linha como de múltiplas linhas.
+Cada item que você adiciona em uma _string_ literal é cercado
+por um par de parênteses, precedido por uma barra invertida (`\`):
 
 ```swift
 let multiplier = 3
 let message = "\(multiplier) times 2.5 is \(Double(multiplier) * 2.5)"
-// message is "3 times 2.5 is 7.5"
+// message é "3 times 2.5 is 7.5"
 ```
 
+No exemplo acima,
+o valor de `multiplier` é adicionado dentro de uma _string_ literal como `\(multiplier)`.
+Esse espaço reservado é substituído com o valor real de `multiplier`
+quando a interpolação de _strings_ é processada para criar a _string_ real. 
 
+O valor de `multiplier` é também parte de uma expressão mais adiante na _string_.
+Essa expressão calcula o valor de `Double(multiplier) * 2.5`
+e adiciona o resultado (`7.5`) dentro da _string_.
+Nesse caso, a expressão é escrita como `\(Double(multiplier) * 2.5)`
+quando incluída na _string_ literal.
 
-
-In the example above,
-the value of `multiplier` is inserted into a string literal as `\(multiplier)`.
-This placeholder is replaced with the actual value of `multiplier`
-when the string interpolation is evaluated to create an actual string.
-
-The value of `multiplier` is also part of a larger expression later in the string.
-This expression calculates the value of `Double(multiplier) * 2.5`
-and inserts the result (`7.5`) into the string.
-In this case, the expression is written as `\(Double(multiplier) * 2.5)`
-when it's included inside the string literal.
-
-You can use extended string delimiters to create strings containing
-characters that would otherwise be treated as a string interpolation.
-For example:
+Você pode usar delimitadores de _string_ estendidos para criar _strings_ contendo
+caracteres que, de outra forma, seriam tratados como uma interpolação de _strings_.
+Por exemplo:
 
 ```swift
 print(#"Write an interpolated string in Swift using \(multiplier)."#)
-// Prints "Write an interpolated string in Swift using \(multiplier)."
+// Imprime "Write an interpolated string in Swift using \(multiplier)."
 ```
 
-
-
-
-To use string interpolation
-inside a string that uses extended delimiters,
-match the number of number signs after the backslash
-to the number of number signs at the beginning and end of the string.
-For example:
+Para usar interpolação de _strings_
+dentro de uma _string_ que usa delimitadores estendidos,
+combine o sinal numérico cerquilha após a barra invertida 
+às cerquilhas no começo e no final da _string_.
+Por exemplo:
 
 ```swift
 print(#"6 times 7 is \#(6 * 7)."#)
-// Prints "6 times 7 is 42."
+// Imprime "6 times 7 is 42."
 ```
 
-
-
-
-> Note: The expressions you write inside parentheses within an interpolated string
-> can't contain an unescaped backslash (`\`), a carriage return, or a line feed.
-> However, they can contain other string literals.
+> Nota: As expressões que você escreve entre parênteses em uma _string_ interpolada
+> não podem conter uma barra invertida escapada (`\`), um _carriage return_ ou uma quebra de linha.
+> No entanto, elas podem conter outras _strings_ literais.
 
 ## Unicode
 
-*Unicode* is an international standard for
-encoding, representing, and processing text in different writing systems.
-It enables you to represent almost any character from any language in a standardized form,
-and to read and write those characters to and from an external source
-such as a text file or web page.
-Swift's `String` and `Character` types are fully Unicode-compliant,
-as described in this section.
+*Unicode* é um padrão internacional para
+codificar, representar e processar texto em diferentes sistemas de escrita.
+Isso permite que você represente quase qualquer caractere de qualquer idioma em uma forma padronizada,
+e ler e escrever esses caracteres de e para uma fonte externa,
+como um arquivo de texto ou uma página da web.
+Os tipos `String` e `Character` em Swift são totalmente compatíveis com o Unicode,
+conforme descrito nesta seção.
 
-### Unicode Scalar Values
+### Valores Escalares Unicode
 
-Behind the scenes,
-Swift's native `String` type is built from *Unicode scalar values*.
-A Unicode scalar value is a unique 21-bit number for a character or modifier,
-such as `U+0061` for `LATIN SMALL LETTER A` (`"a"`),
-or `U+1F425` for `FRONT-FACING BABY CHICK` (`"🐥"`).
+Nos bastidores,
+o tipo `String`nativo do Swift é contruído a partit de *valores escalares Unicode*.
+Um valor escalar Unicode é um número único de 21 _bits_ para um caractere ou um modificador,
+como `U+0061` para `LATIN SMALL LETTER A` (`"a"`),
+ou `U+1F425` para `FRONT-FACING BABY CHICK` (`"🐥"`).
 
-Note that not all 21-bit Unicode scalar values are assigned to a character ---
-some scalars are reserved for future assignment or for use in UTF-16 encoding.
-Scalar values that have been assigned to a character typically also have a name,
-such as `LATIN SMALL LETTER A` and `FRONT-FACING BABY CHICK` in the examples above.
+Note que nem todos os valores escalares Unicode de 21 _bits_ estão atribuídos a um caractere --
+alguns escalares são reservados para atribuições futuras ou para uso na codificação UTF-16.
+Os Valores escalares que foram atribuídos a um caractere normalmente também possuem um nome,
+como `LATIN SMALL LETTER A` e `FRONT-FACING BABY CHICK` nos exemplos acima.
 
 ### Extended Grapheme Clusters
 
@@ -1026,87 +950,68 @@ and the 🐶 character (`DOG FACE`, or Unicode scalar `U+1F436`):
 let dogString = "Dog‼🐶"
 ```
 
+### Representação UTF-8
 
-
-
-### UTF-8 Representation
-
-You can access a UTF-8 representation of a `String`
-by iterating over its `utf8` property.
-This property is of type `String.UTF8View`,
-which is a collection of unsigned 8-bit (`UInt8`) values,
-one for each byte in the string's UTF-8 representation:
+Você pode acessar uma representação UTF-8 de uma `String` 
+iterando sobre a propriedade `utf8`.
+Essa propriedade é do tipo `String.UTF8View`,
+que é uma coleção de valores inteiros sem sinal de 8 _bits_ (`UInt8`),
+um para cada byte na representação UTF-8 da string:
 
 ![](UTF8)
-
 
 ```swift
 for codeUnit in dogString.utf8 {
    print("\(codeUnit) ", terminator: "")
 }
 print("")
-// Prints "68 111 103 226 128 188 240 159 144 182 "
+// Imprime "68 111 103 226 128 188 240 159 144 182 "
 ```
 
-
-
-
-
-
-In the example above, the first three decimal `codeUnit` values
+No exemplo acima, os três primeiros valores `codeUnit` decimais
 (`68`, `111`, `103`)
-represent the characters `D`, `o`, and `g`,
-whose UTF-8 representation is the same as their ASCII representation.
-The next three decimal `codeUnit` values
+representam os caracteres `D`, `o` e `g`,
+cuja representação UTF-8 é a mesma que sua representação ASCII.
+Os próximos três valores `codeUnit` decimais 
 (`226`, `128`, `188`)
-are a three-byte UTF-8 representation of the `DOUBLE EXCLAMATION MARK` character.
-The last four `codeUnit` values (`240`, `159`, `144`, `182`)
-are a four-byte UTF-8 representation of the `DOG FACE` character.
+são uma representação UTF-8 de três _bytes_ do caractere `DOUBLE EXCLAMATION MARK`.
+Os quatro últimos valores `codeUnit` (`240`, `159`, `144`, `182`)
+são uma representação UTF-8 de quatro _bytes_ do caractere `DOG FACE`.
 
+### Representação UTF-16
 
-
-
-
-### UTF-16 Representation
-
-You can access a UTF-16 representation of a `String`
-by iterating over its `utf16` property.
-This property is of type `String.UTF16View`,
-which is a collection of unsigned 16-bit (`UInt16`) values,
-one for each 16-bit code unit in the string's UTF-16 representation:
+Você pode acessar uma representação UTF-16 de uma `String`
+iterando sobre a propriedade `utf16`.
+Essa propriedade é do tipo `String.UTF16View`,
+que uma coleção de valores inteiros sem sinal de 16 _bits_ (`UInt16`),
+um para cada unidade de código de 16 _bits_ na representação UTF-16 da _string_:
 
 ![](UTF16)
-
 
 ```swift
 for codeUnit in dogString.utf16 {
    print("\(codeUnit) ", terminator: "")
 }
 print("")
-// Prints "68 111 103 8252 55357 56374 "
+// Imprime "68 111 103 8252 55357 56374 "
 ```
 
-
-
-
-
-
-Again, the first three `codeUnit` values
+Novamente, os três primeiros valores `codeUnit`
 (`68`, `111`, `103`)
-represent the characters `D`, `o`, and `g`,
-whose UTF-16 code units have the same values as in the string's UTF-8 representation
-(because these Unicode scalars represent ASCII characters).
+representam os caracteres `D`, `o` e `g`,
+cujas unidades de código UTF-16 têm os mesmos valores que na representação UTF-8 da _string_
+(pois esses escalares Unicode representam caracteres ASCII).
 
-The fourth `codeUnit` value (`8252`) is a decimal equivalent of
-the hexadecimal value `203C`,
-which represents the Unicode scalar `U+203C`
-for the `DOUBLE EXCLAMATION MARK` character.
-This character can be represented as a single code unit in UTF-16.
+O quarto valor `codeUnit` (`8252`) é um decimal equivalente ao
+valor hexadecima `203C`,
+que representa o escalar Unicode `U+203C`
+para o caractere `DOUBLE EXCLAMATION MARK`.
+Esse caracteres pode ser representado como uma única unidade de código em UTF-16.
 
-The fifth and sixth `codeUnit` values (`55357` and `56374`)
-are a UTF-16 surrogate pair representation of the `DOG FACE` character.
-These values are a high-surrogate value of `U+D83D` (decimal value `55357`)
-and a low-surrogate value of `U+DC36` (decimal value `56374`).
+Os quinto e sexto valores `codeUnit` (`55357` e `56374`)
+são uma representação de par de substituição UTF-16 do caractere `DOG FACE`.
+Esses valores são um valor de alta substituição de `U+D83D` (valor decimal `55357`)
+e um valor de baixa substituição de `U+DC36` (valor decimal `56374`).
 
 ### Unicode Scalar Representation
 
@@ -1161,9 +1066,6 @@ for scalar in dogString.unicodeScalars {
 // ‼
 // 🐶
 ```
-
-
-
 
 
 

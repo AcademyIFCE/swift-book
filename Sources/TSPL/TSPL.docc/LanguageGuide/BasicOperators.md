@@ -30,22 +30,22 @@ Este capítulo descreve os operadores comuns em Swift.
 e descreve como definir seus próprios operadores personalizados
 e implementar os operadores padrão para seus próprios tipos personalizados.
 
-## Terminology
+## Terminologia
 
-Operators are unary, binary, or ternary:
+Operadores são unários, binários ou ternários:
 
-- *Unary* operators operate on a single target (such as `-a`).
-  Unary *prefix* operators appear immediately before their target (such as `!b`),
-  and unary *postfix* operators appear immediately after their target (such as `c!`).
-- *Binary* operators operate on two targets (such as `2 + 3`)
-  and are *infix* because they appear in between their two targets.
-- *Ternary* operators operate on three targets.
-  Like C, Swift has only one ternary operator,
-  the ternary conditional operator (`a ? b : c`).
+- Os operadores **unários** operam em um único alvo (como `-a`).
+  Os operadores **prefixos** unários aparecem imediatamente antes de seu alvo (como `!b`),
+  e os operadores **postfixos** unários aparecem imediatamente após seu alvo (como `c!`).
+- Os operadores **binários** operam em dois alvos (como `2 + 3`)
+  e são **infixos** porque aparecem entre seus dois alvos.
+- Os operadores **ternários** operam em três alvos.
+  Como C, Swift tem apenas um operador ternário,
+  o operador condicional ternário (`a ? b : c`).
 
-The values that operators affect are *operands*.
-In the expression `1 + 2`, the `+` symbol is an infix operator
-and its two operands are the values `1` and `2`.
+Os valores que os operadores afetam são **operandos**.
+Na expressão `1 + 2`, o símbolo `+` é um operador infixo
+e seus dois operandos são os valores `1` e `2`.
 
 ## Operador de Atribuição
 
@@ -137,7 +137,6 @@ Em Swift, isso seria escrito como:
 9 % 4    // igual a 1
 ```
 
-
 Para determinar a resposta para `a % b`,
 o operador `%` calcula a seguinte equação
 e retorna `resto` como a saída:
@@ -156,7 +155,6 @@ O mesmo método é aplicado ao calcular o restante para um valor negativo de `a`
 ```swift
 -9 % 4   // igual -1
 ```
-
 
 Colocar `-9` e `4` na equação produz:
 
@@ -178,7 +176,6 @@ let minusThree = -three       // `minusThree` igual a -3
 let plusThree = -minusThree   // `plusThree` igual a 3, ou "menos menos 3"
 ```
 
-
 O operador unário de menos (`-`) é prefixado diretamente antes do valor em que opera,
 sem nenhum espaço em branco.
 
@@ -191,9 +188,6 @@ o valor em que opera, sem qualquer alteração:
 let minusSix = -6
 let alsoMinusSix = +minusSix  // `alsoMinusSix` igual a -6
 ```
-
-
-
 
 Embora o operador unário de mais (`+`) não faça nada,
 você pode usá-lo para fornecer simetria em seu código para números positivos
@@ -209,7 +203,6 @@ var a = 1
 a += 2
 // `a` agora é igual a 3
 ```
-
 
 A expressão `a += 2` é um abreviação para `a = a + 2`.
 Efetivamente, a adição e a atribuição são combinadas em um operador
@@ -259,7 +252,6 @@ if name == "world" {
 }
 // Imprime "hello, world", porque 'name' é, de fato, igual a "world".
 ```
-
 
 Para saber mais sobre a instrução `if`, veja <doc:ControlFlow>.
 
@@ -314,7 +306,6 @@ valores `Bool`.
 > Para comparar tuplas com sete ou mais elementos,
 > você mesmo deve implementar os operadores de comparação.
 
-
 ## Operador Condicional Ternário
 
 O **operador condicional ternário** é um operador especial com três partes, 
@@ -366,67 +357,60 @@ No entanto, use o operador condicional ternário com cuidado.
 Sua concisão pode levar a um código difícil de ler se usado em excesso. 
 Evite combinar vários usos do operador condicional ternário em uma instrução composta.
 
-## Nil-Coalescing Operator
+## Operador _Nil-Coalescing_ 
 
-The *nil-coalescing operator* (`a ?? b`)
-unwraps an optional `a` if it contains a value,
-or returns a default value `b` if `a` is `nil`.
-The expression `a` is always of an optional type.
-The expression `b` must match the type that's stored inside `a`.
+O **operador _nil-coalescing_** (`a ?? b`)
+desempacota um `a` opcional se ele contiver um valor,
+ou retorna um valor padrão `b` se `a` for `nil`.
+A expressão `a` é sempre de um tipo opcional.
+A expressão `b` deve corresponder ao tipo que está armazenado dentro de `a`.
 
-The nil-coalescing operator is shorthand for the code below:
+O operador _nil-coalescing_ é uma abreviação para o código abaixo:
 
 ```swift
 a != nil ? a! : b
 ```
 
+O código acima usa o operador condicional ternário e o desempacotamento forçado (`a!`)
+para acessar o valor encapsulado dentro de `a` quando `a` não é `nil`,
+e para retornar `b` caso contrário.
+O operador _nil-coalescing_ fornece uma maneira mais elegante de encapsular
+essa verificação condicional e desempacotamento em um formato conciso e legível.
 
+> Nota: Se o valor de `a` não for `nil`,
+> o valor de `b` não será avaliado.
+> Isso é conhecido como **avaliação de curto-circuito**.
 
-
-The code above uses the ternary conditional operator and forced unwrapping (`a!`)
-to access the value wrapped inside `a` when `a` isn't `nil`,
-and to return `b` otherwise.
-The nil-coalescing operator provides a more elegant way to encapsulate
-this conditional checking and unwrapping in a concise and readable form.
-
-> Note: If the value of `a` is non-`nil`,
-> the value of `b` isn't evaluated.
-> This is known as *short-circuit evaluation*.
-
-The example below uses the nil-coalescing operator to choose between
-a default color name and an optional user-defined color name:
+O exemplo abaixo usa o operador _nil-coalescing_ para escolher entre
+um nome de cor padrão e um nome de cor opcional definido pelo usuário:
 
 ```swift
 let defaultColorName = "red"
 var userDefinedColorName: String?   // defaults to nil
 
 var colorNameToUse = userDefinedColorName ?? defaultColorName
-// userDefinedColorName is nil, so colorNameToUse is set to the default of "red"
+// `userDefinedColorNam` é nil, então `colorNameToUse` é definido como o valor padrão "red"
 ```
 
+A variável `userDefinedColorName` é definida como uma `String` opcional,
+com um valor padrão de `nil`.
+Como `userDefinedColorName` é de um tipo opcional,
+você pode usar o operador _nil-coalescing_ para considerar seu valor.
+No exemplo acima, o operador é usado para determinar
+um valor inicial para uma variável `String` chamada `colorNameToUse`.
+Como `userDefinedColorName` é `nil`,
+a expressão `userDefinedColorName ?? defaultColorName` retorna
+o valor de `defaultColorName`, ou `"red"`.
 
-
-
-The `userDefinedColorName` variable is defined as an optional `String`,
-with a default value of `nil`.
-Because `userDefinedColorName` is of an optional type,
-you can use the nil-coalescing operator to consider its value.
-In the example above, the operator is used to determine
-an initial value for a `String` variable called `colorNameToUse`.
-Because `userDefinedColorName` is `nil`,
-the expression `userDefinedColorName ?? defaultColorName` returns
-the value of `defaultColorName`, or `"red"`.
-
-If you assign a non-`nil` value to `userDefinedColorName`
-and perform the nil-coalescing operator check again,
-the value wrapped inside `userDefinedColorName` is used instead of the default:
+Se você atribuir um valor não `nil` a `userDefinedColorName`
+e executar a verificação do operador _nil-coalescing_ novamente,
+o valor encapsulado dentro de `userDefinedColorName` será usado em vez do padrão:
 
 ```swift
 userDefinedColorName = "green"
 colorNameToUse = userDefinedColorName ?? defaultColorName
-// userDefinedColorName isn't nil, so colorNameToUse is set to "green"
+// `userDefinedColorName` não é nil, entã `colorNameToUse` é definido como "green"
 ```
-
 
 ## Operadores de Intervalo
 
@@ -525,7 +509,6 @@ Da mesma forma que se inclui um valor em ambos os lados,
 o valor final não é parte do intervalo.
 Por exemplo:
 
-
 ```swift
 for name in names[..<2] {
     print(name)
@@ -533,7 +516,6 @@ for name in names[..<2] {
 // Imprime "Anna"
 // Imprime "Alex"
 ```
-
 
 Intervalos unilaterais podem ser usados em outros contextos,
 não apenas em subscritos.
@@ -553,7 +535,6 @@ range.contains(7)   // false
 range.contains(4)   // true
 range.contains(-1)  // true
 ```
-
 
 ## Operadores Lógicos
 
@@ -649,10 +630,6 @@ if hasDoorKey || knowsOverridePassword {
 // Imprime "Welcome!"
 ```
 
-
-
-
-
 ### Combinando Operadores Lógicos
 
 Você pode combinar vários operadores lógicos para criar expressões compostas mais longas:
@@ -665,7 +642,6 @@ if enteredDoorCode && passedRetinaScan || hasDoorKey || knowsOverridePassword {
 }
 // Imprime "Welcome!"
 ```
-
 
 Este exemplo usa vários operadores `&&` e `||` para criar uma expressão composta mais longa.
 No entanto, os operadores `&&` e `||` ainda operam sobre apenas dois valores,
@@ -709,6 +685,3 @@ A saída da expressão composta não muda,
 mas a intenção geral é mais clara para o leitor.
 Legibilidade é sempre preferível à brevidade;
 use parênteses onde eles ajudam a tornar suas intenções claras.
-
-
-

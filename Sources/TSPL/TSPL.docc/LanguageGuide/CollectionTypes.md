@@ -133,17 +133,24 @@ Como esse _array_ especificou um tipo de valor `String`,
 Aqui, o _array_ `shoppingList` é inicializado com dois valores `String` (`"Eggs"` e `"Milk"`),
 escritos dentro de um literal de array.
 
-> Nota: O array `shoppingList` é declarado como uma variável (com o introdutor `var`) e não uma constante (com o introdutor `let`) porque mais itens são adicionados à lista de compras nos exemplos abaixo.
+> Nota: O array `shoppingList` é declarado como uma variável (com o introdutor `var`) 
+> e não uma constante (com o introdutor `let`) 
+> porque mais itens são adicionados à lista de compras nos exemplos abaixo.
 
-Nesse caso, o literal de array contém dois valores `String` e nada mais. Isso corresponde ao tipo de declaração da variável `shoppingList` (um array que só pode conter valores `String`) e, portanto, a atribuição do literal do array é permitida como uma forma de inicializar `shoppingList` com dois itens iniciais.
+Nesse caso, o literal de _array_ contém dois valores `String` e nada mais. 
+Isso corresponde ao tipo de declaração da variável `shoppingList` (um array que só pode conter valores `String`) 
+e, portanto, a atribuição do literal do _array_ é permitida como uma forma de inicializar `shoppingList` com dois itens iniciais.
 
-Graças à inferência de tipo em Swift, você não precisa escrever o tipo do array se estiver inicializando-o com um literal de array contendo valores do mesmo tipo. A inicialização de `shoppingList` poderia ter sido escrita de uma forma mais curta:
+Graças à inferência de tipo em Swift, você não precisa escrever o tipo do _array_
+se estiver inicializando-o com um literal de _array_ contendo valores do mesmo tipo. 
+A inicialização de `shoppingList` poderia ter sido escrita de uma forma mais curta:
 
 ```swift
 var shoppingList = ["Eggs", "Milk"]
 ```
 
-Como todos os valores no literal de array são do mesmo tipo, é possivel inferir que `[String]` é o tipo correto a ser usado para a variável `shoppingList`.
+Como todos os valores no literal de _array_ são do mesmo tipo, 
+é possivel inferir que `[String]` é o tipo correto a ser usado para a variável `shoppingList`.
 
 ### Acessando e Modificando um Array
 
@@ -199,16 +206,20 @@ shoppingList[0] = "Six eggs"
 // o primeiro item da lista agora é igual a "Six eggs" em vez de "Eggs"
 ```
 
-Ao usar a sintaxe de subscrito, o índice especificado precisa ser válido. Por exemplo, escrever `shoppingList[shoppingList.count] = "Salt"` para tentar anexar um item ao final do array resulta em um erro de tempo de execução.
+Ao usar a sintaxe de subscrito, o índice especificado precisa ser válido. 
+Por exemplo, escrever `shoppingList[shoppingList.count] = "Salt"` 
+para tentar anexar um item ao final do _array_ resulta em um erro em tempo de execução.
 
-Você também pode usar a sintaxe de subscrito para alterar um intervalo de valores de uma só vez, mesmo se o conjunto de valores de substituição tiver um comprimento diferente do intervalo que você está substituindo. O exemplo a seguir substitui `"Chocolate Spread"`, `"Cheese"` e `"Butter"` por `"Bananas"` e `"Apples"`:
+Você também pode usar a sintaxe de subscrito para alterar um intervalo de valores de uma só vez, 
+mesmo se o conjunto de valores de substituição tiver um comprimento diferente do intervalo que você está substituindo. 
+O exemplo a seguir substitui `"Chocolate Spread"`, `"Cheese"` e `"Butter"` por `"Bananas"` e `"Apples"`:
 
 ```swift
 shoppingList[4...6] = ["Bananas", "Apples"]
-// shoppingList agora contém 6 itens
+// `shoppingList` agora contém 6 itens
 ```
 
-Para inserir um item no array em um índice especificado, chame o método `insert(_:at:)` do array:
+Para inserir um item no _array_ em um índice especificado, chame o método `insert(_:at:)`:
 
 ```swift
 shoppingList.insert("Maple Syrup", at: 0)
@@ -216,38 +227,48 @@ shoppingList.insert("Maple Syrup", at: 0)
 // "Maple Syrup" é agora o primeiro item da lista
 ```
 
-Essa chamada para o método `insert(_:at:)` insere um novo item com um valor de `"Maple Syrup"` bem no início da lista de compras, indicado por um índice de `0`.
+Essa chamada para o método `insert(_:at:)` insere um novo item com um valor de `"Maple Syrup"` 
+bem no início da lista de compras, indicado por um índice de `0`.
 
-Da mesma forma, você remove um item do array com o método `remove(at:)`. Este método remove o item no índice especificado e retorna o item removido (embora você possa ignorar o valor retornado se não precisar dele):
+Da mesma forma, você remove um item do array com o método `remove(at:)`. 
+Este método remove o item no índice especificado e retorna o item removido 
+(embora você possa ignorar o valor retornado se não precisar dele):
 
 ```swift
 let mapleSyrup = shoppingList.remove(at: 0)
 // o item que estava no índice 0 foi removido
-// shoppingList agora contém 6 itens, sem Maple Syrup
-// a constante mapleSyrup agora é igual a string "Maple Syrup" removida
+// `shoppingList` agora contém 6 itens, sem "Maple Syrup"
+// a constante `mapleSyrup` agora é igual a string "Maple Syrup" removida
 ```
 
-> Nota: Se você tentar acessar ou modificar um valor para um índice que está fora dos limites existentes de um array, você irá disparar um erro de tempo de execução. Você pode verificar se um índice é válido antes de usá-lo, comparando-o com a propriedade `count` do array. O maior índice válido em uma matriz é `count - 1` porque arrays são indexados a partir de zero --- no entanto, quando `count` é `0` (o que significa que o array está vazio), não há índices válidos.
+> Nota: Se você tentar acessar ou modificar um valor para um índice que está fora dos limites existentes de um _array_, 
+> você irá disparar um erro de tempo de execução. 
+> Você pode verificar se um índice é válido antes de usá-lo, comparando-o com a propriedade `count` do _array_. 
+> O maior índice válido em uma _array_ é `count - 1` porque _arrays_ são indexados a partir de zero --- 
+> no entanto, quando `count` é `0` (o que significa que o _array_ está vazio), não há índices válidos.
 
-Quaisquer lacunas em um array são fechadas quando um item é removido e, portanto, o valor no índice `0` é novamente igual a `"Six eggs"`:
+Quaisquer lacunas em um _array_ são fechadas quando um item é removido e, 
+portanto, o valor no índice `0` é novamente igual a `"Six eggs"`:
 
 ```swift
 firstItem = shoppingList[0]
-// firstItem é igual a "Six eggs"
+// `firstItem` é igual a "Six eggs"
 ```
 
-Se você deseja remover o item final de um array, use o método `removeLast()` em vez do método `remove(at:)` para evitar a necessidade de consultar a propriedade `count` do array. Como o método `remove(at:)`, `removeLast()` retorna o item removido:
+Se você deseja remover o item final de um _array_, use o método `removeLast()` em vez do método `remove(at:)` 
+para evitar a necessidade de consultar a propriedade `count` do _array_.
+Como o método `remove(at:)`, `removeLast()` retorna o item removido:
 
 ```swift
 let apples = shoppingList.removeLast()
 // O último item do array foi removido
-// shoppingList agora contém 5 itens
+// `shoppingList` agora contém 5 itens
 // a constante apples é igual a string "Apples" removida
 ```
 
-### Iterando em um Array
+### Iterando sobre um Array
 
-Você pode iterar sobre todo o conjunto de valores em um array com o loop `for`-`in`:
+Você pode iterar sobre todos os valores em um _array_ com o _loop_ `for`-`in`:
 
 ```swift
 for item in shoppingList {
@@ -260,8 +281,11 @@ for item in shoppingList {
 // Bananas
 ```
 
-
-Se você precisar do índice inteiro de cada item, bem como de seu valor, use o método `enumerated()` para iterar sobre o array. Para cada item no array, o método `enumerated()` retorna uma tupla composta por um inteiro e o item. Os inteiros começam em zero e contam para cima em um para cada item; se você enumerar sobre todo um array, esses inteiros corresponderão aos índices dos itens. Você pode decompor a tupla em constantes ou variáveis temporárias como parte da iteração:
+Se você precisar do índice inteiro de cada item, bem como de seu valor, use o método `enumerated()` para iterar sobre o _array_. 
+Para cada item no _array_, o método `enumerated()` retorna uma tupla composta por um inteiro e o item. 
+Os inteiros começam em zero e contam para cima em um para cada item; 
+se você enumerar sobre todo um _array_, esses inteiros corresponderão aos índices dos itens. 
+Você pode decompor a tupla em constantes ou variáveis temporárias como parte da iteração:
 
 ```swift
 for (index, value) in shoppingList.enumerated() {
@@ -274,141 +298,123 @@ for (index, value) in shoppingList.enumerated() {
 // Item 5: Bananas
 ```
 
-
 Para saber mais sobre o loop `for`-`in`, consulte <doc:ControlFlow#For-In-Loops>.
 
 ## Sets
 
-A *set* stores distinct values of the same type
-in a collection with no defined ordering.
-You can use a set instead of an array when the order of items isn't important,
-or when you need to ensure that an item only appears once.
+Um **set** armazena valores distintos do mesmo tipo
+em uma coleção sem ordenação definida.
+Você pode usar um _set_ em vez de um _array_ quando a ordem dos itens não for importante,
+ou quando você precisar garantir que um item apareça apenas uma vez.
 
-> Note: Swift's `Set` type is bridged to Foundation's `NSSet` class.For more information about using `Set` with Foundation and Cocoa,
-> see [Bridging Between Set and NSSet](https://developer.apple.com/documentation/swift/set#2845530).
+> Nota: O tipo `Set` em Swift é conectado à classe `NSSet` do Foundation. Para obter mais informações sobre o uso de `Set` com Foundation e Cocoa,
+> consulte [Conexão entre Set e NSSet](https://developer.apple.com/documentation/swift/set#2845530).
 
+### Valores de Hash para Sets
 
+Um tipo deve ser **hasháveis** para ser armazenado em um _set_ ---
+ou seja, o tipo deve fornecer uma maneira de calcular um **valor de _hash_** para si mesmo.
+Um valor de _hash_ é um valor `Int` que é o mesmo para todos os objetos que se comparam igualmente,
+de modo que se `a == b`,
+o valor de_ hash_ de `a` é igual ao valor de _hash_ de `b`.
 
-### Hash Values for Set Types
+Todos os tipos básicos em Swift (como `String`, `Int`, `Double` e `Bool`)
+são hasháveis ​​por padrão e podem ser usados ​​como tipos de valor de _set_ ou tipos de chave de dicionário.
+Valores de caso de enumeração sem valores associados
+(conforme descrito em <doc:Enumerations>)
+também são hasháveis ​​por padrão.
 
-A type must be *hashable* in order to be stored in a set ---
-that is, the type must provide a way to compute a *hash value* for itself.
-A hash value is an `Int` value that's the same for all objects that compare equally,
-such that if `a == b`,
-the hash value of `a` is equal to the hash value of `b`.
+> Nota: você pode usar seus próprios tipos personalizados como elementos de um _set_ ou chaves de dicionários
+> tornando-os conformes ao protocolo `Hashable`
+> da biblioteca padrão.
+> Para obter informações sobre a implementação do método `hash(into:)` necessário,
+> consulte [`Hashable`](https://developer.apple.com/documentation/swift/hashable).
+> Para obter informações sobre conformidade com protocolos, consulte <doc:Protocols>.
 
-All of Swift's basic types (such as `String`, `Int`, `Double`, and `Bool`)
-are hashable by default, and can be used as set value types or dictionary key types.
-Enumeration case values without associated values
-(as described in <doc:Enumerations>)
-are also hashable by default.
+### Sintaxe de _Set_
 
-> Note: You can use your own custom types as set value types or dictionary key types
-> by making them conform to the `Hashable` protocol
-> from the Swift standard library.
-> For information about implementing the required `hash(into:)` method,
-> see [Hashable](https://developer.apple.com/documentation/swift/hashable).
-> For information about conforming to protocols, see <doc:Protocols>.
+O tipo de um _set_ é escrito como `Set<Element>`,
+onde `Element` é o tipo que o _set_ tem permissão para armazenar.
+Ao contrário de _arrays_, _sets_ não têm uma forma abreviada equivalente.
 
-### Set Type Syntax
+### Criando e Inicializando um _Set_ Vazio
 
-The type of a Swift set is written as `Set<Element>`,
-where `Element` is the type that the set is allowed to store.
-Unlike arrays, sets don't have an equivalent shorthand form.
-
-### Creating and Initializing an Empty Set
-
-You can create an empty set of a certain type
-using initializer syntax:
+Você pode criar um _set_ vazio de um certo tipo
+usando a sintaxe de inicializador:
 
 ```swift
 var letters = Set<Character>()
 print("letters is of type Set<Character> with \(letters.count) items.")
-// Prints "letters is of type Set<Character> with 0 items."
+// Imprime "letters is of type Set<Character> with 0 items."
 ```
 
+> Nota: O tipo da variável `letters` é inferido como `Set<Character>`,
+> a partir do tipo do inicializador.
 
-
-
-> Note: The type of the `letters` variable is inferred to be `Set<Character>`,
-> from the type of the initializer.
-
-Alternatively, if the context already provides type information,
-such as a function argument or an already typed variable or constant,
-you can create an empty set with an empty array literal:
+Alternativamente, se o contexto já fornece informações de tipo,
+como um argumento de função ou uma variável ou constante já digitada,
+você pode criar um _set_ vazio com um literal de _array_ vazio:
 
 ```swift
 letters.insert("a")
-// letters now contains 1 value of type Character
+// `letters` agora contém 1 valor do tipo `Character`
 letters = []
-// letters is now an empty set, but is still of type Set<Character>
+// `letters` agora está vazio, mas ainda é do tipo `Set<Character>`
 ```
 
+### Criando um _Set_ a partir de um Literal de _Array_
 
+Você também pode inicializar um _set_ com um literal de _array_,
+como uma forma abreviada de escrever um ou mais valores como um _set_.
 
-
-### Creating a Set with an Array Literal
-
-You can also initialize a set with an array literal,
-as a shorthand way to write one or more values as a set collection.
-
-The example below creates a set called `favoriteGenres` to store `String` values:
+O exemplo abaixo cria um _set_ chamado `favoriteGenres` para armazenar valores do tipo `String`:
 
 ```swift
 var favoriteGenres: Set<String> = ["Rock", "Classical", "Hip hop"]
-// favoriteGenres has been initialized with three initial items
+// `favoriteGenres` foi initializado com três items iniciais
 ```
 
+A variável `favoriteGenres` é declarada como
+“um _set_ de valores `String`”, escrito como `Set<String>`.
+Como esse _set_ em particular especificou um tipo de valor `String`,
+ele *somente* tem permissão para armazenar valores `String`.
+Aqui, o _set_ `favoriteGenres` é inicializado com três valores `String`
+(`"Rock"`, `"Classical"` e `"Hip hop"`), escritos dentro de um literal de array.
 
+> Nota: O _set_ `favoriteGenres` é declarado como uma variável (com `var`)
+> e não uma constante (com `let`)
+> porque itens são adicionados e removidos nos exemplos abaixo.
 
-
-The `favoriteGenres` variable is declared as
-“a set of `String` values”, written as `Set<String>`.
-Because this particular set has specified a value type of `String`,
-it's *only* allowed to store `String` values.
-Here, the `favoriteGenres` set is initialized with three `String` values
-(`"Rock"`, `"Classical"`, and `"Hip hop"`), written within an array literal.
-
-> Note: The `favoriteGenres` set is declared as a variable (with the `var` introducer)
-> and not a constant (with the `let` introducer)
-> because items are added and removed in the examples below.
-
-A set type can't be inferred from an array literal alone,
-so the type `Set` must be explicitly declared.
-However, because of Swift's type inference,
-you don't have to write the type of the set's elements
-if you're initializing it with an array literal
-that contains values of just one type.
-The initialization of `favoriteGenres` could have been written in a shorter form instead:
+Um _set_ não pode ser inferido de um literal de _array_ sozinho,
+então o tipo `Set` deve ser declarado explicitamente.
+No entanto, por causa da inferência de tipo,
+você não precisa escrever o tipo dos elementos do _set_
+se estiver inicializando-o com um literal de _array_
+que contém valores de apenas um tipo.
+A inicialização de `favoriteGenres` poderia ter sido escrita em uma forma mais curta:
 
 ```swift
 var favoriteGenres: Set = ["Rock", "Classical", "Hip hop"]
 ```
 
+Como todos os valores no literal da _array_ são do mesmo tipo,
+O compilador consegue inferir que `Set<String>` é
+o tipo correto a ser usado para a variável `favoriteGenres`.
 
+### Acessando e Modificando um _Set_
 
+Você acessa e modifica um _set_ por meio de seus métodos e propriedades.
 
-Because all values in the array literal are of the same type,
-Swift can infer that `Set<String>` is
-the correct type to use for the `favoriteGenres` variable.
-
-### Accessing and Modifying a Set
-
-You access and modify a set through its methods and properties.
-
-To find out the number of items in a set,
-check its read-only `count` property:
+Para descobrir o número de itens em um _set_,
+verifique sua propriedade `count`:
 
 ```swift
 print("I have \(favoriteGenres.count) favorite music genres.")
-// Prints "I have 3 favorite music genres."
+// Imprime "I have 3 favorite music genres."
 ```
 
-
-
-
-Use the Boolean `isEmpty` property
-as a shortcut for checking whether the `count` property is equal to `0`:
+Use a propriedade booleana `isEmpty`
+como um atalho para verificar se a propriedade `count` é igual a `0`:
 
 ```swift
 if favoriteGenres.isEmpty {
@@ -416,27 +422,21 @@ if favoriteGenres.isEmpty {
 } else {
    print("I have particular music preferences.")
 }
-// Prints "I have particular music preferences."
+// Imprime "I have particular music preferences."
 ```
 
-
-
-
-You can add a new item into a set by calling the set's `insert(_:)` method:
+Você pode adicionar um novo item a um _set_ chamando o método `insert(_:)`:
 
 ```swift
 favoriteGenres.insert("[Tool J]")
-// favoriteGenres now contains 4 items
+// `favoriteGenres` agora contém 4 itens
 ```
 
-
-
-
-You can remove an item from a set by calling the set's `remove(_:)` method,
-which removes the item if it's a member of the set,
-and returns the removed value,
-or returns `nil` if the set didn't contain it.
-Alternatively, all items in a set can be removed with its `removeAll()` method.
+Você pode remover um item de um _set_ chamando o método `remove(_:)`,
+que remove o item se ele for um membro do _set_,
+e retorna o valor removido,
+ou retorna `nil` se o _set_ não o conter.
+Como alternativa, todos os itens em um _set_ podem ser removidos com seu método `removeAll()`.
 
 ```swift
 if let removedGenre = favoriteGenres.remove("Rock") {
@@ -444,13 +444,10 @@ if let removedGenre = favoriteGenres.remove("Rock") {
 } else {
    print("I never much cared for that.")
 }
-// Prints "Rock? I'm over it."
+// Imprime "Rock? I'm over it."
 ```
 
-
-
-
-To check whether a set contains a particular item, use the `contains(_:)` method.
+Para verificar se um _set_ contém um item específico, use o método `contains(_:)`.
 
 ```swift
 if favoriteGenres.contains("Funk") {
@@ -458,15 +455,12 @@ if favoriteGenres.contains("Funk") {
 } else {
     print("It's too funky in here.")
 }
-// Prints "It's too funky in here."
+// Imprime "It's too funky in here."
 ```
 
+### Iterando Sobre um _Set_
 
-
-
-### Iterating Over a Set
-
-You can iterate over the values in a set with a `for`-`in` loop.
+Você pode iterar sobre os valores em um _set_ com um loop `for`-`in`.
 
 ```swift
 for genre in favoriteGenres {
@@ -477,16 +471,13 @@ for genre in favoriteGenres {
 // Hip hop
 ```
 
+Para mais informações sobre o loop `for`-`in`, consulte <doc:ControlFlow#For-In-Loops>.
 
-
-
-For more about the `for`-`in` loop, see <doc:ControlFlow#For-In-Loops>.
-
-Swift's `Set` type doesn't have a defined ordering.
-To iterate over the values of a set in a specific order,
-use the `sorted()` method,
-which returns the set's elements as an array
-sorted using the `<` operator.
+O tipo `Set` não tem uma ordenação definida.
+Para iterar sobre os valores de um _set_ em uma ordem específica,
+use o método `sorted()`,
+que retorna os elementos do _set_ como um _array_
+ordenado usando o operador `<`.
 
 ```swift
 for genre in favoriteGenres.sorted() {
@@ -497,28 +488,24 @@ for genre in favoriteGenres.sorted() {
 // [Tool J]
 ```
 
+## Executando Operações de _Set_
 
+Você pode executar com eficiência operações fundamentais de _sets_,
+como combinar dois _sets_,
+determinar quais valores dois _sets_ têm em comum,
+ou determinar se dois _sets_ contêm todos, alguns ou nenhum dos mesmos valores.
 
+### Operações Fundamentais de _Set_
 
-## Performing Set Operations
-
-You can efficiently perform fundamental set operations,
-such as combining two sets together,
-determining which values two sets have in common,
-or determining whether two sets contain all, some, or none of the same values.
-
-### Fundamental Set Operations
-
-The illustration below depicts two sets---`a` and `b`---
-with the results of various set operations represented by the shaded regions.
+A ilustração abaixo descreve dois _sets_ --- `a` e `b` ---
+com os resultados de várias operações de _set_ representados pelas regiões sombreadas.
 
 ![](setVennDiagram)
 
-
-- Use the `intersection(_:)` method to create a new set with only the values common to both sets.
-- Use the `symmetricDifference(_:)` method to create a new set with values in either set, but not both.
-- Use the `union(_:)` method to create a new set with all of the values in both sets.
-- Use the `subtracting(_:)` method to create a new set with values not in the specified set.
+- Use o método `intersection(_:)` para criar um novo _set_ com apenas os valores comuns a ambos os _sets_.
+- Use o método `symmetricDifference(_:)` para criar um novo _set_ com valores em qualquer _set_, mas não em ambos.
+- Use o método `union(_:)` para criar um novo _set_ com todos os valores em ambos os _sets_.
+- Use o método `subtracting(_:)` para criar um novo _set_ com valores que não estão no _set_ especificado.
 
 ```swift
 let oddDigits: Set = [1, 3, 5, 7, 9]
@@ -535,30 +522,24 @@ oddDigits.symmetricDifference(singleDigitPrimeNumbers).sorted()
 // [1, 2, 9]
 ```
 
+### Associação e Igualdade de _Sets_
 
-
-
-
-
-### Set Membership and Equality
-
-The illustration below depicts three sets---`a`, `b` and `c`---
-with overlapping regions representing elements shared among sets.
-Set `a` is a *superset* of set `b`,
-because `a` contains all elements in `b`.
-Conversely, set `b` is a *subset* of set `a`,
-because all elements in `b` are also contained by `a`.
-Set `b` and set `c` are *disjoint* with one another,
-because they share no elements in common.
+A ilustração abaixo descreve três _sets_ ---`a`, `b` e `c`---
+com regiões sobrepostas representando elementos compartilhados entre os _sets_.
+O _set_ `a` é um ***superset*** do _set_ `b`,
+porque `a` contém todos os elementos em `b`.
+Por outro lado, o _set_ `b` é um ***subset*** de `a`,
+porque todos os elementos em `b` também são contidos por `a`.
+O _set_ `b` e o _set_ `c` são **disjuntos** um com o outro,
+porque eles não compartilham nenhum elemento em comum.
 
 ![](setEulerDiagram)
 
-
-- Use the “is equal” operator (`==`) to determine whether two sets contain all of the same values.
-- Use the `isSubset(of:)` method to determine whether all of the values of a set are contained in the specified set.
-- Use the `isSuperset(of:)` method to determine whether a set contains all of the values in a specified set.
-- Use the `isStrictSubset(of:)` or `isStrictSuperset(of:)` methods to determine whether a set is a subset or superset, but not equal to, a specified set.
-- Use the `isDisjoint(with:)` method to determine whether two sets have no values in common.
+- Use o operador "é igual" (`==`) para determinar se dois _sets_ contêm todos os mesmos valores.
+- Use o método `isSubset(of:)` para determinar se todos os valores de um _set_ estão contidos no _set_ especificado.
+- Use o método `isSuperset(of:)` para determinar se um _set_ contém todos os valores em um _set_ especificado.
+- Use os métodos `isStrictSubset(of:)` ou `isStrictSuperset(of:)` para determinar se um _set_ é um _subset_ ou _superset_, mas não igual a, um _set_ especificado.
+- Use o método `isDisjoint(with:)` para determinar se dois _sets_ não têm valores em comum.
 
 ```swift
 let houseAnimals: Set = ["🐶", "🐱"]
@@ -572,11 +553,6 @@ farmAnimals.isSuperset(of: houseAnimals)
 farmAnimals.isDisjoint(with: cityAnimals)
 // true
 ```
-
-
-
-
-
 
 ## Dictionaries
 
